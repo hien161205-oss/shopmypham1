@@ -236,16 +236,32 @@
                 document.querySelector('.pd-discount-tag').innerText = '-' + product.discount;
                 document.querySelector('.pd-sold').innerText = product.sold + ' Đã bán';
                 document.getElementById('mainImg').src = product.image;
-                document.querySelector('.thumb-item img').src = product.image;
+                
+                // Hiển thị danh sách ảnh nhỏ (thumbnails)
+                const thumbsContainer = document.querySelector('.pd-thumbs');
+                const allImages = product.images && product.images.length > 0 ? product.images : [product.image];
+                
+                thumbsContainer.innerHTML = allImages.map((img, index) => `
+                    <div class="thumb-item ${index === 0 ? 'active' : ''}" onclick="changeMainImg('${img}', this)">
+                        <img src="${img}" alt="${product.name}" referrerPolicy="no-referrer">
+                    </div>
+                `).join('');
+
                 document.getElementById('breadcrumbName').innerText = product.name;
-                document.getElementById('breadcrumbType').innerText = product.type;
+                
+                // Sửa lỗi hiển thị danh mục trên breadcrumb (thay type bằng category)
+                const categoryMap = { 'cham-soc-toc': 'Chăm sóc tóc', 'skincare': 'Chăm sóc da', 'cham-soc-da': 'Chăm sóc da', 'trang-diem': 'Trang điểm' };
+                document.getElementById('breadcrumbType').innerText = categoryMap[product.category] || 'Sản phẩm';
                 document.getElementById('breadcrumbType').onclick = () => {
-                    location.href = 'category.html?type=' + product.type.toLowerCase().replace(/ /g, '-');
+                    location.href = 'category.html?type=' + product.category;
                 };
             }
 
-            window.changeMainImg = (src) => {
+            window.changeMainImg = (src, el) => {
                 document.getElementById('mainImg').src = src;
+                // Cập nhật trạng thái active cho thumbnail
+                document.querySelectorAll('.thumb-item').forEach(item => item.classList.remove('active'));
+                if (el) el.classList.add('active');
             };
 
             window.changeQty = (val) => {

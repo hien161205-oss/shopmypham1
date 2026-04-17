@@ -1660,3 +1660,9 @@ footer {
 .btn-add-cart, .btn-buy-now { flex: 1; padding: 15px; border: none; font-weight: 800; cursor: pointer; }
 .btn-add-cart { background: var(--primary); color: white; }
 .btn-buy-now { background: var(--red); color: white; }
+
+.pd-thumbs { display: flex; gap: 10px; margin-top: 15px; flex-wrap: wrap; }
+.thumb-item { width: 70px; height: 70px; border: 1px solid #ddd; border-radius: 4px; cursor: pointer; overflow: hidden; opacity: 0.6; transition: 0.3s; }
+.thumb-item.active { border: 2px solid var(--primary); opacity: 1; }
+.thumb-item:hover { opacity: 1; }
+.thumb-item img { width: 100%; height: 100%; object-fit: cover; }
