@@ -302,25 +302,20 @@ sold: 3400
 ];
 
 // --- SYNC PRODUCTS WITH LOCALSTORAGE ---
-const PRODUCTS_EXTENDED = []; // Defined as empty since it was removed
-const ALL_DEFAULT_PRODUCTS = [...DEFAULT_PRODUCTS, ...PRODUCTS_EXTENDED];
 let products = [];
-
-try {
-    const stored = localStorage.getItem('qh_products');
-    if (stored && JSON.parse(stored).length > 0) {
-        products = JSON.parse(stored);
-    } else {
-        products = [...DEFAULT_PRODUCTS, ...PRODUCTS_EXTENDED];
-        localStorage.setItem('qh_products', JSON.stringify(products));
-    }
-} catch(e) {
-    products = [...DEFAULT_PRODUCTS, ...PRODUCTS_EXTENDED];
-    localStorage.setItem('qh_products', JSON.stringify(products));
-}
-
+const INITIAL_PRODUCTS_LIST = [
+  { id: 1, brand: "Laneige", name: "Water Bank Cream", price: 850000, image: "https://images.unsplash.com/photo-1620916566398-39f1143ab7be?auto=format&fit=crop&w=400&q=80", category: "skincare" },
+  { id: 2, brand: "Innisfree", name: "Green Tea Serum", price: 590000, image: "https://images.unsplash.com/photo-1556228720-195a672e8a03?auto=format&fit=crop&w=400&q=80", category: "skincare" },
+  { id: 3, brand: "Romand", name: "Juicy Lasting Tint", price: 169000, image: "https://product.hstatic.net/1000284478/product/romand_juicy_lasting_tint_bare_grape_1_8f8e8e8e8e8e8e8e8e8e8e8e8e8e8e8e_master.jpg", category: "trang-diem" }
+];
+if (!localStorage.getItem('qh_products')) localStorage.setItem('qh_products', JSON.stringify(INITIAL_PRODUCTS_LIST));
+products = JSON.parse(localStorage.getItem('qh_products'));
 window.products = products;
-window.ALL_DEFAULT_PRODUCTS = ALL_DEFAULT_PRODUCTS;
+
+console.log('Sản phẩm đã load:', products.length);
+if (products.length === 0) {
+    console.error('KHÔNG CÓ SẢN PHẨM! Cần kiểm tra lại localStorage');
+}
 
 const magazinePosts = [
     {
@@ -1451,6 +1446,15 @@ function initEvents() {
         accountTrigger.onclick = () => {
             const modal = document.getElementById('loginModalOverlay');
             if (modal) modal.classList.add('active');
+        };
+    }
+
+    // Kích hoạt nút Mua ngay trên trang chi tiết sản phẩm
+    const buyNowBtn = document.querySelector('.btn-buy-now');
+    if (buyNowBtn) {
+        buyNowBtn.onclick = () => {
+            const productId = parseInt(localStorage.getItem('selectedProductId'));
+            if (productId) window.buyNow(productId);
         };
     }
 }
