@@ -3,117 +3,1009 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Chi tiết sản phẩm - Q&H SKINLAB</title>
-    <link rel="stylesheet" href="/style.css">
+    <title>Chi tiết sản phẩm | Q&H SKINLAB</title>
+    <link rel="stylesheet" href="./style.css">
+    <style>
+        /* Specific styles for Product Detail Page */
+        .breadcrumb {
+            padding: 20px 0;
+            font-size: 13px;
+            color: var(--text-muted);
+        }
+        .breadcrumb a {
+            color: var(--text-muted);
+            text-decoration: none;
+        }
+        .breadcrumb span {
+            margin: 0 5px;
+        }
+
+        .product-main {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 40px;
+            background: var(--white);
+            padding: 30px;
+            border-radius: 8px;
+            margin-bottom: 30px;
+        }
+
+        .product-images {
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+        }
+        .main-image-wrap {
+            width: 100%;
+            aspect-ratio: 1;
+            border: 1px solid var(--border);
+            border-radius: 8px;
+            overflow: hidden;
+        }
+        .main-image-wrap img {
+            width: 100%;
+            height: 100%;
+            object-fit: contain;
+        }
+        .thumbnail-list {
+            display: flex;
+            gap: 10px;
+        }
+        .thumb-item {
+            width: 80px;
+            height: 80px;
+            border: 1px solid var(--border);
+            border-radius: 4px;
+            cursor: pointer;
+            padding: 5px;
+        }
+        .thumb-item.active {
+            border-color: var(--primary);
+        }
+        .thumb-item img {
+            width: 100%;
+            height: 100%;
+            object-fit: contain;
+        }
+
+        .product-info {
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+        }
+        .pd-brand-link {
+            font-size: 14px;
+            font-weight: 700;
+            color: var(--primary);
+            text-transform: uppercase;
+            text-decoration: none;
+        }
+        .pd-name {
+            font-size: 24px;
+            font-weight: 800;
+            line-height: 1.3;
+        }
+        .pd-meta {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            font-size: 13px;
+            color: var(--text-muted);
+        }
+        .pd-rating .stars { color: #f1c40f; }
+        .pd-divider { color: #ddd; }
+
+        .pd-price-container {
+            background: #f9f9f9;
+            padding: 20px;
+            border-radius: 8px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        .pd-price-val {
+            display: flex;
+            align-items: baseline;
+            gap: 15px;
+        }
+        .pd-current-price {
+            font-size: 32px;
+            font-weight: 900;
+            color: var(--red);
+        }
+        .pd-old-price {
+            font-size: 16px;
+            color: var(--text-muted);
+            text-decoration: line-through;
+        }
+        .pd-discount-tag {
+            background: var(--red);
+            color: white;
+            padding: 2px 8px;
+            border-radius: 4px;
+            font-weight: 800;
+            font-size: 12px;
+        }
+
+        .pd-selection {
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+            margin-top: 10px;
+        }
+        .pd-qty-selector {
+            display: flex;
+            align-items: center;
+            gap: 20px;
+            font-size: 14px;
+            font-weight: 600;
+        }
+        .qty-box {
+            display: flex;
+            border: 1px solid var(--border);
+            border-radius: 4px;
+        }
+        .qty-box button {
+            width: 40px;
+            height: 40px;
+            border: none;
+            background: transparent;
+            cursor: pointer;
+            font-size: 18px;
+        }
+        .qty-box input {
+            width: 50px;
+            border: none;
+            border-left: 1px solid var(--border);
+            border-right: 1px solid var(--border);
+            text-align: center;
+            outline: none;
+            font-weight: 700;
+        }
+
+        .pd-buttons {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 10px;
+        }
+        .btn-pd-buy {
+            background: var(--primary);
+            color: white;
+            border: none;
+            padding: 18px;
+            border-radius: 4px;
+            font-weight: 800;
+            cursor: pointer;
+            text-transform: uppercase;
+        }
+        .btn-pd-cart {
+            background: transparent;
+            border: 2px solid var(--primary);
+            color: var(--primary);
+            padding: 18px;
+            border-radius: 4px;
+            font-weight: 800;
+            cursor: pointer;
+            text-transform: uppercase;
+        }
+
+.pd-promo-list {
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+            margin-top: 10px;
+        }
+        .promo-item {
+            border: 1px solid #ffcccc;
+            border-radius: 8px;
+            overflow: hidden;
+        }
+        .promo-title {
+            background: #fff0f0;
+            padding: 10px 15px;
+            font-size: 13px;
+            font-weight: 800;
+            color: var(--dark-red);
+        }
+        .promo-body {
+            padding: 15px;
+            display: flex;
+            gap: 15px;
+            align-items: center;
+            font-size: 13px;
+        }
+        .promo-body img {
+            width: 50px;
+            height: 50px;
+            object-fit: contain;
+        }
+
+        .pd-details-section {
+            background: var(--white);
+            padding: 30px;
+            border-radius: 8px;
+            margin-bottom: 30px;
+        }
+        .pd-section-title {
+            font-size: 18px;
+            font-weight: 800;
+            text-transform: uppercase;
+            margin-bottom: 20px;
+            border-bottom: 2px solid var(--primary);
+            display: inline-block;
+            padding-bottom: 5px;
+        }
+        .pd-spec-list {
+            list-style: none;
+            margin-bottom: 30px;
+        }
+        .pd-spec-list li {
+            font-size: 14px;
+            margin-bottom: 10px;
+        }
+        .pd-content-text h4 {
+            font-size: 16px;
+            font-weight: 800;
+            margin: 20px 0 10px;
+        }
+        .pd-content-text p {
+            font-size: 14px;
+            color: var(--text-muted);
+            line-height: 1.7;
+            margin-bottom: 15px;
+        }
+
+        .pd-reviews-section {
+            background: var(--white);
+            padding: 30px;
+            border-radius: 8px;
+        }
+        .review-summary {
+            display: flex;
+            gap: 50px;
+            align-items: center;
+            padding-bottom: 30px;
+            border-bottom: 1px solid var(--border);
+        }
+        .score-box {
+            text-align: center;
+        }
+        .big-score {
+            font-size: 56px;
+            font-weight: 900;
+            color: var(--primary);
+        }
+        .stars-row {
+            color: #f1c40f;
+            font-size: 20px;
+            margin: 5px 0;
+        }
+        .review-bars {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+        }
+        .bar-item {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            font-size: 13px;
+        }
+        .bar-bg {
+            flex: 1;
+            height: 10px;
+            background: #f0f0f0;
+            border-radius: 5px;
+            overflow: hidden;
+        }
+        .bar-fill {
+            height: 100%;
+            background: var(--primary);
+        }
+
+        /* REVIEWS LIST */
+        .reviews-list {
+            margin-top: 30px;
+        }
+        .review-item {
+            border-bottom: 1px solid var(--border);
+            padding: 25px 0;
+        }
+        .review-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 10px;
+        }
+        .user-info {
+            display: flex;
+            flex-direction: column;
+            gap: 5px;
+        }
+        .username {
+            font-weight: 700;
+            font-size: 14px;
+        }
+        .review-date {
+            font-size: 12px;
+            color: var(--text-muted);
+        }
+        .review-stars {
+            color: #f1c40f;
+            font-size: 14px;
+            margin-bottom: 10px;
+        }
+        .review-text {
+            font-size: 14px;
+            line-height: 1.6;
+            margin-bottom: 15px;
+        }
+        .review-img {
+            width: 80px;
+            height: 80px;
+            object-fit: cover;
+            border-radius: 4px;
+            margin-bottom: 15px;
+        }
+        .review-actions {
+            display: flex;
+            gap: 20px;
+            font-size: 13px;
+            color: var(--primary);
+            margin-bottom: 15px;
+        }
+        .action-btn {
+            display: flex;
+            align-items: center;
+            gap: 5px;
+            cursor: pointer;
+        }
+        .shop-response {
+            background: #f4f7f9;
+            padding: 15px;
+            border-radius: 8px;
+            font-size: 13px;
+            border-left: 3px solid var(--primary);
+        }
+        .shop-name {
+            font-weight: 800;
+            color: var(--text);
+            margin-bottom: 5px;
+            text-transform: uppercase;
+        }
+        .shop-text {
+            color: var(--text-muted);
+            line-height: 1.5;
+        }
+        .filter-reviews {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            padding: 8px 15px;
+            border: 1px solid var(--border);
+            border-radius: 4px;
+            font-size: 13px;
+            cursor: pointer;
+            margin-bottom: 20px;
+        }
+
+        @media (max-width: 992px) {
+            .product-main { grid-template-columns: 1fr; }
+            .product-images { max-width: 500px; margin: 0 auto; }
+        }
+    </style>
 </head>
 <body>
 
-<div class="sticky-header" id="stickyHeader">
-    <header>
-        <div class="container header-main">
-            <a href="index.html" class="logo">Q&<span>H SKINLAB</span></a>
-            <div class="search-container">
-                <input type="text" id="searchInput" placeholder="Tìm sản phẩm...">
-                <button class="search-btn">
-                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line></svg>
-                </button>
-                <div id="searchResults" class="search-results"></div>
+    <!-- STICKY HEADER WRAPPER -->
+    <div class="sticky-header" id="stickyHeader">
+        <!-- HEADER -->
+        <header>
+            <div class="container header-main">
+                <a href="index.html" class="logo">Q&<span>H SKINLAB</span></a>
+                
+                <div class="search-container">
+                    <input type="text" id="searchInput" placeholder="Tìm sản phẩm, danh mục hay thương hiệu mong muốn">
+                    <button class="search-btn">
+                        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line></svg>
+                    </button>
+                    <div id="searchResults" class="search-results"></div>
+                </div>
+
+                <div class="header-actions">
+                    <div class="hotline-info" id="headerHotline">Hotline: 1900 636 510</div>
+                    <div class="action-item" id="adminPanelBtn" style="display: none; color: var(--primary); font-weight: 800; border: 1px solid var(--primary); padding: 5px 10px; border-radius: 4px; cursor: pointer;">
+                        ADMIN PANEL
+                    </div>
+                    <div class="action-item" id="accountTrigger">
+                        <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path><circle cx="12" cy="7" r="4"></circle></svg>
+                        <span id="userNameDisplay" class="user-name-display"></span>
+                    </div>
+                    <div class="action-item" id="cartTrigger">
+                        <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 2L3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4Z"></path><line x1="3" y1="6" x2="21" y2="6"></line><path d="M16 10a4 4 0 0 1-8 0"></path></svg>
+                        <span class="cart-badge" id="cartBadge">0</span>
+                    </div>
+                </div>
             </div>
-            <div class="header-actions">
-                <div class="hotline-info" id="headerHotline">Hotline: 1900 636 510</div>
-                <div class="action-item" id="adminPanelBtn" style="display: none;">ADMIN PANEL</div>
-                <div class="action-item" id="accountTrigger">
-                    <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path><circle cx="12" cy="7" r="4"></circle></svg>
-                    <span id="userNameDisplay" class="user-name-display"></span>
-                </div>
-                <div class="action-item" id="cartTrigger">
-                    <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 2L3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4Z"></path><line x1="3" y1="6" x2="21" y2="6"></line><path d="M16 10a4 4 0 0 1-8 0"></path></svg>
-                    <span class="cart-badge" id="cartBadge">0</span>
-                </div>
+        </header>
+
+        <!-- NAVIGATION -->
+        <div class="nav-wrap">
+            <div class="container">
+                <ul class="nav-list">
+                    <li class="nav-link nav-cat-trigger" style="display: flex; align-items: center; gap: 12px; width: 280px; background: #f8f9fa; padding-left: 15px; position: relative;">
+                        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="3" y1="12" x2="21" y2="12"></line><line x1="3" y1="6" x2="21" y2="6"></line><line x1="3" y1="18" x2="21" y2="18"></line></svg>
+                        DANH MỤC SẢN PHẨM
+                        <!-- SIDEBAR DROPDOWN -->
+                        <aside class="side-menu">
+                            <ul class="side-nav-list">
+                                <li class="side-nav-item" onclick="location.href='category.html?type=makeup'"><span>💄</span> Trang điểm</li>
+                                <li class="side-nav-item" onclick="location.href='category.html?type=skincare'"><span>🧴</span> Chăm sóc da mặt</li>
+                                <li class="side-nav-item" onclick="location.href='category.html?type=bodycare'"><span>🧼</span> Chăm sóc cơ thể</li>
+                                <li class="side-nav-item" onclick="location.href='category.html?type=haircare'"><span>💆‍♀️</span> Chăm sóc tóc & da đầu</li>
+                                <li class="side-nav-item" onclick="location.href='category.html?type=perfume'"><span>🌸</span> Nước hoa</li>
+                                <li class="side-nav-item sub-item"><span>✨</span> TẠO KHỐI/ HIGHLIGHTER</li>
+                                <li class="side-nav-item sub-item"><span>🎨</span> CHE KHUYẾT ĐIỂM</li>
+                                <li class="side-nav-item sub-item"><span>🖌️</span> KEM LÓT</li>
+                            </ul>
+                        </aside>
+                    </li>
+                    <li class="nav-link" onclick="location.href='category.html?type=makeup'">TRANG ĐIỂM <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" style="margin-left: 4px;"><path d="M6 9l6 6 6-6"></path></svg>
+                        <div class="nav-dropdown">
+                            <ul class="dropdown-list">
+                                <li class="dropdown-item">MẶT <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 18l6-6-6-6"></path></svg></li>
+                                <li class="dropdown-item">MẮT <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 18l6-6-6-6"></path></svg></li>
+                                <li class="dropdown-item">MÔI <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 18l6-6-6-6"></path></svg></li>
+                            </ul>
+                        </div>
+                    </li>
+                    <li class="nav-link" onclick="location.href='category.html?type=skincare'">CHĂM SÓC DA <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" style="margin-left: 4px;"><path d="M6 9l6 6 6-6"></path></svg></li>
+                    <li class="nav-link" onclick="location.href='category.html?type=new'">NEW</li>
+                    <li class="nav-link" onclick="location.href='category.html?type=combo'">COMBO CHĂM DA 💗</li>
+                    <li class="nav-link" onclick="location.href='category.html?type=brands'">THƯƠNG HIỆU <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" style="margin-left: 4px;"><path d="M6 9l6 6 6-6"></path></svg>
+                        <div class="mega-menu">
+                            <div class="mega-col">
+                                <ul class="mega-list">
+                                    <li onclick="location.href='category.html?brand=Merzy'">Merzy</li><li onclick="location.href='category.html?brand=ACNES'">ACNES</li><li onclick="location.href='category.html?brand=Armaf'">Armaf</li><li onclick="location.href='category.html?brand=Bioderma'">Bioderma</li><li onclick="location.href='category.html?brand=Calla'">Calla</li><li onclick="location.href='category.html?brand=Cerave'">Cerave</li><li onclick="location.href='category.html?brand=Cleo'">Cleo</li><li onclick="location.href='category.html?brand=Colorkey'">Colorkey</li><li onclick="location.href='category.html?brand=Dasique'">Dasique</li><li onclick="location.href='category.html?brand=DHC'">DHC</li>
+                                </ul>
+                            </div>
+                            <div class="mega-col">
+                                <ul class="mega-list">
+                                    <li onclick="location.href='category.html?brand=Romand'">Romand</li><li onclick="location.href='category.html?brand=Amortals'">Amortals</li><li onclick="location.href='category.html?brand=B.O.M'">B.O.M</li><li onclick="location.href='category.html?brand=Bio-essence'">Bio-essence</li><li onclick="location.href='category.html?brand=Carenel'">Carenel</li><li onclick="location.href='category.html?brand=Cetaphil'">Cetaphil</li><li onclick="location.href='category.html?brand=CLINICOS'">CLINICOS</li><li onclick="location.href='category.html?brand=Compliment'">Compliment</li><li onclick="location.href='category.html?brand=DAZZLE ME'">DAZZLE ME</li><li onclick="location.href='category.html?brand=Diana'">Diana</li>
+                                </ul>
+                            </div>
+                            <div class="mega-col">
+                                <ul class="mega-list">
+                                    <li onclick="location.href='category.html?brand=3CE'">3CE</li><li onclick="location.href='category.html?brand=Anessa'">Anessa</li><li onclick="location.href='category.html?brand=Banobagi'">Banobagi</li><li onclick="location.href='category.html?brand=Bioré'">Bioré</li><li onclick="location.href='category.html?brand=Carslan'">Carslan</li><li onclick="location.href='category.html?brand=Chando Himalaya'">Chando Himalaya</li><li onclick="location.href='category.html?brand=Clio'">Clio</li><li onclick="location.href='category.html?brand=Corine De Farme'">Corine De Farme</li><li onclick="location.href='category.html?brand=Dearmay'">Dearmay</li><li onclick="location.href='category.html?brand=DoDo Sugar'">DoDo Sugar</li>
+                                </ul>
+                            </div>
+                            <div class="mega-col">
+                                <ul class="mega-list">
+                                    <li onclick="location.href='category.html?brand=9 Wishes'">9 Wishes</li><li onclick="location.href='category.html?brand=Angel\'s Liquid'">Angel's Liquid</li><li onclick="location.href='category.html?brand=Batiste'">Batiste</li><li onclick="location.href='category.html?brand=BNBG'">BNBG</li><li onclick="location.href='category.html?brand=Caryophy'">Caryophy</li><li onclick="location.href='category.html?brand=Chinoshio'">Chinoshio</li><li onclick="location.href='category.html?brand=Closeup'">Closeup</li><li onclick="location.href='category.html?brand=Curél'">Curél</li><li onclick="location.href='category.html?brand=Derladie'">Derladie</li><li onclick="location.href='category.html?brand=Dove'">Dove</li>
+                                </ul>
+                            </div>
+                            <div class="mega-col">
+                                <ul class="mega-list">
+                                    <li onclick="location.href='category.html?brand=A BONNE'">A BONNE</li><li onclick="location.href='category.html?brand=Aperire'">Aperire</li><li onclick="location.href='category.html?brand=Bbia'">Bbia</li><li onclick="location.href='category.html?brand=Bodymiss'">Bodymiss</li><li onclick="location.href='category.html?brand=Catrice'">Catrice</li><li onclick="location.href='category.html?brand=Cindy Bloom'">Cindy Bloom</li><li onclick="location.href='category.html?brand=Cocoon'">Cocoon</li><li onclick="location.href='category.html?brand=Dạ Hương'">Dạ Hương</li><li onclick="location.href='category.html?brand=Derma Forte'">Derma Forte</li><li onclick="location.href='category.html?brand=DrCeutics'">DrCeutics</li>
+                                </ul>
+                            </div>
+                        </div>
+                    </li>
+                    <li class="nav-link" onclick="location.href='category.html?type=magazine'">TẠP CHÍ LÀM ĐẸP <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" style="margin-left: 4px;"><path d="M6 9l6 6 6-6"></path></svg>
+                        <div class="mega-menu">
+                            <div class="mega-col">
+                                <ul class="mega-list">
+                                    <li>Review Mỹ Phẩm</li><li>Trẻ Hoá Làn Da</li><li>Thiết Bị Làm Đẹp</li>
+                                </ul>
+                            </div>
+                            <div class="mega-col">
+                                <ul class="mega-list">
+                                    <li>Top Mỹ Phẩm</li><li>Làm Mờ Sạm Nám</li><li>Thực Phẩm Chức Năng</li>
+                                </ul>
+                            </div>
+                            <div class="mega-col">
+                                <ul class="mega-list">
+                                    <li>Hướng Dẫn Trang Điểm</li><li>Trắng Da</li>
+                                </ul>
+                            </div>
+                            <div class="mega-col">
+                                <ul class="mega-list">
+                                    <li>Chăm Sóc Da Body</li><li>Trị Thâm Mụn</li>
+                                </ul>
+                            </div>
+                            <div class="mega-col">
+                                <ul class="mega-list">
+                                    <li>Chăm Sóc Da Mặt</li><li>Nước Hoa</li>
+                                </ul>
+                            </div>
+                        </div>
+                    </li>
+                </ul>
             </div>
         </div>
-    </header>
-</div>
-
-<main class="container">
-    <div class="breadcrumb" style="margin: 20px 0;">
-        <a href="index.html">Trang chủ</a> / <span id="breadcrumbName">Sản phẩm</span>
     </div>
 
-    <div class="product-detail-layout" style="display: grid; grid-template-columns: 1fr 1fr; gap: 40px; margin: 40px 0;">
-        <!-- Cột trái: Ảnh sản phẩm -->
-        <div>
-            <div class="product-detail-image">
-                <img id="mainImg" src="" alt="Sản phẩm" style="width: 100%; border-radius: 12px;">
+    <main class="container">
+        <!-- BREADCRUMB -->
+        <div class="breadcrumb">
+            <a href="index.html">Trang chủ</a> <span>/</span>
+            <a href="#">CHĂM SÓC DA</a> <span>/</span>
+            <span>Kem Chống Nắng La Roche-Posay Kiểm Soát Dầu...</span>
+        </div>
+
+        <!-- PRODUCT MAIN SECTION -->
+        <div class="product-main">
+            <!-- Left: Images -->
+            <div class="product-images">
+                <div class="main-image-wrap">
+                    <img id="mainImg" src="https://images.unsplash.com/photo-1620916566398-39f1143ab7be?auto=format&fit=crop&w=800&q=80" alt="Product Image" referrerPolicy="no-referrer">
+                </div>
+                <div class="thumbnail-list"> 
+                </div>
+            </div>
+
+            <!-- Right: Info -->
+            <div class="product-info">
+                <a href="#" class="pd-brand-link">LA ROCHE-POSAY ></a>
+                <h1 class="pd-name">Kem Chống Nắng La Roche-Posay Kiểm Soát Dầu Anthelios Dry Touch Finish Mattifying Effect SPF50+ 50ml</h1>
+                
+                <div class="pd-meta">
+                    <div class="pd-rating">
+                        <span class="stars">★★★★★</span>
+                        <span>(525 đánh giá)</span>
+                    </div>
+                    <div class="pd-divider">|</div>
+                    <div>Chưa có hỏi đáp</div>
+                    <div class="pd-divider">|</div>
+                    <div style="font-weight: 600;">3,2k Đã bán</div>
+                </div>
+
+                <div class="pd-price-container">
+                    <div class="pd-price-val">
+                        <span class="pd-current-price">501,000đ</span>
+                        <span class="pd-old-price">590,000đ</span>
+                    </div>
+                    <div style="display: flex; gap: 8px;">
+                        <span class="pd-discount-tag">-15%</span>
+                        <span style="background: #ff9f43; color: white; padding: 2px 8px; border-radius: 4px; font-weight: 800; font-size: 12px;">GIFT</span>
+                    </div>
+                </div>
+
+                <div class="pd-selection">
+                    <div style="display: flex; align-items: center; gap: 15px; font-size: 14px;">
+                        <span>Mã giảm giá:</span>
+                        <div style="display: flex; gap: 10px;">
+                            <span style="background: #e6f2ff; color: var(--primary); border: 1px dashed var(--primary); padding: 4px 12px; border-radius: 4px; font-weight: 700; font-size: 12px;">Giảm 10%</span>
+                            <span style="background: #e6f2ff; color: var(--primary); border: 1px dashed var(--primary); padding: 4px 12px; border-radius: 4px; font-weight: 700; font-size: 12px;">Giảm 12%</span>
+                        </div>
+                    </div>
+
+                    <div class="pd-qty-selector">
+                        <span>Số lượng</span>
+                        <div class="qty-box">
+                            <button onclick="changeQty(-1)">-</button>
+                            <input type="number" id="qtyInput" value="1" min="1">
+                            <button onclick="changeQty(1)">+</button>
+                        </div>
+                    </div>
+
+                    <div class="pd-buttons">
+                        <button class="btn-pd-buy" onclick="alert('Tính năng đang bảo trì')">Mua Online</button>
+                        <button class="btn-pd-cart" onclick="addToCart(9)">Thêm vào giỏ hàng</button>
+                    </div>
+                </div>
+
+                <div class="pd-promo-list">
+                    <div class="promo-item">
+                        <div class="promo-title">🎁 QUÀ TẶNG KHUYẾN MÃI</div>
+                        <div class="promo-body">
+                            <img src="https://picsum.photos/seed/gift1/50/50" alt="Gift" referrerPolicy="no-referrer">
+                            <div>MUA 1 TẶNG 1 x [Gift] Hộp bông tẩy trang La Roche-Posay 80 miếng - Trị Giá 50k</div>
+                        </div>
+                    </div>
+                    <div class="promo-item">
+                        <div class="promo-title">🎁 HÓA ĐƠN LA ROCHE-POSAY 399K</div>
+                        <div class="promo-body">
+                            <img src="https://picsum.photos/seed/gift2/50/50" alt="Gift" referrerPolicy="no-referrer">
+                            <div>Hoá đơn từ 399,000đ Tặng 1 x [Gift] Ly Nước Hoa Vàng La Roche-Posay 500ml - Trị Giá 210k</div>
+                        </div>
+                    </div>
+                </div>
             </div>
         </div>
 
-        <!-- Cột phải: Thông tin sản phẩm -->
-        <div>
-            <div class="product-brand" id="productBrand" style="font-size: 14px; color: var(--primary); font-weight: 700;"></div>
-            <h1 class="product-name" id="productName" style="font-size: 24px; font-weight: 800; margin: 10px 0;"></h1>
+        <!-- PRODUCT DETAILS SECTION -->
+        <div class="pd-details-section">
+            <h2 class="pd-section-title">Chi tiết sản phẩm</h2>
+            <ul class="pd-spec-list">
+                <li><strong>Tên sản phẩm:</strong> La Roche-Posay Anthelios Dry Touch Finish Mattifying Effect</li>
+                <li><strong>Kết cấu:</strong> Dạng gel cream</li>
+                <li><strong>Dung tích:</strong> 50ml</li>
+                <li><strong>Thương hiệu:</strong> La Roche-Posay (Pháp)</li>
+                <li><strong>Hạn sử dụng:</strong> 3 năm kể từ ngày sản xuất in trên bao bì</li>
+            </ul>
+
+            <div class="pd-content-text">
+                <h4>1. Thông tin sản phẩm</h4>
+                <p>Kem Chống Nắng Kiểm Soát Dầu La Roche-Posay Anthelios Dry Touch Finish Mattifying Effect là kem chống nắng dành cho da dầu giúp kiểm soát bóng nhờn và bảo vệ da trước tác hại từ ánh nắng & ô nhiễm. Sản phẩm có công thức chống thấm nước thích hợp dùng hằng ngày và cả những hoạt động ngoài trời thuộc thương hiệu dược mỹ phẩm La Roche-Posay đến từ Pháp.</p>
+                
+                <h4>2. Ưu điểm của Kem Chống Nắng La Roche-Posay Anthelios Dry Touch Finish Mattifying Effect</h4>
+                <p>Màng lọc độc quyền XL-PROTECT™: Sự kết hợp giữa màng lọc quang phổ rộng chứa nhiều màng lọc tia UV và khả năng bảo vệ vượt trội trước tia UVA, UVB mà còn giúp bảo vệ da trước các tác nhân khác gây hại cho da như ô nhiễm, tia hồng ngoại.</p>
+                <p>Chứa hoạt chất AIRLICIUM: Là thành phần giúp hỗ trợ giảm mồ hôi, giảm dầu và bã nhờn trên da, có thể hấp thụ lượng bã nhờn gấp 100 lần khối lượng. Kiểm soát dầu nhờn tới 9h.</p>
+            </div>
+        </div>
+
+        <!-- REVIEWS SECTION -->
+        <div class="pd-reviews-section">
+            <h2 class="pd-section-title">Đánh giá sản phẩm</h2>
+            <div class="review-summary">
+                <div class="score-box">
+                    <div class="big-score">5.0</div>
+                    <div class="stars-row">★★★★★</div>
+                    <div style="font-size: 13px; color: var(--text-muted);">525 đánh giá</div>
+                </div>
+                <div class="review-bars">
+                    <div class="bar-item">
+                        <span>5 sao</span>
+                        <div class="bar-bg"><div class="bar-fill" style="width: 98%"></div></div>
+                        <span>518</span>
+                    </div>
+                    <div class="bar-item">
+                        <span>4 sao</span>
+                        <div class="bar-bg"><div class="bar-fill" style="width: 2%"></div></div>
+                        <span>7</span>
+                    </div>
+                    <div class="bar-item">
+                        <span>3 sao</span>
+                        <div class="bar-bg"><div class="bar-fill" style="width: 0%"></div></div>
+                        <span>0</span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="filter-reviews">
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polygon points="22 3 2 3 10 12.46 10 19 14 21 14 12.46 22 3"></polygon></svg>
+                Lọc đánh giá
+            </div>
+
+            <!-- ADD REVIEW FORM -->
+            <div id="addReviewForm" style="display: none; margin-top: 30px; padding: 20px; background: #f9f9f9; border-radius: 8px;">
+                <h3 style="margin-bottom: 15px; font-size: 18px;">Thêm đánh giá sản phẩm</h3>
+                <form id="reviewForm">
+                    <div style="margin-bottom: 15px;">
+                        <label style="display: block; margin-bottom: 5px; font-weight: 600;">Đánh giá sao:</label>
+                        <div class="star-rating">
+                            <input type="radio" id="star5" name="rating" value="5"><label for="star5">★</label>
+                            <input type="radio" id="star4" name="rating" value="4"><label for="star4">★</label>
+                            <input type="radio" id="star3" name="rating" value="3"><label for="star3">★</label>
+                            <input type="radio" id="star2" name="rating" value="2"><label for="star2">★</label>
+                            <input type="radio" id="star1" name="rating" value="1"><label for="star1">★</label>
+                        </div>
+                    </div>
+                    <div style="margin-bottom: 15px;">
+                        <label for="reviewText" style="display: block; margin-bottom: 5px; font-weight: 600;">Nội dung đánh giá:</label>
+                        <textarea id="reviewText" rows="4" placeholder="Hãy chia sẻ trải nghiệm của bạn về sản phẩm..." style="width: 100%; padding: 10px; border: 1px solid #ddd; border-radius: 4px; resize: vertical;"></textarea>
+                    </div>
+                    <button type="submit" style="padding: 10px 20px; background: var(--primary); color: white; border: none; border-radius: 4px; cursor: pointer; font-weight: 600;">Gửi đánh giá</button>
+                </form>
+            </div>
+
+            <div class="reviews-list">
+                <!-- Reviews will be loaded dynamically -->
+            </div>
+        </div>
+
+        <!-- RELATED PRODUCTS SECTION -->
+        <div class="pd-related-section" style="margin-top: 30px; background: var(--white); padding: 30px; border-radius: 8px;">
+            <h2 class="pd-section-title">Có thể bạn cũng thích</h2>
+            <div class="products-grid" id="relatedProductsGrid" style="grid-template-columns: repeat(4, 1fr); margin-top: 20px;">
+                <!-- Related products will be loaded here -->
+            </div>
+        </div>
+    </main>
+
+    <!-- FOOTER -->
+    <footer style="margin-top: 50px;">
+        <div class="container">
+            <div class="footer-grid">
+                <div class="footer-col">
+                    <h4>Về chúng tôi</h4>
+                    <ul class="footer-links">
+                        <li><a href="about.html">Câu chuyện thương hiệu</a></li>
+                        <li><a href="about.html">Hệ thống cửa hàng</a></li>
+                        <li><a href="about.html">Tuyển dụng</a></li>
+                        <li><a href="contact.html">Liên hệ</a></li>
+                    </ul>
+                </div>
+                <div class="footer-col">
+                    <h4>Chính sách</h4>
+                    <ul class="footer-links">
+                        <li><a href="policy.html">Chính sách bảo mật</a></li>
+                        <li><a href="policy.html">Điều khoản sử dụng</a></li>
+                        <li><a href="policy.html">Chính sách đổi trả</a></li>
+                        <li><a href="policy.html">Chính sách vận chuyển</a></li>
+                    </ul>
+                </div>
+                <div class="footer-col">
+                    <h4>Hỗ trợ khách hàng</h4>
+                    <ul class="footer-links">
+                        <li><a href="support.html">Hướng dẫn mua hàng</a></li>
+                        <li><a href="support.html">Phương thức thanh toán</a></li>
+                        <li><a href="support.html">Câu hỏi thường gặp</a></li>
+                        <li><a href="support.html">Tra cứu đơn hàng</a></li>
+                    </ul>
+                </div>
+                <div class="footer-col">
+                    <h4>Kết nối với chúng tôi</h4>
+                    <div style="display: flex; gap: 15px; margin-top: 10px;">
+                        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 2h-3a5 5 0 0 0-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 0 1 1-1h3z"></path></svg>
+                        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="2" width="20" height="20" rx="5" ry="5"></rect><path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"></path><line x1="17.5" y1="6.5" x2="17.51" y2="6.5"></line></svg>
+                    </div>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                &copy; 2026 Q&H SKINLAB. All Rights Reserved.
+            </div>
+        </div>
+    </footer>
+
+    <!-- COMMON UI COMPONENTS (CẦN CHO MỌI TRANG) -->
+
+    <!-- 1. CART DRAWER -->
+    <div class="cart-drawer" id="cartDrawer">
+        <div class="cart-header">
+            <h3 style="font-weight: 800; text-transform: uppercase;">Giỏ hàng</h3>
+            <span style="cursor: pointer; font-size: 24px;" id="closeCart">&times;</span>
+        </div>
+        <div class="cart-items" id="cartItems"></div>
+        <div style="padding-top: 20px; border-top: 1px solid var(--border);">
+            <div class="flex-between" style="font-weight: 800; font-size: 18px; margin-bottom: 20px;">
+                <span>Tổng tiền:</span>
+                <span id="cartTotal">0đ</span>
+            </div>
+            <button id="checkoutBtn" style="width: 100%; padding: 15px; background: var(--primary); border: none; font-weight: 800; cursor: pointer; color: white;">THANH TOÁN NGAY</button>
+        </div>
+    </div>
+
+    <!-- 2. LOGIN MODAL -->
+    <div class="modal-overlay" id="loginModalOverlay">
+        <div class="login-modal">
+            <span class="close-modal" id="closeLogin">&times;</span>
+            <div id="loginView">
+                <h2>Đăng nhập</h2>
+                <form class="login-form" id="loginForm">
+                    <input type="text" placeholder="Email hoặc Tên đăng nhập" required>
+                    <input type="password" placeholder="Mật khẩu" required>
+                    <div class="login-options">
+                        <label style="display: flex; align-items: center; gap: 8px; cursor: pointer;">
+                            <input type="checkbox"> Ghi nhớ đăng nhập
+                        </label>
+                        <a href="#" id="forgotPassTrigger">Quên mật khẩu?</a>
+                    </div>
+                    <button type="submit" class="btn-login">Đăng nhập</button>
+                    <button type="button" class="btn-social btn-facebook">
+                        <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor"><path d="M18 2h-3a5 5 0 0 0-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 0 1 1-1h3z"></path></svg>
+                        Đăng nhập Facebook
+                    </button>
+                    <button type="button" class="btn-social btn-google">
+                        <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor"><path d="M12.48 10.92v3.28h4.74c-.2 1.22-.97 2.22-2.25 3.07v2.55h3.64c2.13-1.96 3.36-4.85 3.36-8.19 0-.68-.07-1.15-.19-1.71H12.48zm-10.6 4.9c1.26 3.71 4.71 6.38 8.77 6.38 2.32 0 4.5-.79 6.14-2.13l-3.64-2.55c-.99.67-2.26 1.07-3.53 1.07-2.73 0-5.04-1.84-5.87-4.31H1.88v2.54zm8.77-13.43c-2.32 0-4.5.79-6.14 2.13l3.64 2.55c.99-.67-2.26 1.07-3.53 1.07-2.73 0-5.04-1.84-5.87-4.31h3.99v-2.54c-1.26-3.71-4.71-6.38-8.77-6.38z"></path></svg>
+                        Đăng nhập Google
+                    </button>
+                    <div class="register-section">
+                        <p>Tạo tài khoản ngay</p>
+                        <button type="button" class="btn-register" id="toRegister">Đăng ký</button>
+                    </div>
+                </form>
+            </div>
+
+            <div id="forgotPasswordView" style="display: none;">
+                <h2>Quên mật khẩu</h2>
+                <form class="login-form" id="forgotPassForm">
+                    <p style="font-size: 13px; color: #666; margin-bottom: 20px; text-align: center;">Nhập email của bạn để nhận mật khẩu mới.</p>
+                    <input type="email" id="forgotEmail" placeholder="Email" required>
+                    <button type="submit" class="btn-login">Gửi yêu cầu</button>
+                    <div class="register-section">
+                        <p>Nhớ mật khẩu?</p>
+                        <button type="button" class="btn-register" id="backToLoginFromForgot">Quay lại đăng nhập</button>
+                    </div>
+                </form>
+            </div>
+            <div id="registerView" style="display: none;">
+                <h2>Đăng ký</h2>
+                <form class="login-form" id="registerForm">
+                    <input type="text" placeholder="Họ và tên" required>
+                    <input type="email" placeholder="Email" required>
+                    <input type="password" placeholder="Mật khẩu" required>
+                    <button type="submit" class="btn-login">Đăng ký</button>
+                    <div class="register-section">
+                        <p>Đã có tài khoản?</p>
+                        <button type="button" class="btn-register" id="toLogin">Đăng nhập</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <!-- 3. PROFILE OVERLAY -->
+    <div class="admin-overlay" id="profileOverlay" style="z-index: 12000; background: rgba(0,0,0,0.5); display: none; align-items: center; justify-content: center;">
+        <div style="width: 1000px; height: 600px; background: white; border-radius: 8px; display: flex; overflow: hidden; box-shadow: 0 10px 30px rgba(0,0,0,0.1); position: relative;">
+            <button onclick="document.getElementById('profileOverlay').classList.remove('active'); document.getElementById('profileOverlay').style.display='none';" style="position: absolute; top: 15px; right: 15px; background: none; border: none; font-size: 24px; cursor: pointer; color: #888; z-index: 10;">&times;</button>
+            <div style="width: 250px; background: #fafafa; border-right: 1px solid #eee; padding: 30px 0; display: flex; flex-direction: column;">
+                <div style="padding: 0 25px 30px; border-bottom: 1px solid #eee;">
+                    <div style="display: flex; align-items: center; gap: 15px;">
+                        <div id="profileAvatar" style="width: 50px; height: 50px; background: var(--red); color: white; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-weight: 700; font-size: 18px;">NH</div>
+                        <div style="overflow: hidden;">
+                            <div id="profileUserName" style="font-weight: 700; font-size: 16px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis;">User</div>
+                            <div id="profileUserEmail" style="font-size: 12px; color: #888; white-space: nowrap; overflow: hidden; text-overflow: ellipsis;">email@gmail.com</div>
+                        </div>
+                    </div>
+                </div>
+                <div class="profile-menu" style="flex-grow: 1; display: flex; flex-direction: column;">
+                    <div class="profile-menu-item active" data-tab="info" onclick="switchProfileTab('info')">
+                        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path><circle cx="12" cy="7" r="4"></circle></svg>
+                        Thông tin
+                    </div>
+                    <div class="profile-menu-item" data-tab="orders" onclick="switchProfileTab('orders')">
+                        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 2L3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4Z"></path><line x1="3" y1="6" x2="21" y2="6"></line><path d="M16 10a4 4 0 0 1-8 0"></path></svg>
+                        Quản lý đơn hàng
+                    </div>
+                    <div class="profile-menu-item" data-tab="viewed" onclick="switchProfileTab('viewed')">
+                        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="8" y1="6" x2="21" y2="6"></line><line x1="8" y1="12" x2="21" y2="12"></line><line x1="8" y1="18" x2="21" y2="18"></line><line x1="3" y1="6" x2="3.01" y2="6"></line><line x1="3" y1="12" x2="3.01" y2="12"></line><line x1="3" y1="18" x2="3.01" y2="18"></line></svg>
+                        Sản phẩm đã xem
+                    </div>
+                    <div class="profile-menu-item logout" onclick="logoutUser()" style="margin-top: auto; border-top: 1px solid #eee;">
+                        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"></path><polyline points="16 17 21 12 16 7"></polyline><line x1="21" y1="12" x2="9" y2="12"></line></svg>
+                        Đăng xuất
+                    </div>
+                </div>
+            </div>
+            <div style="flex-grow: 1; padding: 40px; background: #fff; overflow-y: auto;">
+                <div id="tab-info" class="profile-tab-pane active">
+                    <h2 style="font-size: 20px; font-weight: 700; margin-bottom: 20px; color: var(--primary);">Thông tin cá nhân</h2>
+                    <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 20px;">
+                        <div>
+                            <label style="display: block; font-size: 13px; color: #888; margin-bottom: 5px;">Họ và tên</label>
+                            <div id="infoName" style="padding: 10px; border-bottom: 1px solid #eee; font-weight: 600;">User</div>
+                        </div>
+                        <div>
+                            <label style="display: block; font-size: 13px; color: #888; margin-bottom: 5px;">Email</label>
+                            <div id="infoEmail" style="padding: 10px; border-bottom: 1px solid #eee; font-weight: 600;">email@gmail.com</div>
+                        </div>
+                    </div>
+                </div>
+                <div id="tab-orders" class="profile-tab-pane">
+                    <h2 style="font-size: 20px; font-weight: 700; margin-bottom: 20px; color: var(--primary);">Quản lý đơn hàng</h2>
+                    <div class="order-tabs">
+                        <div class="order-tab active" onclick="switchOrderTab(this, 'Chờ xác nhận')">Chờ xác nhận</div>
+                        <div class="order-tab" onclick="switchOrderTab(this, 'Chờ lấy hàng')">Chờ lấy hàng</div>
+                        <div class="order-tab" onclick="switchOrderTab(this, 'Đang giao')">Đang giao</div>
+                        <div class="order-tab" onclick="switchOrderTab(this, 'Đã giao')">Đã giao</div>
+                        <div class="order-tab" onclick="switchOrderTab(this, 'Đã huỷ')">Đã huỷ</div>
+                    </div>
+                    <div id="profileOrdersList" style="color: #888;">Bạn chưa có đơn hàng nào.</div>
+                </div>
+                    <div id="tab-viewed" class="profile-tab-pane">
+                        <h2 style="font-size: 20px; font-weight: 700; margin-bottom: 20px; color: var(--primary);">Sản phẩm đã xem</h2>
+                        <div style="color: #888;">Chưa có sản phẩm nào.</div>
+                    </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="toast-container" id="toastContainer"></div>
+
+    <script src="script.js"></script>
+    <script>
+        // Load product data from script.js (via products array)
+        document.addEventListener('DOMContentLoaded', () => {
+            const productId = parseInt(localStorage.getItem('selectedProductId'));
+            const allProds = (typeof window.getProducts === 'function') ? window.getProducts() : JSON.parse(localStorage.getItem('qh_products') || '[]');
+            const product = allProds.find(p => p.id === productId);
             
-            <div class="product-price" style="margin: 20px 0;">
-                <span class="current-price" id="productPrice" style="font-size: 28px; font-weight: 800; color: var(--red);"></span>
-                <span class="old-price" id="productOldPrice" style="text-decoration: line-through; color: #999; margin-left: 10px;"></span>
-            </div>
+            if (product) {
+                // Update Basic Info
+                document.querySelector('.pd-name').innerText = product.name;
+                document.querySelector('.pd-brand-link').innerText = product.brand.toUpperCase() + ' >';
+                document.querySelector('.pd-current-price').innerText = product.price.toLocaleString() + 'đ';
+                document.querySelector('.pd-old-price').innerText = product.oldPrice.toLocaleString() + 'đ';
+                document.querySelector('.pd-discount-tag').innerText = '-' + product.discount;
+                
+                // Update Sold count
+                const soldEl = document.querySelector('.pd-meta div:last-child');
+                if (soldEl) soldEl.innerText = (product.sold >= 1000 ? (product.sold/1000).toFixed(1) + 'k' : product.sold) + ' Đã bán';
 
-            <div class="product-quantity" style="margin: 20px 0; display: flex; align-items: center; gap: 15px;">
-                <span>Số lượng:</span>
-                <div style="display: flex; border: 1px solid #ddd; border-radius: 4px;">
-                    <button id="qtyMinus" style="padding: 8px 12px; border: none; background: #f5f5f5; cursor: pointer;">-</button>
-                    <input type="number" id="pdQty" value="1" min="1" style="width: 60px; text-align: center; border: none;">
-                    <button id="qtyPlus" style="padding: 8px 12px; border: none; background: #f5f5f5; cursor: pointer;">+</button>
-                </div>
-            </div>
+                // Update Images logic for better stability
+                const mainImgEl = document.getElementById('mainImg');
+                const thumbnailListEl = document.querySelector('.thumbnail-list');
+                
+                // 1. Tạo danh sách ảnh hiển thị (Ưu tiên mảng images, nếu không có dùng image chính)
+                let displayImages = [];
+                if (Array.isArray(product.images) && product.images.filter(img => img).length > 0) {
+                    displayImages = product.images.filter(img => img);
+                } else if (product.image) {
+                    displayImages = [product.image];
+                } else {
+                    // Ảnh mặc định nếu sản phẩm hoàn toàn không có ảnh
+                    displayImages = ['https://via.placeholder.com/800x800?text=Q%26H+SKINLAB'];
+                }
 
-            <div class="product-actions" style="display: flex; gap: 15px; margin: 30px 0;">
-                <button id="addToCartBtn" style="flex: 1; padding: 15px; background: var(--primary); color: white; border: none; font-weight: 800; cursor: pointer;">THÊM VÀO GIỎ</button>
-                <button id="buyNowBtn" style="flex: 1; padding: 15px; background: var(--red); color: white; border: none; font-weight: 800; cursor: pointer;">MUA NGAY</button>
-            </div>
+                // 2. Cập nhật ảnh chính
+                mainImgEl.src = displayImages[0];
+                mainImgEl.onerror = function() { this.src = 'https://via.placeholder.com/800x800?text=Image+Error'; };
+                
+                // 3. Render thumbnails (Chỉ hiện nếu có nhiều hơn 1 ảnh)
+                thumbnailListEl.innerHTML = '';
+                if (displayImages.length > 1) {
+                    displayImages.forEach((imgSrc, index) => {
+                        const thumbItem = document.createElement('div');
+                        thumbItem.className = `thumb-item ${index === 0 ? 'active' : ''}`;
+                        thumbItem.innerHTML = `<img src="${imgSrc}" referrerPolicy="no-referrer" onerror="this.src='https://via.placeholder.com/80x80?text=Error'">`;
+                        thumbItem.addEventListener('click', function() {
+                            const activeThumb = thumbnailListEl.querySelector('.thumb-item.active');
+                            if (activeThumb) activeThumb.classList.remove('active');
+                            this.classList.add('active');
+                            mainImgEl.src = imgSrc;
+                        });
+                        thumbnailListEl.appendChild(thumbItem);
+                    });
+                }
 
-            <div class="product-benefits" style="border-top: 1px solid #eee; padding-top: 20px;">
-                <p>✅ Cam kết chính hãng 100%</p>
-                <p>🚚 Giao hàng toàn quốc</p>
-            </div>
-        </div>
-    </div>
+                // Update Specs
+                const specList = document.querySelector('.pd-spec-list');
+                if (specList && product.specs) {
+                    specList.innerHTML = `
+                        <li><strong>Tên sản phẩm:</strong> ${product.name}</li>
+                        ${Object.entries(product.specs).map(([key, val]) => `<li><strong>${key}:</strong> ${val}</li>`).join('')}
+                    `;
+                }
 
-    <div class="product-description" style="margin: 40px 0; padding: 30px; background: #f9f9f9; border-radius: 12px;">
-        <h3 style="font-weight: 800; margin-bottom: 20px;">CHI TIẾT SẢN PHẨM</h3>
-        <div id="productDetails" style="line-height: 1.8;"></div>
-    </div>
-</main>
+                // Update Description
+                const descText = document.querySelector('.pd-content-text');
+                if (descText && product.details) {
+                    descText.innerHTML = `
+                        <h4>1. Thông tin sản phẩm</h4>
+                        <p>${product.details}</p>
+                        <h4>2. Đặc điểm nổi bật</h4>
+                        <p>Sản phẩm chính hãng, được phân phối trực tiếp từ thương hiệu. Đảm bảo chất lượng và an toàn cho người sử dụng.</p>
+                    `;
+                }
 
-<script src="/script.js"></script>
-<script>
-    document.addEventListener('DOMContentLoaded', function() {
-        const productId = localStorage.getItem('selectedProductId');
-        const products = window.products || [];
-        const product = products.find(p => p.id == productId);
-        
-        if (product) {
-            document.getElementById('productBrand').innerText = product.brand;
-            document.getElementById('productName').innerText = product.name;
-            document.getElementById('productPrice').innerText = product.price.toLocaleString() + 'đ';
-            if (product.oldPrice) document.getElementById('productOldPrice').innerText = product.oldPrice.toLocaleString() + 'đ';
-            document.getElementById('mainImg').src = product.image;
-            document.getElementById('productDetails').innerHTML = product.details || 'Không có mô tả chi tiết.';
-            document.getElementById('breadcrumbName').innerText = product.name;
+                // Update Buy/Cart Buttons
+                const buyBtn = document.querySelector('.btn-pd-buy');
+                if (buyBtn) {
+                    buyBtn.setAttribute('onclick', `buyNow(${product.id})`);
+                }
+
+                const cartBtn = document.querySelector('.btn-pd-cart');
+                if (cartBtn) {
+                    cartBtn.setAttribute('onclick', `addToCart(${product.id})`);
+                }
+
+                // Lưu sản phẩm đã xem
+                if (typeof trackProductView === 'function') trackProductView(product.id);
+
+                // Re-render reviews for this specific product
+                if (typeof renderReviews === 'function') renderReviews(product.id);
+
+                // Render related products
+                if (typeof renderRelatedProducts === 'function') renderRelatedProducts(product);
+            } else {
+                // Fallback to old localStorage logic if id not found
+                const name = localStorage.getItem('selectedProductName');
+                const image = localStorage.getItem('selectedProductImage');
+                if (name) document.querySelector('.pd-name').innerText = name;
+                if (image) document.getElementById('mainImg').src = image;
+            }
+        });
+
+        function changeQty(val) {
+            const input = document.getElementById('qtyInput');
+            let current = parseInt(input.value);
+            current += val;
+            if (current < 1) current = 1;
+            input.value = current;
         }
-
-        const qtyInput = document.getElementById('pdQty');
-        document.getElementById('qtyMinus')?.addEventListener('click', () => { if (qtyInput.value > 1) qtyInput.value--; });
-        document.getElementById('qtyPlus')?.addEventListener('click', () => { qtyInput.value++; });
-        
-        document.getElementById('addToCartBtn')?.addEventListener('click', () => {
-            if (product) addToCart(product.id, parseInt(qtyInput.value));
-        });
-        document.getElementById('buyNowBtn')?.addEventListener('click', () => {
-            if (product) buyNow(product.id);
-        });
-    });
-</script>
-
+    </script>
 </body>
 </html>
