@@ -1645,3 +1645,18 @@ footer {
     border: 1px solid #ddd;
     border-radius: 4px;
 }
+
+.pd-container {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 40px;
+    margin: 40px 0;
+}
+.pd-main-img img { width: 100%; border-radius: 8px; }
+.pd-name { font-size: 24px; font-weight: 800; margin-bottom: 15px; }
+.pd-current-price { font-size: 28px; font-weight: 800; color: var(--red); }
+.pd-old-price { font-size: 16px; text-decoration: line-through; color: #999; margin-left: 10px; }
+.pd-actions { display: flex; gap: 15px; margin-top: 30px; }
+.btn-add-cart, .btn-buy-now { flex: 1; padding: 15px; border: none; font-weight: 800; cursor: pointer; }
+.btn-add-cart { background: var(--primary); color: white; }
+.btn-buy-now { background: var(--red); color: white; }
