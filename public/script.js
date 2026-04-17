@@ -804,11 +804,13 @@ window.goToDetail = function(id) {
 window.addToCart = function(id, quantity) {
     // If quantity is not provided, check for qtyInput (for product detail page)
     if (quantity === undefined) {
-        const qtyInput = document.getElementById('qtyInput');
+        const qtyInput = document.getElementById('pdQty');
         quantity = qtyInput ? parseInt(qtyInput.value) : 1;
     }
 
     const product = products.find(p => p.id == id);
+    if (!product) return;
+
     const existing = cart.find(item => item.id == id);
 
     if (existing) {
@@ -817,37 +819,26 @@ window.addToCart = function(id, quantity) {
         cart.push({ ...product, quantity: quantity });
     }
 
-    saveCart();
+    localStorage.setItem('qh_cart', JSON.stringify(cart));
     updateCartUI();
-    showToast(`Đã thêm ${product.name} vào giỏ hàng!`);
+    showToast('Đã thêm sản phẩm vào giỏ hàng!');
     openCart();
 };
 
-window.buyNow = function(id) {
-    const qtyInput = document.getElementById('qtyInput');
-    const quantity = qtyInput ? parseInt(qtyInput.value) : 1;
-    
-    const product = products.find(p => p.id == id);
+window.buyNow = function(productId) {
+    const product = products.find(p => p.id == productId);
     if (!product) return;
-
-    // Set as direct checkout (don't add to cart)
-    currentCheckoutItems = [{ ...product, quantity: quantity }];
-    isDirectCheckout = true;
-
-    // Trigger checkout
-    closeCart();
-    renderCheckoutSummary();
-    const checkoutOverlay = document.getElementById('checkoutOverlay');
-    const checkoutForm = document.getElementById('checkoutForm');
-    const checkoutSuccess = document.getElementById('checkoutSuccess');
-    const checkoutQR = document.getElementById('checkoutQR');
+    let qty = 1;
+    const qtyInput = document.getElementById('pdQty');
+    if (qtyInput) qty = parseInt(qtyInput.value);
+    window.currentCheckoutItems = [{ ...product, quantity: qty }];
+    window.isDirectCheckout = true;
     
-    if (checkoutOverlay) {
-        checkoutOverlay.classList.add('active');
-        if (checkoutForm) checkoutForm.style.display = 'block';
-        if (checkoutSuccess) checkoutSuccess.style.display = 'none';
-        if (checkoutQR) checkoutQR.style.display = 'none';
-    }
+    // Cập nhật lại giao diện tóm tắt đơn hàng trước khi hiển thị
+    if (typeof renderCheckoutSummary === 'function') renderCheckoutSummary();
+    
+    const checkoutOverlay = document.getElementById('checkoutOverlay');
+    if (checkoutOverlay) checkoutOverlay.classList.add('active');
 };
 
 window.removeFromCart = function(id) {
@@ -1449,6 +1440,19 @@ function initEvents() {
             profileOverlay.style.display = 'none';
         }
     };
+
+    const adminBtn = document.getElementById('adminPanelBtn');
+    if (adminBtn) {
+        adminBtn.onclick = () => window.location.href = 'admin.html';
+    }
+
+    const accountTrigger = document.getElementById('accountTrigger');
+    if (accountTrigger) {
+        accountTrigger.onclick = () => {
+            const modal = document.getElementById('loginModalOverlay');
+            if (modal) modal.classList.add('active');
+        };
+    }
 }
 
 function renderCheckoutSummary() {
