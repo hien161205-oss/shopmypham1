@@ -1,0 +1,267 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Chi tiết sản phẩm - Q&H SKINLAB</title>
+    <link rel="stylesheet" href="/style.css">
+</head>
+<body>
+
+    <!-- STICKY HEADER WRAPPER -->
+    <div class="sticky-header" id="stickyHeader">
+        <!-- HEADER -->
+        <header>
+            <div class="container header-main">
+                <a href="index.html" class="logo">Q&<span>H SKINLAB</span></a>
+                
+                <div class="search-container">
+                    <input type="text" placeholder="Tìm kiếm sản phẩm..." id="searchInput">
+                    <button class="search-btn">
+                        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><circle cx="11" cy="11" r="8"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line></svg>
+                    </button>
+                    <div id="searchResults" class="search-results"></div>
+                </div>
+
+                <div class="header-actions">
+                    <div class="hotline-info" id="headerHotline">
+                        Hotline: 1900 636 510
+                    </div>
+                    <div class="action-item" id="adminPanelBtn" style="display: none; color: var(--primary); font-weight: 800; border: 1px solid var(--primary); padding: 5px 10px; border-radius: 4px; cursor: pointer;">
+                        ADMIN PANEL
+                    </div>
+                    <div class="action-item" id="accountTrigger">
+                        <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path><circle cx="12" cy="7" r="4"></circle></svg>
+                        <span id="userNameDisplay" class="user-name-display"></span>
+                    </div>
+                    <div class="action-item" id="cartTrigger">
+                        <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 2L3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4Z"></path><line x1="3" y1="6" x2="21" y2="6"></line><path d="M16 10a4 4 0 0 1-8 0"></path></svg>
+                        <span class="cart-badge" id="cartBadge">0</span>
+                    </div>
+                </div>
+            </div>
+        </header>
+
+        <!-- NAVIGATION -->
+        <nav class="main-nav">
+            <div class="container">
+                <ul class="nav-list">
+                    <li class="nav-link nav-cat-trigger" style="display: flex; align-items: center; gap: 12px; width: 280px; background: #f8f9fa; padding-left: 15px; position: relative;">
+                        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="3" y1="12" x2="21" y2="12"></line><line x1="3" y1="6" x2="21" y2="6"></line><line x1="3" y1="18" x2="21" y2="18"></line></svg>
+                        DANH MỤC SẢN PHẨM
+                        <!-- SIDEBAR DROPDOWN -->
+                        <aside class="side-menu">
+                            <ul class="side-nav-list">
+                                <li class="side-nav-item" onclick="location.href='category.html?type=trang-diem'"><span>💄</span> Trang điểm</li>
+                                <li class="side-nav-item" onclick="location.href='category.html?type=skincare'"><span>🧴</span> Chăm sóc da mặt</li>
+                                <li class="side-nav-item" onclick="location.href='category.html?type=bodycare'"><span>🧼</span> Chăm sóc cơ thể</li>
+                                <li class="side-nav-item" onclick="location.href='category.html?type=haircare'"><span>💆‍♀️</span> Chăm sóc tóc & da đầu</li>
+                                <li class="side-nav-item" onclick="location.href='category.html?type=perfume'"><span>🌸</span> Nước hoa</li>
+                            </ul>
+                        </aside>
+                    </li>
+                    <li class="nav-link" onclick="location.href='category.html?type=trang-diem'">TRANG ĐIỂM <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" style="margin-left: 4px;"><path d="M6 9l6 6 6-6"></path></svg></li>
+                    <li class="nav-link" onclick="location.href='category.html?type=skincare'">CHĂM SÓC DA <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" style="margin-left: 4px;"><path d="M6 9l6 6 6-6"></path></svg></li>
+                    <li class="nav-link" onclick="location.href='category.html?type=new'">NEW</li>
+                    <li class="nav-link" onclick="location.href='category.html?type=combo'">COMBO CHĂM DA 💗</li>
+                    <li class="nav-link" onclick="location.href='magazine.html'">TẠP CHÍ LÀM ĐẸP <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" style="margin-left: 4px;"><path d="M6 9l6 6 6-6"></path></svg></li>
+                </ul>
+            </div>
+        </nav>
+    </div>
+
+    <main class="container">
+        <!-- BREADCRUMB -->
+        <div class="breadcrumb" style="margin: 20px 0; font-size: 13px; color: #666;">
+            <a href="index.html" style="color: inherit; text-decoration: none;">Trang chủ</a> / <span id="breadcrumbType" style="cursor:pointer;" onclick="location.href='category.html'">Danh mục</span> / <span id="breadcrumbName" style="color: var(--primary); font-weight: 600;">Sản phẩm</span>
+        </div>
+
+        <div class="pd-container">
+            <div class="pd-left">
+                <div class="pd-main-img">
+                    <span class="pd-discount-tag">-0%</span>
+                    <img id="mainImg" src="" alt="Sản phẩm" referrerPolicy="no-referrer">
+                </div>
+                <div class="pd-thumbs">
+                    <div class="thumb-item active"><img src="" alt="" onclick="changeMainImg(this.src)" referrerPolicy="no-referrer"></div>
+                </div>
+            </div>
+
+            <div class="pd-right">
+                <div class="pd-brand">
+                    <a href="#" class="pd-brand-link">BRAND ></a>
+                </div>
+                <h1 class="pd-name">Tên sản phẩm</h1>
+                
+                <div class="pd-meta">
+                    <div class="pd-rating">
+                        <span class="stars">★★★★★</span>
+                        <span class="count">(0)</span>
+                    </div>
+                    <div class="divider"></div>
+                    <div class="pd-sold">0 Đã bán</div>
+                </div>
+
+                <div class="pd-price-wrap">
+                    <span class="pd-current-price">0đ</span>
+                    <span class="pd-old-price">0đ</span>
+                </div>
+
+                <div class="pd-options">
+                    <div class="opt-group">
+                        <label>Số lượng:</label>
+                        <div class="qty-box">
+                            <button onclick="changeQty(-1)">-</button>
+                            <input type="number" id="pdQty" value="1" min="1">
+                            <button onclick="changeQty(1)">+</button>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="pd-actions">
+                    <button class="btn-add-cart" id="pdAddToCart">THÊM VÀO GIỎ HÀNG</button>
+                    <button class="btn-buy-now">MUA NGAY</button>
+                </div>
+
+                <div class="pd-benefits">
+                    <div class="benefit-item">
+                        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="20 6 9 17 4 12"></polyline></svg>
+                        <span>Cam kết chính hãng 100%</span>
+                    </div>
+                    <div class="benefit-item">
+                        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"></path><circle cx="12" cy="10" r="3"></circle></svg>
+                        <span>Giao hàng toàn quốc</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <!-- FOOTER -->
+    <footer>
+        <div class="container footer-grid">
+            <div class="footer-col">
+                <h2 class="logo" style="margin-bottom: 20px;">Q&<span>H SKINLAB</span></h2>
+                <p style="font-size: 13px; color: #666; line-height: 1.8;">Chuyên cung cấp các dòng mỹ phẩm chính hãng từ Hàn Quốc, Nhật Bản và các thương hiệu nổi tiếng thế giới.</p>
+            </div>
+            <div class="footer-col" id="footerHotlineWrap">
+                <h4 style="margin-bottom: 20px; font-size: 15px; font-weight: 700;">CHÍNH SÁCH</h4>
+                <ul class="footer-links">
+                    <li><a href="policy.html">Chính sách bảo mật</a></li>
+                    <li><a href="policy.html">Điều khoản sử dụng</a></li>
+                </ul>
+            </div>
+            <div class="footer-col">
+                <h4 style="margin-bottom: 20px; font-size: 15px; font-weight: 700;">HỖ TRỢ</h4>
+                <ul class="footer-links">
+                    <li><a href="contact.html">Liên hệ</a></li>
+                    <li><a href="about.html">Hệ thống cửa hàng</a></li>
+                </ul>
+            </div>
+        </div>
+    </footer>
+
+    <!-- CART DRAWER -->
+    <div class="cart-drawer" id="cartDrawer">
+        <div class="cart-header">
+            <h3 style="font-weight: 800; text-transform: uppercase;">Giỏ hàng</h3>
+            <span style="cursor: pointer; font-size: 24px;" id="closeCart">&times;</span>
+        </div>
+        <div class="cart-items" id="cartItems"></div>
+        <div style="padding-top: 20px; border-top: 1px solid var(--border);">
+            <div class="flex-between" style="font-weight: 800; font-size: 18px; margin-bottom: 20px;">
+                <span>Tổng tiền:</span>
+                <span id="cartTotal">0đ</span>
+            </div>
+            <button id="checkoutBtn" style="width: 100%; padding: 15px; background: var(--primary); border: none; font-weight: 800; cursor: pointer;">THANH TOÁN NGAY</button>
+        </div>
+    </div>
+
+    <!-- CHECKOUT OVERLAY -->
+    <div class="admin-overlay" id="checkoutOverlay" style="z-index: 11000; background: #f4f4f4;">
+        <!-- Standard Checkout Content (simplified here, but should match script.js triggers) -->
+    </div>
+
+    <!-- LOGIN MODAL -->
+    <div class="modal-overlay" id="loginModalOverlay">
+        <div class="login-modal">
+            <span class="close-modal" id="closeLogin">&times;</span>
+            <div id="loginView">
+                <h2>Đăng nhập</h2>
+                <form class="login-form" id="loginForm">
+                    <input type="text" placeholder="Email hoặc Tên đăng nhập" required>
+                    <input type="password" placeholder="Mật khẩu" required>
+                    <button type="submit" class="btn-login">Đăng nhập</button>
+                    <div class="register-section">
+                        <p>Tạo tài khoản ngay</p>
+                        <button type="button" class="btn-register" id="toRegister">Đăng ký</button>
+                    </div>
+                </form>
+            </div>
+            <div id="registerView" style="display: none;">
+                <h2>Đăng ký</h2>
+                <form class="login-form" id="registerForm">
+                    <input type="text" placeholder="Họ và tên" required>
+                    <input type="email" placeholder="Email" required>
+                    <input type="password" placeholder="Mật khẩu" required>
+                    <button type="submit" class="btn-login">Đăng ký</button>
+                    <div class="register-section">
+                        <p>Đã có tài khoản?</p>
+                        <button type="button" class="btn-register" id="toLogin">Đăng nhập</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <!-- PROFILE OVERLAY -->
+    <div class="admin-overlay" id="profileOverlay" style="z-index: 12000; background: rgba(0,0,0,0.5); display: none; align-items: center; justify-content: center;">
+        <!-- Profile Content -->
+    </div>
+
+    <div class="toast-container" id="toastContainer"></div>
+
+    <script src="/script.js"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const productId = parseInt(localStorage.getItem('selectedProductId'));
+            const product = products.find(p => p.id === productId);
+            
+            if (product) {
+                document.title = product.name + ' - Q&H SKINLAB';
+                document.querySelector('.pd-name').innerText = product.name;
+                document.querySelector('.pd-brand-link').innerText = product.brand.toUpperCase() + ' >';
+                document.querySelector('.pd-current-price').innerText = product.price.toLocaleString() + 'đ';
+                document.querySelector('.pd-old-price').innerText = product.oldPrice.toLocaleString() + 'đ';
+                document.querySelector('.pd-discount-tag').innerText = '-' + product.discount;
+                document.querySelector('.pd-sold').innerText = product.sold + ' Đã bán';
+                document.getElementById('mainImg').src = product.image;
+                document.querySelector('.thumb-item img').src = product.image;
+                document.getElementById('breadcrumbName').innerText = product.name;
+                document.getElementById('breadcrumbType').innerText = product.type;
+                document.getElementById('breadcrumbType').onclick = () => {
+                    location.href = 'category.html?type=' + product.type.toLowerCase().replace(/ /g, '-');
+                };
+            }
+
+            window.changeMainImg = (src) => {
+                document.getElementById('mainImg').src = src;
+            };
+
+            window.changeQty = (val) => {
+                const input = document.getElementById('pdQty');
+                let newQty = parseInt(input.value) + val;
+                if (newQty < 1) newQty = 1;
+                input.value = newQty;
+            };
+
+            document.getElementById('pdAddToCart')?.addEventListener('click', () => {
+                const qty = parseInt(document.getElementById('pdQty').value);
+                if (product) {
+                    addToCart(product.id, qty);
+                }
+            });
+        });
+    </script>
+</body>
+</html>
