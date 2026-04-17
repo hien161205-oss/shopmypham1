@@ -1441,14 +1441,6 @@ function initEvents() {
         adminBtn.onclick = () => window.location.href = 'admin.html';
     }
 
-    const accountTrigger = document.getElementById('accountTrigger');
-    if (accountTrigger) {
-        accountTrigger.onclick = () => {
-            const modal = document.getElementById('loginModalOverlay');
-            if (modal) modal.classList.add('active');
-        };
-    }
-
     // Kích hoạt nút Mua ngay trên trang chi tiết sản phẩm
     const buyNowBtn = document.querySelector('.btn-buy-now');
     if (buyNowBtn) {
