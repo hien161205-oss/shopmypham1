@@ -299,6 +299,55 @@ specs: {
 },
 sold: 3400
 }
+,
+{
+id: 14,
+name: 'Xịt Dưỡng Tóc Ha\'sol Hỗ Trợ Mọc Tóc Anagen Active Tonic 100ml',
+brand: 'Ha\'sol',
+category: 'cham-soc-toc',
+price: 455000,
+oldPrice: 650000,
+discount: '30%',
+image: 'https://product.hstatic.net/1000006063/product/xit_duong_toc_ha_sol_ho_tro_moc_toc_anagen_active_tonic_100ml_1024x1024.jpg',
+images: [
+'https://product.hstatic.net/1000006063/product/xit_duong_toc_ha_sol_ho_tro_moc_toc_anagen_active_tonic_100ml_1024x1024.jpg'
+],
+description: 'Xịt dưỡng tóc Ha\'sol Anagen Active Tonic giúp cải thiện tình trạng rụng tóc, kích thích mọc tóc và nuôi dưỡng da đầu khỏe mạnh.',
+details: 'Sản phẩm đến từ thương hiệu Ha\'sol Hàn Quốc, chuyên biệt cho da đầu yếu và tóc dễ rụng. Với chiết xuất từ các loại thảo dược quý hiếm, xịt dưỡng giúp cung cấp dưỡng chất sâu vào nang tóc, giảm nhiệt độ da đầu và tạo môi trường lý tưởng cho tóc phát triển dày mượt.',
+specs: {
+'Tên sản phẩm': 'Ha\'sol Anagen Active Tonic',
+'Dung tích': '100ml',
+'Thương hiệu': 'Ha\'sol (Hàn Quốc)',
+'Nơi sản xuất': 'Hàn Quốc',
+'Hạn sử dụng': '3 năm kể từ ngày sản xuất',
+'Đối tượng': 'Người có tóc thưa, mỏng, rụng tóc nhiều'
+},
+sold: 520
+},
+{
+id: 15,
+name: 'Kem Ủ Tóc Dove Cao Cấp Phục Hồi Hư Tổn 180ml',
+brand: 'Dove',
+category: 'cham-soc-toc',
+price: 159000,
+oldPrice: 215000,
+discount: '26%',
+image: 'https://product.hstatic.net/1000006063/product/kem_u_toc_dove_cao_cap_phuc_hoi_hu_ton_180ml_1024x1024.jpg',
+images: [
+'https://product.hstatic.net/1000006063/product/kem_u_toc_dove_cao_cap_phuc_hoi_hu_ton_180ml_1024x1024.jpg'
+],
+description: 'Kem ủ tóc Dove cao cấp giúp phục hồi hư tổn nặng, mang lại mái tóc suôn mượt, chắc khỏe ngay từ lần sử dụng đầu tiên.',
+details: 'Kem ủ tóc Dove Intensive Repair là giải pháp phục hồi chuyên sâu cho tóc khô xơ và hư tổn do tác động của nhiệt hoặc hóa chất. Công nghệ định vị hư tổn chính xác giúp nuôi dưỡng sợi tóc từ sâu bên trong, ngăn ngừa chẻ ngọn và gãy rụng.',
+specs: {
+'Tên sản phẩm': 'Dove Intensive Repair Mask',
+'Dung tích': '180ml',
+'Thương hiệu': 'Dove (Hà Lan)',
+'Nơi sản xuất': 'Việt Nam',
+'Hạn sử dụng': '3 năm kể từ ngày sản xuất',
+'Đối tượng': 'Tóc khô xơ, hư tổn, tóc sau khi làm hóa chất'
+},
+sold: 1250
+}
 ];
 
 // --- SYNC PRODUCTS WITH LOCALSTORAGE ---
