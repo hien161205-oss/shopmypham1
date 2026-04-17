@@ -246,6 +246,54 @@ specs: {
 'Đối tượng': 'Mọi loại da'
 },
 sold: 850
+},
+{
+id: 12,
+name: 'Nước Dưỡng Tóc Tinh Dầu Bưởi Cocoon Pomelo Hair Tonic 140ml',
+brand: 'Cocoon',
+category: 'haircare',
+price: 158000,
+oldPrice: 185000,
+discount: '15%',
+image: 'https://product.hstatic.net/1000006063/product/pomelo_hair_tonic_140ml_408226084e564883906a599692482312_1024x1024.jpg',
+images: [
+'https://product.hstatic.net/1000006063/product/pomelo_hair_tonic_140ml_408226084e564883906a599692482312_1024x1024.jpg'
+],
+description: 'Nước dưỡng tóc tinh dầu bưởi Cocoon giúp giảm rụng tóc, kích thích tóc mọc nhanh và nuôi dưỡng tóc chắc khỏe từ gốc đến ngọn.',
+details: 'Nước dưỡng tóc tinh dầu bưởi Cocoon Pomelo Hair Tonic là sản phẩm chăm sóc tóc từ thương hiệu mỹ phẩm thuần chay Cocoon của Việt Nam. Với sự kết hợp giữa tinh dầu bưởi nguyên chất, Xylishine, Baicapil và Vitamin B5, sản phẩm mang đến giải pháp hiệu quả cho tình trạng tóc mỏng, dễ rụng.',
+specs: {
+'Tên sản phẩm': 'Cocoon Pomelo Hair Tonic',
+'Dung tích': '140ml',
+'Thương hiệu': 'Cocoon (Việt Nam)',
+'Nơi sản xuất': 'Việt Nam',
+'Hạn sử dụng': '3 năm kể từ ngày sản xuất',
+'Đối tượng': 'Mọi loại tóc, đặc biệt là tóc yếu, dễ rụng'
+},
+sold: 1250
+},
+{
+id: 13,
+name: 'Dầu Dưỡng Tóc L\'Oreal Elseve Extraordinary Oil 100ml',
+brand: 'L\'Oreal',
+category: 'haircare',
+price: 199000,
+oldPrice: 259000,
+discount: '23%',
+image: 'https://product.hstatic.net/1000006063/product/dau_duong_toc_l_oreal_elseve_extraordinary_oil_100ml_1024x1024.jpg',
+images: [
+'https://product.hstatic.net/1000006063/product/dau_duong_toc_l_oreal_elseve_extraordinary_oil_100ml_1024x1024.jpg'
+],
+description: 'Dầu dưỡng tóc L\'Oreal Paris Elseve Extraordinary Oil với chiết xuất từ 6 loại hoa quý giúp nuôi dưỡng tóc mềm mượt, bóng khỏe.',
+details: 'Dầu dưỡng tóc L\'Oreal Paris Elseve Extraordinary Oil là sản phẩm dưỡng tóc đa năng, cung cấp dưỡng chất sâu cho tóc khô xơ, hư tổn. Với kết cấu mỏng nhẹ, thấm nhanh, sản phẩm giúp tóc suôn mượt tức thì mà không gây bết dính.',
+specs: {
+'Tên sản phẩm': 'L\'Oreal Elseve Extraordinary Oil',
+'Dung tích': '100ml',
+'Thương hiệu': 'L\'Oreal (Pháp)',
+'Nơi sản xuất': 'Indonesia',
+'Hạn sử dụng': '3 năm kể từ ngày sản xuất',
+'Đối tượng': 'Tóc khô xơ, hư tổn'
+},
+sold: 3400
 }
 ];
 
