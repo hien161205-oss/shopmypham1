@@ -251,13 +251,15 @@ sold: 850
 id: 12,
 name: 'Nước Dưỡng Tóc Tinh Dầu Bưởi Cocoon Pomelo Hair Tonic 140ml',
 brand: 'Cocoon',
-category: 'haircare',
+category: 'cham-soc-toc',
 price: 158000,
 oldPrice: 185000,
 discount: '15%',
-image: 'https://product.hstatic.net/1000006063/product/pomelo_hair_tonic_140ml_408226084e564883906a599692482312_1024x1024.jpg',
+image: 'https://product.hstatic.net/1000006063/product/dai_dien_dce04d99812b47ada407478149e79841_1024x1024.jpg',
 images: [
-'https://product.hstatic.net/1000006063/product/pomelo_hair_tonic_140ml_408226084e564883906a599692482312_1024x1024.jpg'
+'https://product.hstatic.net/1000006063/product/dai_dien_dce04d99812b47ada407478149e79841_1024x1024.jpg',
+'https://product.hstatic.net/1000006063/product/vn-11134207-7qukw-lgghts6etzze18_4e025266eb46464381ed1214c2a30f95.jfif',
+'https://product.hstatic.net/1000006063/product/vn-11134207-7r98o-lwqnel1sckih70_594a1032dac54224bc4c246808d12d51_1024x1024.jpg'
 ],
 description: 'Nước dưỡng tóc tinh dầu bưởi Cocoon giúp giảm rụng tóc, kích thích tóc mọc nhanh và nuôi dưỡng tóc chắc khỏe từ gốc đến ngọn.',
 details: 'Nước dưỡng tóc tinh dầu bưởi Cocoon Pomelo Hair Tonic là sản phẩm chăm sóc tóc từ thương hiệu mỹ phẩm thuần chay Cocoon của Việt Nam. Với sự kết hợp giữa tinh dầu bưởi nguyên chất, Xylishine, Baicapil và Vitamin B5, sản phẩm mang đến giải pháp hiệu quả cho tình trạng tóc mỏng, dễ rụng.',
@@ -275,13 +277,15 @@ sold: 1250
 id: 13,
 name: 'Dầu Dưỡng Tóc L\'Oreal Elseve Extraordinary Oil 100ml',
 brand: 'L\'Oreal',
-category: 'haircare',
+category: 'cham-soc-toc',
 price: 199000,
 oldPrice: 259000,
 discount: '23%',
-image: 'https://product.hstatic.net/1000006063/product/dau_duong_toc_l_oreal_elseve_extraordinary_oil_100ml_1024x1024.jpg',
+image: 'https://product.hstatic.net/1000006063/product/l_oreal_elseve_extraordinary_oil_serum_100ml_007ce77196394a61be72d344439c24d9_1024x1024.jpg',
 images: [
-'https://product.hstatic.net/1000006063/product/dau_duong_toc_l_oreal_elseve_extraordinary_oil_100ml_1024x1024.jpg'
+'https://product.hstatic.net/1000006063/product/l_oreal_elseve_extraordinary_oil_serum_100ml_007ce77196394a61be72d344439c24d9_1024x1024.jpg',
+'https://product.hstatic.net/1000006063/product/vn-11134207-7qukw-ley5ppsqb3iia0_9300503da8654f0ebaddd51a311ebe45_1024x1024.jpg',
+'https://product.hstatic.net/1000006063/product/vn-11134207-7qukw-ley5ppspltaiae_24e9445daa844ef189eb09a870b7dfa8_1024x1024.jpg'
 ],
 description: 'Dầu dưỡng tóc L\'Oreal Paris Elseve Extraordinary Oil với chiết xuất từ 6 loại hoa quý giúp nuôi dưỡng tóc mềm mượt, bóng khỏe.',
 details: 'Dầu dưỡng tóc L\'Oreal Paris Elseve Extraordinary Oil là sản phẩm dưỡng tóc đa năng, cung cấp dưỡng chất sâu cho tóc khô xơ, hư tổn. Với kết cấu mỏng nhẹ, thấm nhanh, sản phẩm giúp tóc suôn mượt tức thì mà không gây bết dính.',
@@ -495,7 +499,19 @@ function handleCategoryPage() {
     } else if (type === 'combo') {
         filtered = products.filter(p => p.category === 'combo');
     } else if (type !== 'all' && type !== 'brands' && type !== 'magazine') {
-        filtered = products.filter(p => p.category === type || p.category.startsWith(type + '-'));
+        // Hỗ trợ lọc cho cả slug tiếng Anh (từ URL) và tên category tiếng Việt (trong data)
+        const typeMapping = {
+            'skincare': 'cham-soc-da',
+            'haircare': 'cham-soc-toc',
+            'bodycare': 'cham-soc-body'
+        };
+        const targetType = typeMapping[type] || type;
+        filtered = products.filter(p => 
+            p.category === type || 
+            p.category === targetType || 
+            p.category.startsWith(type + '-') || 
+            p.category.startsWith(targetType + '-')
+        );
     }
 
     // Initial render
@@ -736,7 +752,7 @@ function renderBodyCareProducts() {
 function renderHairCareProducts() {
     const grid = document.getElementById('hairCareGrid');
     if (!grid) return;
-    const items = products.filter(p => p.category === 'haircare').slice(0, 5);
+    const items = products.filter(p => p.category === 'haircare' || p.category === 'cham-soc-toc').slice(0, 5);
     grid.innerHTML = items.map(p => createProductCard(p)).join('');
 }
 
