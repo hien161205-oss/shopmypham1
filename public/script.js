@@ -52,7 +52,7 @@ async function safeFetch(url, options = {}) {
 
 const DEFAULT_PRODUCTS = [
 {
-  _id: '65f1a2b3c4d5e6f7a8b9c001',
+  id: 1,
 name: '[NEW DEW] Son Tint Bóng Merzy Dạng Thạch, Bền Màu, Lâu Trôi Cho Đôi Môi Căng Mọng, Ẩm Mịn The Watery Dew Tint',
 brand: 'Merzy',
 category: 'trang-diem-son-moi',
@@ -78,7 +78,7 @@ specs: {
 sold: 25200
 },
 {
-_id: '65f1a2b3c4d5e6f7a8b9c002',
+id: 2,
 name: 'Serum Chống Nắng B.O.M Dưỡng Ẩm Water Glow Sun Serum SPF50+PA++++ 50g',
 brand: 'B.O.M',
 category: 'cham-soc-da',
@@ -105,7 +105,7 @@ specs: {
 sold: 1500
 },
 {
-_id: '65f1a2b3c4d5e6f7a8b9c003',
+id: 3,
 name: 'Kem Chống Nắng La Roche-Posay Dạng Sữa, Bảo Vệ Da Khỏi UVA Dài, Ngăn Ngừa Thâm Nám Anthelios UVMune 400 Invisible Fluid SPF50+ 50ml',
 brand: 'La Roche-Posay',
 category: 'cham-soc-da',
@@ -131,7 +131,7 @@ specs: {
 },
 },
 {
-_id: '65f1a2b3c4d5e6f7a8b9c004',
+id: 4,
 name: 'Kem Chống Nắng CLINICOS Truth Sunscreen SPF 50+ PA++++',
 brand: 'CLINICOS',
 category: 'cham-soc-da',
@@ -158,7 +158,7 @@ specs: {
 sold: 33
 },
 {
-_id: '65f1a2b3c4d5e6f7a8b9c005',
+id: 5,
 name: 'Kem Chống Nắng Caryophy Nâng Tông Smart Sunscreen Tone Up SPF50+/PA+++ 50ml',
 brand: 'CARYOPHY',
 category: 'cham-soc-da',
@@ -185,7 +185,7 @@ specs: {
 sold: 2600
 },
 {
-_id: '65f1a2b3c4d5e6f7a8b9c008',
+id: 8,
 name: 'Kem Chống Nắng Nâng Tone, Kiềm Dầu, Dưỡng Ẩm Make P:rem UV Defense Me Sun Cream SPF50+/PA++++ 50ml',
 brand: 'Make P:rem',
 category: 'cham-soc-da',
@@ -211,7 +211,7 @@ specs: {
 sold: 351
 },
 {
-_id: '65f1a2b3c4d5e6f7a8b9c009',
+id: 9,
 name: 'Kem Chống Nắng Acnes Hỗ Trợ Giảm Mụn Blemish Control Sunscreen 50g',
 brand: 'Acnes',
 category: 'cham-soc-da',
@@ -238,7 +238,7 @@ specs: {
 sold: 24
 },
 {
-_id: '65f1a2b3c4d5e6f7a8b9c010',
+id: 10,
 name: 'Gel Chống Nắng Anessa Dưỡng Ẩm, Bảo Vệ Da Perfect UV Sunscreen Skincare Gel SPF50+/PA++++ 90g',
 brand: 'Anessa',
 category: 'cham-soc-da',
@@ -265,7 +265,7 @@ specs: {
 sold: 517
 },
 {
-_id: '65f1a2b3c4d5e6f7a8b9c011',
+id: 11,
 name: 'Miếng Pad Dưỡng Ẩm, Làm Dịu Da Emmié by HappySkin Semi-Gel Mask Pad 120ml (60 miếng)',
 brand: 'Emmié by HappySkin',
 category: 'cham-soc-da',
@@ -292,7 +292,7 @@ specs: {
 sold: 850
 },
 {
-_id: '65f1a2b3c4d5e6f7a8b9c012',
+id: 12,
 name: 'Nước Dưỡng Tóc Tinh Dầu Bưởi Cocoon Pomelo Hair Tonic 140ml',
 brand: 'Cocoon',
 category: 'cham-soc-toc',
