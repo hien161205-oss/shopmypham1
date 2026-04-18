@@ -6,9 +6,14 @@ const app = express();
 app.use(cors());
 app.use(express.json());
 
-// 1. Phục vụ tệp tĩnh: Ưu tiên các file ở gốc (HTML), sau đó là thư mục public (CSS/JS)
-app.use(express.static(__dirname));
+// 1. Cấu hình phục vụ tệp tĩnh thông minh
+// - Ưu tiên tìm trong thư mục 'public' trước (cho style.css, script.js)
+// - Sau đó tìm ở thư mục gốc (cho các file .html)
+// - Tự động thêm đuôi .html nếu người dùng không gõ (ví dụ: /product-detail -> product-detail.html)
 app.use(express.static(path.join(__dirname, 'public')));
+app.use(express.static(__dirname, {
+    extensions: ['html']
+}));
 
 // --- MOCK API ROUTES (Dùng cho bản không MongoDB) ---
 app.get('/api/products', (req, res) => {
