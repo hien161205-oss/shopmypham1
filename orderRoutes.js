@@ -65,7 +65,7 @@ router.post('/', async (req, res, next) => {
             // Tìm sản phẩm thật trong DB dựa trên ID
             const dbProduct = await Product.findById(item.product);
             if (!dbProduct) {
-                return res.status(404).json({ message: `Sản phẩm "${item.name || 'không xác định'}" (ID: ${item.product}) hiện không còn tồn tại trong kho. Vui lòng cập nhật lại giỏ hàng.` });
+                return res.status(404).json({ message: `Sản phẩm "${item.name || 'không xác định'}" chưa được kích hoạt thanh toán. Vui lòng sử dụng sản phẩm từ trang Admin.` });
             }
 
             // Kiểm tra tồn kho

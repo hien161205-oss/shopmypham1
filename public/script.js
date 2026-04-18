@@ -238,7 +238,7 @@ specs: {
 sold: 24
 },
 {
-id: 10,
+_id: '65f1a2b3c4d5e6f7a8b9c010',
 name: 'Gel Chống Nắng Anessa Dưỡng Ẩm, Bảo Vệ Da Perfect UV Sunscreen Skincare Gel SPF50+/PA++++ 90g',
 brand: 'Anessa',
 category: 'cham-soc-da',
@@ -265,7 +265,7 @@ specs: {
 sold: 517
 },
 {
-id: 11,
+_id: '65f1a2b3c4d5e6f7a8b9c011',
 name: 'Miếng Pad Dưỡng Ẩm, Làm Dịu Da Emmié by HappySkin Semi-Gel Mask Pad 120ml (60 miếng)',
 brand: 'Emmié by HappySkin',
 category: 'cham-soc-da',
@@ -292,7 +292,7 @@ specs: {
 sold: 850
 },
 {
-id: 12,
+_id: '65f1a2b3c4d5e6f7a8b9c012',
 name: 'Nước Dưỡng Tóc Tinh Dầu Bưởi Cocoon Pomelo Hair Tonic 140ml',
 brand: 'Cocoon',
 category: 'cham-soc-toc',
@@ -1549,8 +1549,15 @@ function initEvents() {
                 return;
             }
             
-            // Kiểm tra xem có sản phẩm mẫu (ID là số) trong giỏ hàng không
-            const hasMockProduct = cart.some(item => !item._id);
+            // Kiểm tra xem ID có phải là ObjectId hợp lệ (24 ký tự hex) không
+            // Nếu ID là số (như 10, 11) hoặc không đủ 24 ký tự thì coi là dữ liệu mẫu
+            const isValidObjectId = (id) => /^[0-9a-fA-F]{24}$/.test(id);
+            
+            const hasMockProduct = cart.some(item => {
+                const id = (item._id || item.id || "").toString();
+                return !isValidObjectId(id);
+            });
+
             if (hasMockProduct) {
                 showToast('Giỏ hàng chứa sản phẩm mẫu. Vui lòng xóa và chọn sản phẩm từ hệ thống!');
                 return;
