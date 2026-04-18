@@ -737,9 +737,45 @@
         let orders = JSON.parse(localStorage.getItem('qh_orders')) || [];
         let categories = JSON.parse(localStorage.getItem('qh_categories')) || DEFAULT_CATEGORIES;
 
-        const API_BASE_URL = window.location.origin + '/api';
+        const API_BASE_URL = (window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1')
+            ? 'http://localhost:5000/api'
+            : window.location.origin + '/api';
+            
         const token = localStorage.getItem('qh_token');
         const authHeader = { 'Authorization': `Bearer ${token}` };
+
+        /**
+         * Hàm fetch API an toàn cho Admin
+         */
+        async function safeFetch(url, options = {}) {
+            const response = await fetch(url, options);
+            const contentType = response.headers.get("content-type") || "";
+
+            if (!response.ok) {
+                let errorMessage = `Lỗi hệ thống: ${response.status}`;
+                if (contentType.includes("application/json")) {
+                    const errorData = await response.json();
+                    errorMessage = errorData.message || errorMessage;
+                } else {
+                    const errorText = await response.text();
+                    console.error(`Admin API Error [${response.status}] tại ${url}:`, errorText.substring(0, 500));
+                    errorMessage = contentType.includes("text/html") 
+                        ? "Đường dẫn API không chính xác hoặc Server trả về trang HTML 404." 
+                        : (errorText || errorMessage);
+                }
+                throw new Error(errorMessage);
+            }
+
+            if (contentType.includes("application/json")) {
+                return await response.json();
+            }
+
+            if (contentType.includes("text/html")) {
+                throw new Error("Dữ liệu không hợp lệ: Nhận được trang HTML thay vì JSON API.");
+            }
+
+            return await response.text();
+        }
 
         // --- ADMIN LOGIN PROTECT VIA BACKEND (KHÔNG DÙNG SESSIONSTORAGE) ---
         async function checkAdminAuth() {
@@ -748,9 +784,9 @@
                 return;
             }
             try {
-                const res = await fetch(`${API_BASE_URL}/users/admin-check`, { headers: authHeader });
-                if (!res.ok) window.location.href = 'index.html';
+                await safeFetch(`${API_BASE_URL}/users/admin-check`, { headers: authHeader });
             } catch (err) {
+                console.error("Xác thực Admin thất bại:", err.message);
                 window.location.href = 'index.html';
             }
         }
@@ -758,24 +794,19 @@
 
         async function loadAdminData() {
             try {
-                const [prodRes, orderRes] = await Promise.all([
-                    fetch(`${API_BASE_URL}/products`),
-                    fetch(`${API_BASE_URL}/orders`, { headers: authHeader })
+                const [prodData, orderData] = await Promise.all([
+                    safeFetch(`${API_BASE_URL}/products`),
+                    safeFetch(`${API_BASE_URL}/orders`, { headers: authHeader })
                 ]);
-
-                if (!prodRes.ok || !orderRes.ok) {
-                    throw new Error("Không thể lấy dữ liệu từ Server (HTTP " + (prodRes.status || orderRes.status) + ")");
-                }
-                
-                products = await prodRes.json();
-                orders = await orderRes.json();
+                products = prodData;
+                orders = orderData;
                 
                 renderDashboard();
                 renderProducts();
                 renderOrders();
                 renderCategories();
             } catch (err) {
-                showToast('Lỗi tải dữ liệu admin từ server');
+                showToast('Lỗi tải dữ liệu: ' + err.message);
             }
         }
 

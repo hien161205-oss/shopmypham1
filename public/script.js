@@ -12,6 +12,44 @@ let currentUserName = localStorage.getItem('qh_userName') || '';
 let products = [];
 let cart = JSON.parse(localStorage.getItem('qh_cart')) || [];
 
+/**
+ * Hàm fetch API an toàn: Kiểm tra response.ok, log text() khi lỗi và chỉ parse JSON khi hợp lệ
+ */
+async function safeFetch(url, options = {}) {
+    const response = await fetch(url, options);
+    const contentType = response.headers.get("content-type") || "";
+
+    if (!response.ok) {
+        let errorMessage = `Yêu cầu thất bại: ${response.status}`;
+        if (contentType.includes("application/json")) {
+            const errorData = await response.json();
+            errorMessage = errorData.message || errorMessage;
+        } else {
+            const errorText = await response.text();
+            console.error(`API Error [${response.status}] tại ${url}:`, errorText.substring(0, 500));
+            // Nếu trả về HTML (trang lỗi mặc định của host), hiển thị thông báo thân thiện hơn
+            if (contentType.includes("text/html")) {
+                errorMessage = `Lỗi hệ thống (${response.status}). Vui lòng kiểm tra lại endpoint API.`;
+            } else {
+                errorMessage = errorText || errorMessage;
+            }
+        }
+        throw new Error(errorMessage);
+    }
+
+    if (contentType.includes("application/json")) {
+        return await response.json();
+    }
+    
+    // Chống gọi nhầm file tĩnh (HTML/JS) trả về 200 OK nhưng sai định dạng mong muốn
+    if (contentType.includes("text/html")) {
+        console.warn(`Cảnh báo: Nhận phản hồi HTML thay vì JSON tại ${url}. Kiểm tra cấu hình router.`);
+        throw new Error("Phản hồi không hợp lệ từ máy chủ (HTML thay vì JSON)");
+    }
+
+    return await response.text();
+}
+
 const DEFAULT_PRODUCTS = [
 {
   id: 1,
@@ -529,22 +567,11 @@ sold: 1250
 
 async function loadProductsFromServer() {
     try {
-        const res = await fetch(`${API_BASE_URL}/products`);
-        
-        if (!res.ok) {
-            throw new Error(`Server trả về lỗi ${res.status}`);
-        }
-
-        const contentType = res.headers.get("content-type");
-        if (!contentType || !contentType.includes("application/json")) {
-            throw new TypeError("Phản hồi từ server không phải là JSON hợp lệ!");
-        }
-
-        const data = await res.json();
-        products = (data && data.length > 0) ? data : DEFAULT_PRODUCTS;
+        const data = await safeFetch(`${API_BASE_URL}/products`);
+        products = (data && Array.isArray(data) && data.length > 0) ? data : DEFAULT_PRODUCTS;
         console.log('Dữ liệu sản phẩm từ Server:', products.length);
     } catch (error) {
-        console.error('Lỗi API:', error.message, 'Sử dụng dữ liệu mặc định.');
+        console.warn('Sử dụng dữ liệu mặc định do lỗi tải:', error.message);
         products = DEFAULT_PRODUCTS;
     }
     window.products = products;
@@ -1618,7 +1645,7 @@ function initEvents() {
 
                 try {
                     // GỬI ĐƠN HÀNG LÊN BACKEND ĐỂ XÁC THỰC GIÁ VÀ LƯU DATABASE
-                    const response = await fetch(`${API_BASE_URL}/orders`, {
+                    const createdOrder = await safeFetch(`${API_BASE_URL}/orders`, {
                         method: 'POST',
                         headers: {
                             'Content-Type': 'application/json',
@@ -1633,18 +1660,6 @@ function initEvents() {
                             paymentMethod: payment
                         })
                     });
-
-                    if (!response.ok) {
-                        const errorData = await response.json().catch(() => ({ message: 'Lỗi đặt hàng' }));
-                        throw new Error(errorData.message);
-                    }
-
-                    const contentType = response.headers.get("content-type");
-                    if (!contentType || !contentType.includes("application/json")) {
-                        throw new Error("Server không trả về dữ liệu đơn hàng dạng JSON");
-                    }
-
-                    const createdOrder = await response.json();
 
                     const finalizeOrderUI = (order) => {
                         if (!isDirectCheckout) {
