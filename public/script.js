@@ -3,7 +3,10 @@
  */
 
 /// 1. DATA
-const API_BASE_URL = window.location.origin + '/api';
+// Tự động nhận diện: Nếu chạy ở máy thì gọi port 5000, nếu up Vercel thì gọi qua path /api
+const API_BASE_URL = (window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1')
+    ? 'http://localhost:5000/api'
+    : window.location.origin + '/api';
 let isLoggedIn = !!localStorage.getItem('qh_token');
 let currentUserName = localStorage.getItem('qh_userName') || '';
 let products = [];
