@@ -894,8 +894,9 @@ body {
 .hot-cat-img-wrap img {
     width: 100%;
     height: 100%;
-    object-fit: none; /* Giữ nguyên kích thước để ta chọn vùng hiển thị */
-    transform: scale(0.6); /* Thu nhỏ icon lại cho vừa vòng tròn */
+    object-fit: none;
+    transform: scale(0.55); /* Cân chỉnh lại tỷ lệ icon */
+    image-rendering: -webkit-optimize-contrast; /* Làm nét icon */
 }
 
 .hot-cat-item span {

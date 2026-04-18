@@ -826,8 +826,6 @@ function renderHairCareProducts() {
     const grid = document.getElementById('hairCareGrid');
     if (!grid) return;
     const items = products.filter(p => p.category === 'haircare' || p.category === 'cham-soc-toc').slice(0, 5);
-    const link = document.getElementById('countHairCare');
-    if (link) link.innerText = `Xem tất cả ${products.filter(p => p.category === 'haircare' || p.category === 'cham-soc-toc').length} sản phẩm →`;
     grid.innerHTML = items.map(p => createProductCard(p)).join('');
 }
 
