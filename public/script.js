@@ -1878,10 +1878,12 @@ function updateUserDisplay(name) {
 
     // Giải mã JWT Payload để kiểm tra quyền hiển thị nút Admin trên UI
     const token = localStorage.getItem('qh_token');
+    const base64DecodeUnicode = (str) => decodeURIComponent(atob(str).split('').map(c => '%' + ('00' + c.charCodeAt(0).toString(16)).slice(-2)).join(''));
+    
     let isAdmin = false;
     if (token) {
         try {
-            const payload = JSON.parse(atob(token.split('.')[1]));
+            const payload = JSON.parse(base64DecodeUnicode(token.split('.')[1]));
             isAdmin = payload.isAdmin === true;
         } catch (e) { isAdmin = false; }
     }
