@@ -444,9 +444,9 @@ document.addEventListener('DOMContentLoaded', () => {
     if (document.getElementById('maskGrid')) renderMaskProducts();
     if (document.getElementById('localBrandGrid')) renderLocalBrandProducts();
     if (document.getElementById('skinCareSectionGrid')) renderSkinCareSectionProducts();
-    if (document.getElementById('bodyCareGrid')) renderBodyCareProducts();
     if (document.getElementById('hairCareGrid')) renderHairCareProducts();
     if (document.getElementById('makeupSectionGrid')) renderMakeupSectionProducts();
+    updateHomeSectionCounts();
     
     updateCartUI();
     startSlider();
@@ -768,6 +768,8 @@ function renderMakeupProducts() {
     if (!grid) return;
 
     const makeupItems = products.filter(p => p.category.startsWith('trang-diem')).slice(0, 5);
+    const link = document.getElementById('countMakeupHQ');
+    if (link) link.innerText = `Xem tất cả ${products.filter(p => p.category.startsWith('trang-diem')).length} sản phẩm →`;
     grid.innerHTML = makeupItems.map(p => createProductCard(p)).join('');
 }
 
@@ -776,6 +778,8 @@ function renderSunCareProducts() {
     if (!grid) return;
     
     const sunCareItems = products.filter(p => p.name.toLowerCase().includes('sun') || p.name.toLowerCase().includes('chống nắng')).slice(0, 5);
+    const link = document.getElementById('countSunCare');
+    if (link) link.innerText = `Xem tất cả ${products.filter(p => p.name.toLowerCase().includes('sun') || p.name.toLowerCase().includes('chống nắng')).length} sản phẩm →`;
     grid.innerHTML = sunCareItems.map(p => createProductCard(p)).join('');
 }
 
@@ -784,6 +788,8 @@ function renderMaskProducts() {
     if (!grid) return;
     
     const maskItems = products.filter(p => p.name.toLowerCase().includes('mask') || p.name.toLowerCase().includes('mặt nạ') || p.name.toLowerCase().includes('pad')).slice(0, 5);
+    const link = document.getElementById('countMask');
+    if (link) link.innerText = `Xem tất cả ${products.filter(p => p.name.toLowerCase().includes('mask') || p.name.toLowerCase().includes('mặt nạ') || p.name.toLowerCase().includes('pad')).length} sản phẩm →`;
     grid.innerHTML = maskItems.map(p => createProductCard(p)).join('');
 }
 
@@ -793,6 +799,8 @@ function renderLocalBrandProducts() {
     
     // Updated local brands list
     const localItems = products.filter(p => ['Lemonade', 'Cocoon', 'CLINICOS', 'Emmié by HappySkin'].includes(p.brand)).slice(0, 5);
+    const link = document.getElementById('countLocalBrand');
+    if (link) link.innerText = `Xem tất cả ${products.filter(p => ['Lemonade', 'Cocoon', 'CLINICOS', 'Emmié by HappySkin'].includes(p.brand)).length} sản phẩm →`;
     grid.innerHTML = localItems.map(p => createProductCard(p)).join('');
 }
 
@@ -802,6 +810,8 @@ function renderSkinCareSectionProducts() {
     
     // Support both old and new category naming
     const skincareItems = products.filter(p => p.category === 'skincare' || p.category === 'cham-soc-da').slice(0, 5);
+    const link = document.getElementById('countSkinCare');
+    if (link) link.innerText = `Xem tất cả ${products.filter(p => p.category === 'skincare' || p.category === 'cham-soc-da').length} sản phẩm →`;
     grid.innerHTML = skincareItems.map(p => createProductCard(p)).join('');
 }
 
@@ -816,6 +826,8 @@ function renderHairCareProducts() {
     const grid = document.getElementById('hairCareGrid');
     if (!grid) return;
     const items = products.filter(p => p.category === 'haircare' || p.category === 'cham-soc-toc').slice(0, 5);
+    const link = document.getElementById('countHairCare');
+    if (link) link.innerText = `Xem tất cả ${products.filter(p => p.category === 'haircare' || p.category === 'cham-soc-toc').length} sản phẩm →`;
     grid.innerHTML = items.map(p => createProductCard(p)).join('');
 }
 
@@ -823,7 +835,30 @@ function renderMakeupSectionProducts() {
     const grid = document.getElementById('makeupSectionGrid');
     if (!grid) return;
     const items = products.filter(p => p.category.startsWith('trang-diem')).slice(0, 5);
+    const link = document.getElementById('countMakeupBottom');
+    if (link) link.innerText = `Xem tất cả ${products.filter(p => p.category.startsWith('trang-diem')).length} sản phẩm →`;
     grid.innerHTML = items.map(p => createProductCard(p)).join('');
+}
+
+function updateHomeSectionCounts() {
+    // Hàm này đảm bảo các nhãn số lượng được cập nhật ngay cả khi không render lại grid
+    const mappings = [
+        { id: 'countMakeupHQ', filter: p => p.category.startsWith('trang-diem') },
+        { id: 'countSunCare', filter: p => p.name.toLowerCase().includes('sun') || p.name.toLowerCase().includes('chống nắng') },
+        { id: 'countMask', filter: p => p.name.toLowerCase().includes('mask') || p.name.toLowerCase().includes('mặt nạ') || p.name.toLowerCase().includes('pad') },
+        { id: 'countLocalBrand', filter: p => ['Lemonade', 'Cocoon', 'CLINICOS', 'Emmié by HappySkin'].includes(p.brand) },
+        { id: 'countSkinCare', filter: p => p.category === 'skincare' || p.category === 'cham-soc-da' },
+        { id: 'countHairCare', filter: p => p.category === 'haircare' || p.category === 'cham-soc-toc' },
+        { id: 'countMakeupBottom', filter: p => p.category.startsWith('trang-diem') }
+    ];
+    
+    mappings.forEach(m => {
+        const el = document.getElementById(m.id);
+        if (el) {
+            const count = products.filter(m.filter).length;
+            el.innerText = `Xem tất cả ${count} sản phẩm →`;
+        }
+    });
 }
 
 function createProductCard(p, isFlashSale = false) {
