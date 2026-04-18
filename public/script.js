@@ -1576,8 +1576,8 @@ function initEvents() {
         });
     }
 
-    // Initialize Checkout Form Listeners
-    function initCheckoutListeners() {
+    // Đã đưa ra ngoài scope của initEvents để gọi được từ injectRequiredElements
+    window.initCheckoutListeners = function() {
         const checkoutForm = document.getElementById('checkoutForm');
         const closeCheckoutBtn = document.getElementById('closeCheckoutBtn');
         const checkoutOverlay = document.getElementById('checkoutOverlay');

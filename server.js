@@ -10,6 +10,18 @@ app.use(express.json());
 app.use(express.static('public'));
 app.use(express.static(__dirname)); 
 
+// --- MOCK API ROUTES (Dùng cho bản không MongoDB) ---
+app.get('/api/products', (req, res) => {
+    res.json([]); // Trả về mảng rỗng để Frontend dùng DEFAULT_PRODUCTS
+});
+
+app.post('/api/orders', (req, res) => {
+    const { items } = req.body;
+    const totalPrice = items.reduce((sum, i) => sum + (i.price || 0) * i.quantity, 0);
+    // Trả về một ID giả và thông tin để Frontend hiển thị thành công
+    res.status(201).json({ _id: "ORDER-" + Date.now(), items, totalPrice });
+});
+
 // 2. Route mặc định trả về index.html
 app.get('/', (req, res) => {
     res.sendFile(path.join(__dirname, 'index.html'));
