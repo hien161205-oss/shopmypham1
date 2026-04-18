@@ -589,6 +589,7 @@
                                 <th>Sản phẩm</th>
                                 <th>Ngày đặt</th>
                                 <th>Tổng tiền</th>
+                                <th>Thanh toán</th>
                                 <th>Trạng thái</th>
                                 <th>Thao tác</th>
                             </tr>
@@ -716,10 +717,6 @@
     <div id="toastContainer"></div>
 
     <script>
-        // --- ADMIN LOGIN PROTECT ---
-        if (sessionStorage.getItem('adminLoggedIn') !== 'true') {
-            window.location.href = 'index.html';
-        }
 
         // --- 1. DATA INITIALIZATION ---
         const DEFAULT_CATEGORIES = [
@@ -736,10 +733,41 @@
         let orders = JSON.parse(localStorage.getItem('qh_orders')) || [];
         let categories = JSON.parse(localStorage.getItem('qh_categories')) || DEFAULT_CATEGORIES;
 
-        // Ensure we have some products if memory is empty (security for Fresh deployments)
-        if (products.length === 0) {
-           console.warn("No products found in admin. Redirecting to home to trigger sync.");
-           window.location.href = 'index.html';
+        const API_BASE_URL = window.location.origin + '/api';
+        const token = localStorage.getItem('qh_token');
+        const authHeader = { 'Authorization': `Bearer ${token}` };
+
+        // --- ADMIN LOGIN PROTECT VIA BACKEND (KHÔNG DÙNG SESSIONSTORAGE) ---
+        async function checkAdminAuth() {
+            if (!token) {
+                window.location.href = 'index.html';
+                return;
+            }
+            try {
+                const res = await fetch(`${API_BASE_URL}/users/admin-check`, { headers: authHeader });
+                if (!res.ok) window.location.href = 'index.html';
+            } catch (err) {
+                window.location.href = 'index.html';
+            }
+        }
+        checkAdminAuth();
+
+        async function loadAdminData() {
+            try {
+                const [prodRes, orderRes] = await Promise.all([
+                    fetch(`${API_BASE_URL}/products`),
+                    fetch(`${API_BASE_URL}/orders`, { headers: authHeader })
+                ]);
+                products = await prodRes.json();
+                orders = await orderRes.json();
+                
+                renderDashboard();
+                renderProducts();
+                renderOrders();
+                renderCategories();
+            } catch (err) {
+                showToast('Lỗi tải dữ liệu admin từ server');
+            }
         }
 
         // --- 2. THEME & TABS ---
@@ -770,7 +798,7 @@
             document.getElementById('statTotalProducts').innerText = products.length;
             document.getElementById('statTotalOrders').innerText = orders.length;
             
-            const revenue = orders.reduce((sum, o) => sum + (o.total || 0), 0);
+            const revenue = orders.reduce((sum, o) => sum + (o.totalPrice || 0), 0);
             document.getElementById('statRevenue').innerText = revenue.toLocaleString() + 'đ';
             
             const newOrders = orders.filter(o => o.status === 'Chờ xác nhận').length;
@@ -784,10 +812,10 @@
             } else {
                 recentBody.innerHTML = recent.map(o => `
                     <tr>
-                        <td class="mono">#${o.id.substring(0, 8)}</td>
-                        <td style="font-weight: 600;">${o.name}</td>
-                        <td>${new Date(o.date).toLocaleDateString()}</td>
-                        <td class="mono" style="font-weight: 700;">${(o.total || 0).toLocaleString()}đ</td>
+                        <td class="mono">#${o._id.substring(0, 8)}</td>
+                        <td style="font-weight: 600;">${o.customerInfo.name}</td>
+                        <td>${new Date(o.createdAt).toLocaleDateString()}</td>
+                        <td class="mono" style="font-weight: 700;">${(o.totalPrice || 0).toLocaleString()}đ</td>
                         <td><span class="badge ${getStatusBadge(o.status)}">${o.status}</span></td>
                     </tr>
                 `).join('');
@@ -807,7 +835,7 @@
                             <img src="${p.image}" class="prod-img" referrerPolicy="no-referrer">
                             <div>
                                 <div style="font-weight: 700;">${p.name}</div>
-                                <div style="font-size: 11px; color: var(--text-muted);" class="mono">ID: ${p.id}</div>
+                                <div style="font-size: 11px; color: var(--text-muted);" class="mono">ID: ${p._id}</div>
                             </div>
                         </div>
                     </td>
@@ -817,8 +845,8 @@
                     <td class="mono">${p.stock || 100}</td>
                     <td>
                         <div style="display: flex; gap: 8px;">
-                            <button class="btn btn-outline btn-sm" onclick="editProduct(${p.id})">Sửa</button>
-                            <button class="btn btn-sm btn-danger-sm" onclick="deleteProduct(${p.id})">Xóa</button>
+                            <button class="btn btn-outline btn-sm" onclick="openProductModal('${p._id}')">Sửa</button>
+                            <button class="btn btn-sm btn-danger-sm" onclick="deleteProduct('${p._id}')">Xóa</button>
                         </div>
                     </td>
                 </tr>
@@ -833,20 +861,24 @@
             }
             body.innerHTML = orders.slice().reverse().map(o => `
                 <tr>
-                    <td class="mono">#${o.id.substring(0, 8)}</td>
+                    <td class="mono">#${o._id.substring(0, 8)}</td>
                     <td>
-                        <div style="font-weight: 600;">${o.name}</div>
-                        <div style="font-size: 12px; color: var(--text-muted);">${o.phone}</div>
+                        <div style="font-weight: 600;">${o.customerInfo.name}</div>
+                        <div style="font-size: 12px; color: var(--text-muted);">${o.customerInfo.phone}</div>
                     </td>
                     <td style="max-width: 250px;">
                         <div style="font-size: 13px; line-height: 1.4;">${o.items.map(i => i.name + ' x' + i.quantity).join(', ')}</div>
                     </td>
-                    <td>${new Date(o.date).toLocaleDateString()}</td>
-                    <td class="mono" style="font-weight: 800; color: var(--danger);">${(o.total || 0).toLocaleString()}đ</td>
+                    <td>${new Date(o.createdAt).toLocaleDateString()}</td>
+                    <td class="mono" style="font-weight: 800; color: var(--danger);">${(o.totalPrice || 0).toLocaleString()}đ</td>
+                    <td>
+                        ${o.isPaid ? `<span class="badge badge-success">Đã trả</span>` : `<button class="btn btn-outline btn-sm" onclick="confirmPayment('${o._id}')">Xác nhận</button>`}
+                    </td>
                     <td><span class="badge ${getStatusBadge(o.status)}">${o.status}</span></td>
                     <td>
-                        <select onchange="updateOrderStatus('${o.id}', this.value)" style="padding: 4px; border-radius: 4px; font-size: 12px; border: 1px solid var(--border);">
+                        <select onchange="updateOrderStatus('${o._id}', this.value)" style="padding: 4px; border-radius: 4px; font-size: 12px; border: 1px solid var(--border);">
                             <option value="Chờ xác nhận" ${o.status === 'Chờ xác nhận' ? 'selected' : ''}>Chờ xác nhận</option>
+                            <option value="Đã thanh toán" ${o.status === 'Đã thanh toán' ? 'selected' : ''}>Đã thanh toán (Paid)</option>
                             <option value="Chờ lấy hàng" ${o.status === 'Chờ lấy hàng' ? 'selected' : ''}>Chờ lấy hàng</option>
                             <option value="Đang giao" ${o.status === 'Đang giao' ? 'selected' : ''}>Đang giao</option>
                             <option value="Đã giao" ${o.status === 'Đã giao' ? 'selected' : ''}>Đã giao</option>
@@ -885,6 +917,7 @@
         function getStatusBadge(status) {
             switch(status) {
                 case 'Đã giao': return 'badge-success';
+                case 'Đã thanh toán': return 'badge-success';
                 case 'Chờ xác nhận': return 'badge-warning';
                 case 'Đã huỷ': return 'badge-danger';
                 default: return 'badge-primary';
@@ -901,10 +934,10 @@
             document.getElementById('prodId').value = '';
             
             if (id) {
-                const p = products.find(prod => prod.id === id);
+                const p = products.find(prod => prod._id === id);
                 if (p) {
                     title.innerText = 'Chỉnh sửa sản phẩm';
-                    document.getElementById('prodId').value = p.id;
+                    document.getElementById('prodId').value = p._id;
                     document.getElementById('prodName').value = p.name;
                     document.getElementById('prodBrand').value = p.brand;
                     document.getElementById('prodCategory').value = p.category;
@@ -924,40 +957,47 @@
             document.getElementById('productModalOverlay').style.display = 'none';
         }
 
-        document.getElementById('saveProductBtn').onclick = () => {
+        document.getElementById('saveProductBtn').onclick = async () => {
             const id = document.getElementById('prodId').value;
             const productData = {
-                id: id ? parseInt(id) : Date.now(),
                 name: document.getElementById('prodName').value,
                 brand: document.getElementById('prodBrand').value,
                 category: document.getElementById('prodCategory').value,
                 price: parseInt(document.getElementById('prodPrice').value),
                 stock: parseInt(document.getElementById('prodStock').value),
                 image: document.getElementById('prodImage').value,
-                details: document.getElementById('prodDetails').value,
-                sold: id ? (products.find(p => p.id == id).sold || 0) : 0
+                details: document.getElementById('prodDetails').value
             };
 
-            if (id) {
-                const idx = products.findIndex(p => p.id == id);
-                products[idx] = productData;
-                showToast('Đã cập nhật sản phẩm');
-            } else {
-                products.push(productData);
-                showToast('Đã thêm sản phẩm mới');
+            try {
+                const method = id ? 'PUT' : 'POST';
+                const url = id ? `${API_BASE_URL}/products/${id}` : `${API_BASE_URL}/products`;
+                const res = await fetch(url, {
+                    method,
+                    headers: { 'Content-Type': 'application/json', ...authHeader },
+                    body: JSON.stringify(productData)
+                });
+                if (res.ok) {
+                    showToast(id ? 'Đã cập nhật sản phẩm' : 'Đã thêm sản phẩm');
+                    loadAdminData();
+                }
+            } catch (err) {
+                showToast('Lỗi khi lưu sản phẩm');
             }
-
-            localStorage.setItem('qh_products', JSON.stringify(products));
-            renderProducts();
             closeProductModal();
         };
 
-        function deleteProduct(id) {
-            if (confirm('Bạn có chắc chắn muốn xóa sản phẩm này?')) {
-                products = products.filter(p => p.id !== id);
-                localStorage.setItem('qh_products', JSON.stringify(products));
-                renderProducts();
-                showToast('Đã xóa sản phẩm');
+        async function deleteProduct(id) {
+            if (confirm('Xóa sản phẩm này?')) {
+                try {
+                    const res = await fetch(`${API_BASE_URL}/products/${id}`, {
+                        method: 'DELETE',
+                        headers: authHeader
+                    });
+                    if (res.ok) { showToast('Đã xóa'); loadAdminData(); }
+                } catch (err) {
+                    showToast('Lỗi xóa sản phẩm');
+                }
             }
         }
 
@@ -1017,44 +1057,47 @@
         }
 
         // --- 6. ORDER LOGIC ---
-        function updateOrderStatus(id, newStatus) {
-            const order = orders.find(o => o.id === id);
-            if (order) {
-                order.status = newStatus;
-                localStorage.setItem('qh_orders', JSON.stringify(orders));
-                showToast(`Cập nhật đơn hàng #${id.substring(0,8)} thành: ${newStatus}`);
-                renderDashboard();
+        async function updateOrderStatus(id, newStatus) {
+            try {
+                const res = await fetch(`${API_BASE_URL}/orders/${id}`, {
+                    method: 'PUT',
+                    headers: { 'Content-Type': 'application/json', ...authHeader },
+                    body: JSON.stringify({ status: newStatus })
+                });
+                if (res.ok) {
+                    showToast(`Cập nhật thành: ${newStatus}`);
+                    loadAdminData();
+                }
+            } catch (err) {
+                showToast('Lỗi cập nhật đơn hàng');
+            }
+        }
+
+        async function confirmPayment(id) {
+            if (confirm('Xác nhận khách hàng đã thanh toán đơn hàng này?')) {
+                try {
+                    const res = await fetch(`${API_BASE_URL}/orders/${id}/pay`, {
+                        method: 'PUT',
+                        headers: { 'Content-Type': 'application/json', ...authHeader }
+                    });
+                    if (res.ok) {
+                        showToast('Đã xác nhận thanh toán');
+                        loadAdminData();
+                    } else {
+                        const data = await res.json();
+                        showToast(data.message || 'Lỗi khi xác nhận');
+                    }
+                } catch (err) {
+                    showToast('Lỗi kết nối máy chủ');
+                }
             }
         }
 
         // --- 7. INITIAL LOAD ---
         window.onload = () => {
-            renderDashboard();
-            renderProducts();
-            renderOrders();
-            renderCategories();
+            loadAdminData();
         };
 
-        // --- AUTO SYNC FOR DEMO ---
-        // If localStorage is empty, create some mock data so the admin isn't empty on first load
-        if (products.length === 0) {
-            products = [
-                { id: 1, name: "Water Bank Blue Hyaluronic Cream", brand: "Laneige", price: 850000, category: "skincare", stock: 50, image: "https://images.unsplash.com/photo-1620916566398-39f1143ab7be?auto=format&fit=crop&w=400&q=80", sold: 85 },
-                { id: 2, name: "Green Tea Seed Hyaluronic Serum", brand: "Innisfree", price: 590000, category: "skincare", stock: 80, image: "https://images.unsplash.com/photo-1556228720-195a672e8a03?auto=format&fit=crop&w=400&q=80", sold: 120 },
-                { id: 3, name: "Juicy Lasting Tint - Bare Grape", brand: "Romand", price: 169000, category: "trang-diem", stock: 200, image: "https://product.hstatic.net/1000284478/product/romand_juicy_lasting_tint_bare_grape_1_8f8e8e8e8e8e8e8e8e8e8e8e8e8e8e8e_master.jpg", sold: 450 }
-            ];
-            localStorage.setItem('qh_products', JSON.stringify(products));
-            renderProducts();
-        }
-
-        if (orders.length === 0) {
-            orders = [
-                { id: 'ORD' + Date.now(), name: "Lê Văn A", phone: "0901234567", email: "a@test.com", address: "123 Quận 1, HCM", date: new Date().toISOString(), total: 850000, items: [{name: "Water Bank Cream", quantity: 1, price: 850000}], status: 'Chờ xác nhận' },
-                { id: 'ORD' + (Date.now() - 10000), name: "Trần Thị B", phone: "0908765432", email: "b@test.com", address: "456 Quận 3, HCM", date: new Date(Date.now() - 86400000).toISOString(), total: 1180000, items: [{name: "Green Tea Serum", quantity: 2, price: 590000}], status: 'Đã giao' }
-            ];
-            localStorage.setItem('qh_orders', JSON.stringify(orders));
-            renderDashboard();
-        }
     </script>
 </body>
 </html>

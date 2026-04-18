@@ -3,8 +3,11 @@
  */
 
 /// 1. DATA
-let isLoggedIn = localStorage.getItem('qh_isLoggedIn') === 'true';
+const API_BASE_URL = window.location.origin + '/api';
+let isLoggedIn = !!localStorage.getItem('qh_token');
 let currentUserName = localStorage.getItem('qh_userName') || '';
+let products = [];
+let cart = JSON.parse(localStorage.getItem('qh_cart')) || [];
 
 const DEFAULT_PRODUCTS = [
 {
@@ -521,20 +524,18 @@ sold: 1250
 }
 ];
 
-// --- SYNC PRODUCTS WITH LOCALSTORAGE ---
-let products = [];
-const storedProducts = localStorage.getItem('qh_products');
-
-// Nếu chưa có dữ liệu hoặc dữ liệu quá ít, hãy nạp lại từ bộ mặc định
-if (!storedProducts || JSON.parse(storedProducts).length < 22) {
-    localStorage.setItem('qh_products', JSON.stringify(DEFAULT_PRODUCTS));
-}
-products = JSON.parse(localStorage.getItem('qh_products'));
-window.products = products;
-
-console.log('Sản phẩm đã load:', products.length);
-if (products.length === 0) {
-    console.error('KHÔNG CÓ SẢN PHẨM! Cần kiểm tra lại localStorage');
+async function loadProductsFromServer() {
+    try {
+        const res = await fetch(`${API_BASE_URL}/products`);
+        const data = await res.json();
+        products = (data && data.length > 0) ? data : DEFAULT_PRODUCTS;
+        console.log('Dữ liệu sản phẩm từ Server:', products.length);
+    } catch (error) {
+        console.error('Lỗi khi tải sản phẩm từ backend, sử dụng dữ liệu mặc định:', error);
+        products = DEFAULT_PRODUCTS;
+    }
+    window.products = products;
+    renderAllSections(); // Đảm bảo render sau khi có dữ liệu
 }
 
 const magazinePosts = [
@@ -581,7 +582,6 @@ const magazinePosts = [
 ];
 
 // 2. STATE
-let cart = JSON.parse(localStorage.getItem('qh_cart')) || [];
 let filteredProducts = [...products];
 let currentSlide = 0;
 let currentCheckoutItems = []; // To track what's being checked out
@@ -598,11 +598,16 @@ document.addEventListener('DOMContentLoaded', () => {
         return; // Admin có logic riêng
     }
     
-    // Khởi tạo các element cần thiết
     injectRequiredElements();
     initEvents();
+    loadProductsFromServer();
     
-    // Render tất cả các section (chỉ gọi nếu element tồn tại)
+    updateCartUI();
+    startSlider();
+    startCountdown();
+});
+
+function renderAllSections() {
     if (document.getElementById('productGrid')) renderProducts();
     if (document.getElementById('flashSaleGrid')) renderFlashSale();
     if (document.getElementById('merzyProductsGrid')) renderMerzyProducts();
@@ -615,23 +620,16 @@ document.addEventListener('DOMContentLoaded', () => {
     if (document.getElementById('hairCareGrid')) renderHairCareProducts();
     if (document.getElementById('makeupSectionGrid')) renderMakeupSectionProducts();
     updateHomeSectionCounts();
-    
-    updateCartUI();
-    startSlider();
-    startCountdown();
-    
-    // Cập nhật UI người dùng nếu đã đăng nhập
-    if (localStorage.getItem('qh_isLoggedIn') === 'true') {
-        const userName = localStorage.getItem('qh_userName') || '';
-        if (userName) updateUserDisplay(userName);
-    }
-    
+
+    // Cập nhật hiển thị người dùng dựa trên Token và Session
+    if (isLoggedIn) updateUserDisplay(currentUserName);
+
     // Xử lý các trang đặc biệt
     const path = window.location.pathname;
     if (path.includes('category.html')) handleCategoryPage();
     if (path.includes('magazine.html') && !path.includes('detail')) handleMagazinePage();
     if (path.includes('magazine-detail.html')) handleMagazineDetailPage();
-});
+}
 
 // 3.1 CATEGORY PAGE LOGIC
 function handleCategoryPage() {
@@ -1442,9 +1440,8 @@ function initEvents() {
     window.logoutUser = function() {
         isLoggedIn = false;
         currentUserName = '';
-        localStorage.removeItem('qh_isLoggedIn');
+        localStorage.removeItem('qh_token');
         localStorage.removeItem('qh_userName');
-        sessionStorage.removeItem('adminLoggedIn');
         
         const display = document.getElementById('userNameDisplay');
         const adminBtn = document.getElementById('adminPanelBtn');
@@ -1491,7 +1488,7 @@ function initEvents() {
             html += `
                 <div style="border: 1px solid #eee; border-radius: 8px; padding: 20px; background: #fff; box-shadow: 0 2px 5px rgba(0,0,0,0.02);">
                     <div style="display: flex; justify-content: space-between; margin-bottom: 15px; border-bottom: 1px solid #f9f9f9; padding-bottom: 12px; align-items: center;">
-                        <span style="font-weight: 700; color: #333; font-size: 15px;">Đơn hàng #${order.id}</span>
+                        <span style="font-weight: 700; color: #333; font-size: 15px;">Đơn hàng #${order._id.substring(0,8)}</span>
                         <span style="color: ${statusColor}; font-weight: 700; font-size: 13px; text-transform: uppercase; letter-spacing: 0.5px;">${order.status || 'Chờ xác nhận'}</span>
                     </div>
                     
@@ -1509,10 +1506,10 @@ function initEvents() {
                     </div>
 
                     <div style="display: flex; justify-content: space-between; align-items: flex-end; padding-top: 12px; border-top: 1px dotted #eee;">
-                        <div style="font-size: 12px; color: #999;">Ngày đặt: ${order.date}</div>
+                        <div style="font-size: 12px; color: #999;">Ngày đặt: ${new Date(order.createdAt).toLocaleDateString()}</div>
                         <div style="text-align: right;">
                             <span style="font-size: 13px; color: #666;">Thành tiền: </span>
-                            <b style="color: var(--red); font-size: 18px;">${order.total}</b>
+                            <b style="color: var(--red); font-size: 18px;">${order.totalPrice.toLocaleString()}đ</b>
                         </div>
                     </div>
                 </div>
@@ -1595,7 +1592,7 @@ function initEvents() {
         }
 
         if (checkoutForm) {
-            checkoutForm.addEventListener('submit', (e) => {
+            checkoutForm.addEventListener('submit', async (e) => {
                 e.preventDefault();
                 
                 const name = document.getElementById('orderName').value;
@@ -1648,8 +1645,9 @@ function initEvents() {
                         if (checkoutQR) checkoutQR.style.display = 'none';
                         checkoutSuccess.style.display = 'block';
                         
-                        document.getElementById('successOrderId').textContent = newOrder.id;
-                        document.getElementById('successOrderTotal').textContent = newOrder.total;
+                        // Hiển thị tổng tiền và ID trả về từ Server (giá trị thực)
+                        document.getElementById('successOrderId').textContent = '#' + newOrder._id.substring(0, 8);
+                        document.getElementById('successOrderTotal').textContent = createdOrder.totalPrice.toLocaleString() + 'đ';
                         document.getElementById('successOrderItems').innerHTML = newOrder.items.map(item => `
                             <div style="display:flex; justify-content:space-between; margin-bottom:10px; font-size:14px;">
                                 <span>${item.name} x${item.quantity}</span>
@@ -1664,6 +1662,8 @@ function initEvents() {
                 };
 
                 if (payment === 'BANK') {
+                    // Sử dụng ID thật từ MongoDB để tạo mã QR
+                    const realOrderId = createdOrder._id.substring(createdOrder._id.length - 6).toUpperCase();
                     const checkoutQR = document.getElementById('checkoutQR');
                     const qrCodeImg = document.getElementById('qrCodeImg');
                     const qrAmount = document.getElementById('qrAmount');
@@ -1675,10 +1675,11 @@ function initEvents() {
                         checkoutForm.style.display = 'none';
                         checkoutQR.style.display = 'block';
                         
-                        if (qrAmount) qrAmount.textContent = total.toLocaleString() + 'đ';
-                        if (qrNote) qrNote.textContent = 'QH' + orderId;
+                        // QR sử dụng tổng tiền và nội dung chuyển khoản được Backend xác thực
+                        if (qrAmount) qrAmount.textContent = createdOrder.totalPrice.toLocaleString() + 'đ';
+                        if (qrNote) qrNote.textContent = 'QH' + realOrderId;
                         if (qrCodeImg) {
-                            qrCodeImg.src = `https://api.vietqr.io/image/vietcombank/0011004123456/qr_only.jpg?amount=${total}&addInfo=QH${orderId}&accountName=NGUYEN THI THANH HIEN`;
+                            qrCodeImg.src = `https://api.vietqr.io/image/vietcombank/0011004123456/qr_only.jpg?amount=${createdOrder.totalPrice}&addInfo=QH${realOrderId}&accountName=NGUYEN THI THANH HIEN`;
                         }
 
                         confirmQRBtn.onclick = () => {
@@ -1846,18 +1847,31 @@ window.toggleFavorite = function(id) {
 };
 
 function updateUserDisplay(name) {
-    isLoggedIn = true;
-    currentUserName = name;
-    localStorage.setItem('qh_isLoggedIn', 'true');
-    localStorage.setItem('qh_userName', name);
+    if (!name) return;
     
+    // Giải mã JWT Payload để kiểm tra quyền hiển thị nút Admin trên UI
+    const token = localStorage.getItem('qh_token');
+    let isAdmin = false;
+    if (token) {
+        try {
+            const payload = JSON.parse(atob(token.split('.')[1]));
+            isAdmin = payload.isAdmin === true;
+        } catch (e) { isAdmin = false; }
+    }
+
     const display = document.getElementById('userNameDisplay');
     const adminBtn = document.getElementById('adminPanelBtn');
+
+    isLoggedIn = true;
+    currentUserName = name;
+    
     if (display) {
         display.textContent = name;
         display.style.display = 'inline-block';
     }
-    if (name === 'admin' && adminBtn) {
+
+    // Hiển thị nút Admin nếu là tài khoản admin thật sự
+    if (isAdmin && adminBtn) {
         adminBtn.style.display = 'flex';
     }
 
