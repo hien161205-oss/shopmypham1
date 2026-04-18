@@ -351,6 +351,52 @@ specs: {
 'Đối tượng': 'Tóc khô xơ, hư tổn, tóc sau khi làm hóa chất'
 },
 sold: 1250
+},
+{
+    id: 16,
+    name: '[Bản Trung] Sữa Dưỡng Thể Trắng Da Olay Body Cellscience Super Bright Whitening Lotion',
+    brand: 'Olay',
+    category: 'bodycare',
+    price: 359000,
+    oldPrice: 420000,
+    discount: '15%',
+    image: 'https://product.hstatic.net/1000006063/product/sua-duong-the-trang-da-olay-body-cellscience-super-bright-whitening-lotion-210ml_3a8f8e8e8e8e8e8e8e8e8e8e8e8e8e8e_master.jpg',
+    images: [
+        'https://product.hstatic.net/1000006063/product/sua-duong-the-trang-da-olay-body-cellscience-super-bright-whitening-lotion-210ml_3a8f8e8e8e8e8e8e8e8e8e8e8e8e8e8e_master.jpg',
+        'https://cdn.hstatic.net/products/1000006063/olay_2_8f8e8e8e8e8e8e8e8e8e8e8e8e8e8e8e_master.jpg'
+    ],
+    description: 'Sữa dưỡng thể Olay chứa Niacinamide và Vitamin C giúp dưỡng trắng da, làm đều màu da.',
+    details: 'Sữa Dưỡng Thể Trắng Da Olay Body Cellscience Super Bright Whitening Lotion với hàm lượng Niacinamide tinh khiết cao kết hợp cùng Vitamin C giúp nuôi dưỡng làn da trắng sáng bật tông.',
+    specs: {
+        'Tên sản phẩm': 'Olay Body Cellscience Super Bright',
+        'Dung tích': '210ml / 250ml',
+        'Thương hiệu': 'Olay',
+        'Nơi sản xuất': 'Trung Quốc'
+    },
+    sold: 15600
+},
+{
+    id: 17,
+    name: 'Sữa Dưỡng Thể DrCeutics Niacinamide 10% + Arbutin 2% Body Lotion Dưỡng Trắng, Phục Hồi Da',
+    brand: 'DrCeutics',
+    category: 'bodycare',
+    price: 216000,
+    oldPrice: 280000,
+    discount: '23%',
+    image: 'https://product.hstatic.net/1000006063/product/sua_duong_the_drceutics_niacinamide_10_arbutin_2_body_lotion_500g_248e8e8e8e8e8e8e8e8e8e8e8e8e8e8e_master.jpg',
+    images: [
+        'https://product.hstatic.net/1000006063/product/sua_duong_the_drceutics_niacinamide_10_arbutin_2_body_lotion_500g_248e8e8e8e8e8e8e8e8e8e8e8e8e8e8e_master.jpg',
+        'https://cdn.hstatic.net/products/1000006063/drceutics_body_2_8f8e8e8e8e8e8e8e8e8e8e8e8e8e8e8e_master.jpg'
+    ],
+    description: 'Sữa dưỡng thể chứa 10% Niacinamide và 2% Arbutin giúp cải thiện sắc tố da cơ thể hiệu quả.',
+    details: 'Sữa Dưỡng Thể DrCeutics Niacinamide 10% + Arbutin 2% là giải pháp cho làn da cơ thể tối màu, thâm sạm với nồng độ hoạt chất cao.',
+    specs: {
+        'Tên sản phẩm': 'DrCeutics Niacinamide 10% + Arbutin 2%',
+        'Dung tích': '200g / 500g',
+        'Thương hiệu': 'DrCeutics (Việt Nam)',
+        'Nơi sản xuất': 'Việt Nam'
+    },
+    sold: 8900
 }
 ];
 
@@ -359,7 +405,7 @@ let products = [];
 const storedProducts = localStorage.getItem('qh_products');
 
 // Nếu chưa có dữ liệu hoặc dữ liệu quá ít, hãy nạp lại từ bộ mặc định
-if (!storedProducts || JSON.parse(storedProducts).length < 5) {
+if (!storedProducts || JSON.parse(storedProducts).length < 17) {
     localStorage.setItem('qh_products', JSON.stringify(DEFAULT_PRODUCTS));
 }
 products = JSON.parse(localStorage.getItem('qh_products'));
