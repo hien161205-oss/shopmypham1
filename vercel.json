@@ -8,6 +8,9 @@
   ],
   "routes": [
     { "src": "/api/(.*)", "dest": "server.js" },
-    { "src": "/(.*)", "dest": "server.js" }
-  ]
+    { "src": "/style.css", "dest": "/public/style.css" },
+    { "src": "/script.js", "dest": "/public/script.js" },
+    { "handle": "filesystem" }
+  ],
+  "cleanUrls": true
 }
