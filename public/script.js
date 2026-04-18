@@ -1106,6 +1106,22 @@ window.removeFromCart = function(id) {
     updateCartUI();
 };
 
+/**
+ * Thay đổi số lượng sản phẩm trong giỏ hàng (+/-)
+ */
+window.changeCartQty = function(id, delta) {
+    const item = cart.find(i => (i._id || i.id).toString() === id.toString());
+    if (item) {
+        item.quantity += delta;
+        if (item.quantity <= 0) {
+            window.removeFromCart(id);
+        } else {
+            saveCart();
+            updateCartUI();
+        }
+    }
+};
+
 function saveCart() {
     localStorage.setItem('qh_cart', JSON.stringify(cart));
 }
@@ -1124,8 +1140,15 @@ function updateCartUI() {
                 <img src="${item.image}" style="width:60px; height:60px; object-fit:contain; border-radius:4px;" referrerPolicy="no-referrer">
                 <div style="flex:1;">
                     <p style="font-size:13px; font-weight:600; margin-bottom:5px;">${item.name}</p>
-                    <p style="font-size:12px; color:var(--red); font-weight:800;">${item.price.toLocaleString()}đ x ${item.quantity}</p>
-                    <span style="font-size:11px; color:#999; cursor:pointer;" onclick="removeFromCart('${item._id || item.id}')">Xóa khỏi giỏ</span>
+                    <p style="font-size:12px; color:var(--red); font-weight:800; margin-bottom: 8px;">${item.price.toLocaleString()}đ</p>
+                    <div style="display:flex; align-items:center; gap:12px;">
+                        <div class="qty-box" style="height:32px;">
+                            <button style="width:30px; height:100%;" onclick="changeCartQty('${item._id || item.id}', -1)">-</button>
+                            <input type="number" value="${item.quantity}" readonly style="width:35px; height:100%; font-size:12px; border-left:1px solid var(--border); border-right:1px solid var(--border);">
+                            <button style="width:30px; height:100%;" onclick="changeCartQty('${item._id || item.id}', 1)">+</button>
+                        </div>
+                        <span style="font-size:11px; color:#999; cursor:pointer; text-decoration:underline;" onclick="removeFromCart('${item._id || item.id}')">Xóa</span>
+                    </div>
                 </div>
             </div>
         `).join('');
