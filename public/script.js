@@ -575,6 +575,7 @@ async function loadProductsFromServer() {
         products = DEFAULT_PRODUCTS;
     }
     window.products = products;
+    filteredProducts = [...products]; // Cập nhật mảng lọc sau khi tải dữ liệu xong
     renderAllSections(); // Đảm bảo render sau khi có dữ liệu
 }
 
