@@ -52,7 +52,7 @@ async function safeFetch(url, options = {}) {
 
 const DEFAULT_PRODUCTS = [
 {
-  id: 1,
+  _id: '65f1a2b3c4d5e6f7a8b9c001',
 name: '[NEW DEW] Son Tint Bóng Merzy Dạng Thạch, Bền Màu, Lâu Trôi Cho Đôi Môi Căng Mọng, Ẩm Mịn The Watery Dew Tint',
 brand: 'Merzy',
 category: 'trang-diem-son-moi',
@@ -78,7 +78,7 @@ specs: {
 sold: 25200
 },
 {
-id: 2,
+_id: '65f1a2b3c4d5e6f7a8b9c002',
 name: 'Serum Chống Nắng B.O.M Dưỡng Ẩm Water Glow Sun Serum SPF50+PA++++ 50g',
 brand: 'B.O.M',
 category: 'cham-soc-da',
@@ -105,7 +105,7 @@ specs: {
 sold: 1500
 },
 {
-id: 3,
+_id: '65f1a2b3c4d5e6f7a8b9c003',
 name: 'Kem Chống Nắng La Roche-Posay Dạng Sữa, Bảo Vệ Da Khỏi UVA Dài, Ngăn Ngừa Thâm Nám Anthelios UVMune 400 Invisible Fluid SPF50+ 50ml',
 brand: 'La Roche-Posay',
 category: 'cham-soc-da',
