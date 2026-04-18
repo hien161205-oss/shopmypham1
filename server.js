@@ -9,12 +9,16 @@ const app = express();
 app.use(cors());
 app.use(express.json());
 
+// Phục vụ các tệp tĩnh từ thư mục public (HTML, CSS, Client JS)
+app.use(express.static('public'));
+
 // Routes
 const productRoutes = require('./public/productRoutes'); 
 const userRoutes = require('./userRoutes'); 
 const orderRoutes = require('./orderRoutes');
 const categoryRoutes = require('./categoryRoutes');
 
+// API Endpoints
 app.use('/api/products', productRoutes);
 app.use('/api/users', userRoutes);
 app.use('/api/orders', orderRoutes);
@@ -31,15 +35,13 @@ const connectDB = async () => {
     return db;
 };
 
-// Middleware kết nối DB cho mỗi request
-app.use(async (req, res, next) => {
-    await connectDB();
-    next();
-});
-
 const PORT = process.env.PORT || 5000;
 if (process.env.NODE_ENV !== 'production') {
-    app.listen(PORT, () => console.log(`Server running on port ${PORT}`));
+    connectDB().then(() => {
+        app.listen(PORT, () => console.log(`Server running on port ${PORT}`));
+    }).catch(err => {
+        console.error("Database connection failed", err);
+    });
 }
 
 module.exports = app;

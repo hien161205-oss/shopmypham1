@@ -584,9 +584,9 @@
                     <div class="pd-qty-selector">
                         <span>Số lượng</span>
                         <div class="qty-box">
-                            <button onclick="changeQty(-1)">-</button>
-                            <input type="number" id="qtyInput" value="1" min="1">
-                            <button onclick="changeQty(1)">+</button>
+                            <button onclick="window.changeQty(-1)">-</button>
+                            <input type="number" id="pdQty" value="1" min="1">
+                            <button onclick="window.changeQty(1)">+</button>
                         </div>
                     </div>
 
@@ -1011,13 +1011,13 @@
         // Lắng nghe dữ liệu tải về từ server để cập nhật lại nếu cần
         window.addEventListener('load', initProductDetail);
 
-        function changeQty(val) {
-            const input = document.getElementById('qtyInput');
+        window.changeQty = function(val) {
+            const input = document.getElementById('pdQty');
             let current = parseInt(input.value);
             current += val;
             if (current < 1) current = 1;
             input.value = current;
-        }
+        };
     </script>
 </body>
 </html>

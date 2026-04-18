@@ -131,7 +131,7 @@ specs: {
 },
 },
 {
-id: 4,
+_id: '65f1a2b3c4d5e6f7a8b9c004',
 name: 'Kem Chống Nắng CLINICOS Truth Sunscreen SPF 50+ PA++++',
 brand: 'CLINICOS',
 category: 'cham-soc-da',
@@ -158,7 +158,7 @@ specs: {
 sold: 33
 },
 {
-id: 5,
+_id: '65f1a2b3c4d5e6f7a8b9c005',
 name: 'Kem Chống Nắng Caryophy Nâng Tông Smart Sunscreen Tone Up SPF50+/PA+++ 50ml',
 brand: 'CARYOPHY',
 category: 'cham-soc-da',
@@ -185,7 +185,7 @@ specs: {
 sold: 2600
 },
 {
-id: 8,
+_id: '65f1a2b3c4d5e6f7a8b9c008',
 name: 'Kem Chống Nắng Nâng Tone, Kiềm Dầu, Dưỡng Ẩm Make P:rem UV Defense Me Sun Cream SPF50+/PA++++ 50ml',
 brand: 'Make P:rem',
 category: 'cham-soc-da',
@@ -211,7 +211,7 @@ specs: {
 sold: 351
 },
 {
-id: 9,
+_id: '65f1a2b3c4d5e6f7a8b9c009',
 name: 'Kem Chống Nắng Acnes Hỗ Trợ Giảm Mụn Blemish Control Sunscreen 50g',
 brand: 'Acnes',
 category: 'cham-soc-da',
@@ -956,125 +956,68 @@ function renderProducts() {
     grid.innerHTML = filteredProducts.map(p => createProductCard(p)).join('');
 }
 
-function renderFlashSale() {
-    const grid = document.getElementById('flashSaleGrid');
+/**
+ * Hàm dùng chung để render một nhóm sản phẩm dựa trên bộ lọc
+ */
+function renderProductSection(gridId, filterFn, options = {}) {
+    const grid = document.getElementById(gridId);
     if (!grid) return;
 
-    // Show products with high discount for flash sale
-    const flashSaleItems = products.filter(p => parseInt(p.discount) > 30).slice(0, 5);
-    grid.innerHTML = flashSaleItems.map(p => createProductCard(p, true)).join('');
+    const { limit = 5, linkId = null, isFlashSale = false } = options;
+    const allFiltered = products.filter(filterFn);
+    const items = allFiltered.slice(0, limit);
+
+    if (linkId) {
+        const link = document.getElementById(linkId);
+        if (link) link.innerText = `Xem tất cả ${allFiltered.length} sản phẩm →`;
+    }
+
+    grid.innerHTML = items.map(p => createProductCard(p, isFlashSale)).join('');
+}
+
+function renderFlashSale() {
+    renderProductSection('flashSaleGrid', p => parseInt(p.discount) > 30, { limit: 5, isFlashSale: true });
 }
 
 function renderMerzyProducts() {
-    const grid = document.getElementById('merzyProductsGrid');
-    if (!grid) return;
-
-    const merzyItems = products.filter(p => p.brand === 'Merzy').slice(0, 8);
-    grid.innerHTML = merzyItems.map(p => createProductCard(p)).join('');
+    renderProductSection('merzyProductsGrid', p => p.brand === 'Merzy', { limit: 8 });
 }
 
 function renderMakeupProducts() {
-    const grid = document.getElementById('makeupGrid');
-    if (!grid) return;
-
-    const makeupItems = products.filter(p => p.category.startsWith('trang-diem')).slice(0, 5);
-    const link = document.getElementById('countMakeupHQ');
-    if (link) link.innerText = `Xem tất cả ${products.filter(p => p.category.startsWith('trang-diem')).length} sản phẩm →`;
-    grid.innerHTML = makeupItems.map(p => createProductCard(p)).join('');
+    renderProductSection('makeupGrid', p => p.category.startsWith('trang-diem'), { linkId: 'countMakeupHQ' });
 }
 
 function renderSunCareProducts() {
-    const grid = document.getElementById('sunCareGrid');
-    if (!grid) return;
-    
-    const sunCareItems = products.filter(p => p.name.toLowerCase().includes('sun') || p.name.toLowerCase().includes('chống nắng')).slice(0, 5);
-    const link = document.getElementById('countSunCare');
-    if (link) link.innerText = `Xem tất cả ${products.filter(p => p.name.toLowerCase().includes('sun') || p.name.toLowerCase().includes('chống nắng')).length} sản phẩm →`;
-    grid.innerHTML = sunCareItems.map(p => createProductCard(p)).join('');
+    renderProductSection('sunCareGrid', p => p.name.toLowerCase().includes('sun') || p.name.toLowerCase().includes('chống nắng'), { linkId: 'countSunCare' });
 }
 
 function renderMaskProducts() {
-    const grid = document.getElementById('maskGrid');
-    if (!grid) return;
-    
-    const maskItems = products.filter(p => p.name.toLowerCase().includes('mask') || p.name.toLowerCase().includes('mặt nạ') || p.name.toLowerCase().includes('pad')).slice(0, 5);
-    const link = document.getElementById('countMask');
-    if (link) link.innerText = `Xem tất cả ${products.filter(p => p.name.toLowerCase().includes('mask') || p.name.toLowerCase().includes('mặt nạ') || p.name.toLowerCase().includes('pad')).length} sản phẩm →`;
-    grid.innerHTML = maskItems.map(p => createProductCard(p)).join('');
+    renderProductSection('maskGrid', p => p.name.toLowerCase().includes('mask') || p.name.toLowerCase().includes('mặt nạ') || p.name.toLowerCase().includes('pad'), { linkId: 'countMask' });
 }
 
 function renderLocalBrandProducts() {
-    const grid = document.getElementById('localBrandGrid');
-    if (!grid) return;
-    
-    // Updated local brands list
-    const localItems = products.filter(p => ['Lemonade', 'Cocoon', 'CLINICOS', 'Emmié by HappySkin'].includes(p.brand)).slice(0, 5);
-    const link = document.getElementById('countLocalBrand');
-    if (link) link.innerText = `Xem tất cả ${products.filter(p => ['Lemonade', 'Cocoon', 'CLINICOS', 'Emmié by HappySkin'].includes(p.brand)).length} sản phẩm →`;
-    grid.innerHTML = localItems.map(p => createProductCard(p)).join('');
+    renderProductSection('localBrandGrid', p => ['Lemonade', 'Cocoon', 'CLINICOS', 'Emmié by HappySkin'].includes(p.brand), { linkId: 'countLocalBrand' });
 }
 
 function renderSkinCareSectionProducts() {
-    const grid = document.getElementById('skinCareSectionGrid');
-    if (!grid) return;
-    
-    // Support both old and new category naming
-    const skincareItems = products.filter(p => p.category === 'skincare' || p.category === 'cham-soc-da').slice(0, 5);
-    const link = document.getElementById('countSkinCare');
-    if (link) link.innerText = `Xem tất cả ${products.filter(p => p.category === 'skincare' || p.category === 'cham-soc-da').length} sản phẩm →`;
-    grid.innerHTML = skincareItems.map(p => createProductCard(p)).join('');
-}
-
-function renderBodyCareProducts() {
-    const grid = document.getElementById('bodyCareGrid');
-    if (!grid) return;
-    const items = products.filter(p => p.category === 'bodycare').slice(0, 5);
-    grid.innerHTML = items.map(p => createProductCard(p)).join('');
+    renderProductSection('skinCareSectionGrid', p => p.category === 'skincare' || p.category === 'cham-soc-da', { linkId: 'countSkinCare' });
 }
 
 function renderBodyCareSectionProducts() {
-    const grid = document.getElementById('bodyCareSectionGrid');
-    if (!grid) return;
-    const items = products.filter(p => p.category === 'bodycare').slice(0, 5);
-    grid.innerHTML = items.map(p => createProductCard(p)).join('');
+    renderProductSection('bodyCareSectionGrid', p => p.category === 'bodycare', { linkId: 'countBodyCare' });
 }
 
 function renderHairCareProducts() {
-    const grid = document.getElementById('hairCareGrid');
-    if (!grid) return;
-    const items = products.filter(p => p.category === 'haircare' || p.category === 'cham-soc-toc').slice(0, 5);
-    grid.innerHTML = items.map(p => createProductCard(p)).join('');
+    renderProductSection('hairCareGrid', p => p.category === 'haircare' || p.category === 'cham-soc-toc', { linkId: 'countHairCare' });
 }
 
 function renderMakeupSectionProducts() {
-    const grid = document.getElementById('makeupSectionGrid');
-    if (!grid) return;
-    const items = products.filter(p => p.category.startsWith('trang-diem')).slice(0, 5);
-    const link = document.getElementById('countMakeupBottom');
-    if (link) link.innerText = `Xem tất cả ${products.filter(p => p.category.startsWith('trang-diem')).length} sản phẩm →`;
-    grid.innerHTML = items.map(p => createProductCard(p)).join('');
+    renderProductSection('makeupSectionGrid', p => p.category.startsWith('trang-diem'), { linkId: 'countMakeupBottom' });
 }
 
 function updateHomeSectionCounts() {
-    // Hàm này đảm bảo các nhãn số lượng được cập nhật ngay cả khi không render lại grid
-    const mappings = [
-        { id: 'countMakeupHQ', filter: p => p.category.startsWith('trang-diem') },
-        { id: 'countSunCare', filter: p => p.name.toLowerCase().includes('sun') || p.name.toLowerCase().includes('chống nắng') },
-        { id: 'countMask', filter: p => p.name.toLowerCase().includes('mask') || p.name.toLowerCase().includes('mặt nạ') || p.name.toLowerCase().includes('pad') },
-        { id: 'countLocalBrand', filter: p => ['Lemonade', 'Cocoon', 'CLINICOS', 'Emmié by HappySkin'].includes(p.brand) },
-        { id: 'countSkinCare', filter: p => p.category === 'skincare' || p.category === 'cham-soc-da' },
-        { id: 'countBodyCare', filter: p => p.category === 'bodycare' },
-        { id: 'countHairCare', filter: p => p.category === 'haircare' || p.category === 'cham-soc-toc' },
-        { id: 'countMakeupBottom', filter: p => p.category.startsWith('trang-diem') }
-    ];
-    
-    mappings.forEach(m => {
-        const el = document.getElementById(m.id);
-        if (el) {
-            const count = products.filter(m.filter).length;
-            el.innerText = `Xem tất cả ${count} sản phẩm →`;
-        }
-    });
+    // Các nhãn giờ đây đã được cập nhật tự động trong renderProductSection
+    // Hàm này có thể giữ lại làm rỗng hoặc xóa nếu không gọi ở nơi khác
 }
 
 function createProductCard(p, isFlashSale = false) {
@@ -1431,18 +1374,7 @@ function initEvents() {
                     body: JSON.stringify({ email, password })
                 });
 
-                // QUAN TRỌNG: Lưu token và tên vào localStorage để dùng cho các trang sau
-                localStorage.setItem('qh_token', data.token);
-                localStorage.setItem('qh_userName', data.name);
-                localStorage.setItem('qh_userEmail', data.email);
-                
-                // Cập nhật biến toàn cục để logic hiện tại không bị lệch
-                isLoggedIn = true;
-                currentUserName = data.name;
-                
-                updateUserDisplay(data.name);
-                showToast(`Chào mừng ${data.name} đã trở lại!`);
-                if (loginModal) loginModal.classList.remove('active');
+                handleAuthResponse(data, `Chào mừng ${data.name} đã trở lại!`);
             } catch (err) {
                 showToast('Lỗi đăng nhập: ' + err.message);
             }
@@ -1463,16 +1395,7 @@ function initEvents() {
                     body: JSON.stringify({ name, email, password })
                 });
 
-                localStorage.setItem('qh_token', data.token);
-                localStorage.setItem('qh_userName', data.name);
-                localStorage.setItem('qh_userEmail', data.email);
-                
-                isLoggedIn = true;
-                currentUserName = data.name;
-
-                updateUserDisplay(data.name);
-                showToast('Đăng ký thành công!');
-                if (loginModal) loginModal.classList.remove('active');
+                handleAuthResponse(data, 'Đăng ký thành công!');
             } catch (err) {
                 showToast('Lỗi đăng ký: ' + err.message);
             }
@@ -1795,6 +1718,26 @@ function initEvents() {
     }
 }
 
+/**
+ * Hàm xử lý dữ liệu sau khi đăng nhập hoặc đăng ký thành công
+ */
+function handleAuthResponse(data, successMsg) {
+    // Lưu token và thông tin vào localStorage
+    localStorage.setItem('qh_token', data.token);
+    localStorage.setItem('qh_userName', data.name);
+    localStorage.setItem('qh_userEmail', data.email);
+    
+    // Cập nhật trạng thái ứng dụng
+    isLoggedIn = true;
+    currentUserName = data.name;
+    
+    updateUserDisplay(data.name);
+    showToast(successMsg);
+    
+    const loginModal = document.getElementById('loginModalOverlay');
+    if (loginModal) loginModal.classList.remove('active');
+}
+
 function renderCheckoutSummary() {
     const checkoutSummaryItems = document.getElementById('checkoutSummaryItems');
     const checkoutSubtotal = document.getElementById('checkoutSubtotal');
@@ -2074,6 +2017,76 @@ function injectRequiredElements() {
             </div>
         `;
         document.body.insertAdjacentHTML('beforeend', profileHtml);
+    }
+
+    // Kiểm tra và thêm Checkout Overlay nếu chưa có (Để nút Mua ngay ở trang chi tiết hoạt động)
+    if (!document.getElementById('checkoutOverlay')) {
+        const checkoutHtml = `
+            <div class="admin-overlay" id="checkoutOverlay" style="z-index: 11000; background: #f4f4f4; display:none;">
+                <div style="background: white; padding: 15px 5%; display: flex; justify-content: space-between; align-items: center; border-bottom: 1px solid #ddd; position: sticky; top: 0; z-index: 100;">
+                    <h1 style="font-size: 24px; font-weight: 900; letter-spacing: -1px; margin: 0; cursor: pointer;" onclick="document.getElementById('checkoutOverlay').classList.remove('active')">Q&H SKINLAB</h1>
+                    <button id="closeCheckoutBtn" style="background: none; border: none; cursor: pointer; font-size: 24px;">&times;</button>
+                </div>
+                <div class="container" style="max-width: 1100px; margin: 40px auto; display: grid; grid-template-columns: 1.2fr 0.8fr; gap: 30px;">
+                    <div style="background: white; padding: 30px; border-radius: 8px; box-shadow: 0 2px 10px rgba(0,0,0,0.05);">
+                        <h2 style="margin-bottom: 20px;">Thông tin giao hàng</h2>
+                        <form id="checkoutForm">
+                            <div style="margin-bottom: 15px;">
+                                <label style="display:block; margin-bottom:5px; font-weight:700;">Họ và tên</label>
+                                <input type="text" id="orderName" required style="width:100%; padding:10px; border:1px solid #eee;">
+                            </div>
+                            <div style="display:grid; grid-template-columns: 1fr 1fr; gap:15px; margin-bottom:15px;">
+                                <div>
+                                    <label style="display:block; margin-bottom:5px; font-weight:700;">Số điện thoại</label>
+                                    <input type="tel" id="orderPhone" required style="width:100%; padding:10px; border:1px solid #eee;">
+                                </div>
+                                <div>
+                                    <label style="display:block; margin-bottom:5px; font-weight:700;">Email</label>
+                                    <input type="email" id="orderEmail" required style="width:100%; padding:10px; border:1px solid #eee;">
+                                </div>
+                            </div>
+                            <div style="margin-bottom: 15px;">
+                                <label style="display:block; margin-bottom:5px; font-weight:700;">Địa chỉ</label>
+                                <textarea id="orderAddress" required style="width:100%; padding:10px; border:1px solid #eee;"></textarea>
+                            </div>
+                            <div style="margin-bottom: 15px;">
+                                <label style="display:block; margin-bottom:5px; font-weight:700;">Thanh toán</label>
+                                <select id="orderPaymentMethod" style="width:100%; padding:10px; border:1px solid #eee;">
+                                    <option value="COD">Thanh toán khi nhận hàng (COD)</option>
+                                    <option value="BANK">Chuyển khoản ngân hàng</option>
+                                </select>
+                            </div>
+                            <textarea id="orderNote" placeholder="Ghi chú (tùy chọn)" style="width:100%; padding:10px; border:1px solid #eee; margin-bottom:20px;"></textarea>
+                            <button type="submit" style="width:100%; padding:15px; background:#5dade2; color:white; border:none; font-weight:800; cursor:pointer; text-transform:uppercase;">HOÀN TẤT ĐẶT HÀNG</button>
+                        </form>
+                        <div id="checkoutQR" style="display:none; text-align:center;">
+                            <h3>Quét mã QR để thanh toán</h3>
+                            <img id="qrCodeImg" style="width:200px; margin:20px 0;">
+                            <p>Nội dung: <strong id="qrNote"></strong></p>
+                            <button id="confirmQRBtn" style="padding:10px 20px; background:var(--primary); color:white; border:none; cursor:pointer;">XÁC NHẬN ĐÃ CHUYỂN</button>
+                        </div>
+                        <div id="checkoutSuccess" style="display:none; text-align:center; padding:20px;">
+                            <h2 style="color:var(--primary);">ĐẶT HÀNG THÀNH CÔNG!</h2>
+                            <p>Mã đơn hàng: <strong id="successOrderId"></strong></p>
+                            <button onclick="location.reload()" style="margin-top:20px; padding:10px 20px; cursor:pointer;">TIẾP TỤC MUA SẮM</button>
+                        </div>
+                    </div>
+                    <div style="background: white; padding: 30px; border-radius: 8px; box-shadow: 0 2px 10px rgba(0,0,0,0.05); height:fit-content;">
+                        <h2 style="margin-bottom: 20px;">Đơn hàng của bạn</h2>
+                        <div id="checkoutSummaryItems"></div>
+                        <div style="border-top:1px solid #eee; padding-top:15px; margin-top:15px;">
+                            <div class="flex-between" style="font-weight:800; color:var(--red); font-size:20px;">
+                                <span>TỔNG CỘNG:</span>
+                                <span id="checkoutTotal">0đ</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        `;
+        document.body.insertAdjacentHTML('beforeend', checkoutHtml);
+        // Sau khi inject, cần gán lại sự kiện cho form mới sinh ra
+        initCheckoutListeners(); 
     }
     
     // Kiểm tra và thêm Toast Container nếu chưa có

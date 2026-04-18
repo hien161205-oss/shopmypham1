@@ -1,5 +1,5 @@
 const jwt = require('jsonwebtoken');
-const User = require('./User'); // Khớp với User.js (PascalCase)
+const User = require('./User');
 
 const protect = async (req, res, next) => {
     let token;

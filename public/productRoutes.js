@@ -1,7 +1,7 @@
 const express = require('express');
 const router = express.Router();
-const Product = require('./Product'); // Vì Product.js đang ở cùng thư mục public/ trong context
-const { protect, admin } = require('./auth'); // Khớp với auth.js
+const Product = require('./Product');
+const { protect, admin } = require('./auth');
 
 // @desc    Get all products
 // @route   GET /api/products

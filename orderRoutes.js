@@ -2,8 +2,10 @@ const express = require('express');
 const router = express.Router();
 const Order = require('./public/Order'); 
 const Product = require('./public/Product'); 
+const User = require('./public/User');
 const mongoose = require('mongoose');
-const { protect, admin } = require('./public/auth'); // Khớp chính xác tên file auth.js
+const jwt = require('jsonwebtoken');
+const { protect, admin } = require('./public/auth');
 
 // @desc    Lấy tất cả đơn hàng
 // @route   GET /api/orders
@@ -36,14 +38,14 @@ router.post('/', async (req, res, next) => {
     if (authHeader && authHeader.startsWith('Bearer')) {
         try {
             const token = authHeader.split(' ')[1];
-            const decoded = require('jsonwebtoken').verify(token, process.env.JWT_SECRET || 'secret');
-            req.user = await require('./public/User').findById(decoded.id);
+            const decoded = jwt.verify(token, process.env.JWT_SECRET || 'secret');
+            req.user = await User.findById(decoded.id);
         } catch (e) {}
     }
     
     try {
         const { customerInfo, items, paymentMethod } = req.body;
-        
+
         if (!items || items.length === 0) {
             return res.status(400).json({ message: 'Giỏ hàng không có sản phẩm' });
         }
@@ -64,6 +66,11 @@ router.post('/', async (req, res, next) => {
             const dbProduct = await Product.findById(item.product);
             if (!dbProduct) {
                 return res.status(404).json({ message: `Sản phẩm "${item.name || 'không xác định'}" (ID: ${item.product}) hiện không còn tồn tại trong kho. Vui lòng cập nhật lại giỏ hàng.` });
+            }
+
+            // Kiểm tra tồn kho
+            if (dbProduct.stock < item.quantity) {
+                return res.status(400).json({ message: `Sản phẩm "${dbProduct.name}" không đủ số lượng trong kho (Còn lại: ${dbProduct.stock})` });
             }
 
             // Lấy giá từ Database, không lấy giá từ client gửi lên
@@ -90,6 +97,14 @@ router.post('/', async (req, res, next) => {
 
         // Nếu user đã đăng nhập, gắn ID user vào đơn hàng
         const createdOrder = await order.save();
+
+        // 3. Cập nhật tồn kho và số lượng đã bán sau khi đặt hàng thành công
+        for (const item of validatedItems) {
+            await Product.findByIdAndUpdate(item.product, {
+                $inc: { stock: -item.quantity, sold: item.quantity }
+            });
+        }
+
         res.status(201).json(createdOrder);
     } catch (error) {
         res.status(400).json({ message: error.message });
