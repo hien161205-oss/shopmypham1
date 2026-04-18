@@ -308,9 +308,11 @@ category: 'cham-soc-toc',
 price: 455000,
 oldPrice: 650000,
 discount: '30%',
-image: 'https://product.hstatic.net/1000006063/product/xit_duong_toc_ha_sol_ho_tro_moc_toc_anagen_active_tonic_100ml_1024x1024.jpg',
+image: 'https://cdn.hstatic.net/products/1000006063/ha_sol_79609e4f4d934ea8b56988ebf2a4c7f0_1024x1024.jpg',
 images: [
-'https://product.hstatic.net/1000006063/product/xit_duong_toc_ha_sol_ho_tro_moc_toc_anagen_active_tonic_100ml_1024x1024.jpg'
+'https://cdn.hstatic.net/products/1000006063/ha_sol_79609e4f4d934ea8b56988ebf2a4c7f0_1024x1024.jpg',
+'https://cdn.hstatic.net/products/1000006063/download__3__1d2237e1c60a43dfa06ca090bb412b75_1024x1024.jpeg',
+'https://cdn.hstatic.net/products/1000006063/download__1__2e1c89d1d4b840a1a8f24778d859d511_1024x1024.jpeg'
 ],
 description: 'Xịt dưỡng tóc Ha\'sol Anagen Active Tonic giúp cải thiện tình trạng rụng tóc, kích thích mọc tóc và nuôi dưỡng da đầu khỏe mạnh.',
 details: 'Sản phẩm đến từ thương hiệu Ha\'sol Hàn Quốc, chuyên biệt cho da đầu yếu và tóc dễ rụng. Với chiết xuất từ các loại thảo dược quý hiếm, xịt dưỡng giúp cung cấp dưỡng chất sâu vào nang tóc, giảm nhiệt độ da đầu và tạo môi trường lý tưởng cho tóc phát triển dày mượt.',
@@ -332,9 +334,11 @@ category: 'cham-soc-toc',
 price: 159000,
 oldPrice: 215000,
 discount: '26%',
-image: 'https://product.hstatic.net/1000006063/product/kem_u_toc_dove_cao_cap_phuc_hoi_hu_ton_180ml_1024x1024.jpg',
+image: 'https://product.hstatic.net/1000006063/product/unilever_e_copy_9016c3502bd9443ab94af880d9e6c06f_1024x1024.jpg',
 images: [
-'https://product.hstatic.net/1000006063/product/kem_u_toc_dove_cao_cap_phuc_hoi_hu_ton_180ml_1024x1024.jpg'
+'https://product.hstatic.net/1000006063/product/unilever_e_copy_9016c3502bd9443ab94af880d9e6c06f_1024x1024.jpg',
+'https://product.hstatic.net/1000006063/product/download_b52c2d8269744f0eaa0006c96887cb42_1024x1024.jpg',
+'https://product.hstatic.net/1000006063/product/download__1__16fda4651a804b72b5de58809e7fcfeb_1024x1024.jpg'
 ],
 description: 'Kem ủ tóc Dove cao cấp giúp phục hồi hư tổn nặng, mang lại mái tóc suôn mượt, chắc khỏe ngay từ lần sử dụng đầu tiên.',
 details: 'Kem ủ tóc Dove Intensive Repair là giải pháp phục hồi chuyên sâu cho tóc khô xơ và hư tổn do tác động của nhiệt hoặc hóa chất. Công nghệ định vị hư tổn chính xác giúp nuôi dưỡng sợi tóc từ sâu bên trong, ngăn ngừa chẻ ngọn và gãy rụng.',
@@ -1524,6 +1528,81 @@ function renderCheckoutSummary() {
     if (checkoutSubtotal) checkoutSubtotal.textContent = total.toLocaleString() + 'đ';
     if (checkoutTotal) checkoutTotal.textContent = total.toLocaleString() + 'đ';
 }
+
+// --- BỔ SUNG CÁC TÍNH NĂNG CÒN THIẾU ---
+
+// 1. Theo dõi sản phẩm đã xem
+window.trackProductView = function(productId) {
+    let viewed = JSON.parse(localStorage.getItem('qh_viewed')) || [];
+    // Loại bỏ nếu đã tồn tại và đưa lên đầu
+    viewed = viewed.filter(id => id !== productId);
+    viewed.unshift(productId);
+    // Chỉ giữ lại 10 sản phẩm gần nhất
+    localStorage.setItem('qh_viewed', JSON.stringify(viewed.slice(0, 10)));
+};
+
+// 2. Gợi ý sản phẩm liên quan
+window.renderRelatedProducts = function(currentProduct) {
+    const grid = document.getElementById('relatedProductsGrid');
+    if (!grid) return;
+
+    const related = products
+        .filter(p => p.category === currentProduct.category && p.id !== currentProduct.id)
+        .slice(0, 4);
+
+    if (related.length > 0) {
+        grid.innerHTML = related.map(p => createProductCard(p)).join('');
+    } else {
+        grid.innerHTML = '<p style="grid-column: span 4; text-align: center; color: #999;">Không có sản phẩm liên quan.</p>';
+    }
+};
+
+// 3. Hiển thị đánh giá (Mock data)
+window.renderReviews = function(productId) {
+    const container = document.querySelector('.reviews-list');
+    if (!container) return;
+
+    // Giả lập dữ liệu đánh giá
+    const mockReviews = [
+        { user: "Nguyễn An", rating: 5, date: "10/04/2026", content: "Sản phẩm dùng rất thích, đóng gói cẩn thận." },
+        { user: "Trần Bình", rating: 4, date: "08/04/2026", content: "Giao hàng hơi chậm một chút nhưng chất lượng ok." }
+    ];
+
+    container.innerHTML = mockReviews.map(r => `
+        <div class="review-item">
+            <div class="review-header">
+                <div class="user-info">
+                    <span class="username">${r.user}</span>
+                    <span class="review-date">${r.date}</span>
+                </div>
+                <div class="review-stars">${'★'.repeat(r.rating)}${'☆'.repeat(5-r.rating)}</div>
+            </div>
+            <p class="review-text">${r.content}</p>
+            <div class="shop-response">
+                <div class="shop-name">Q&H SKINLAB phản hồi:</div>
+                <p class="shop-text">Cảm ơn bạn đã tin tưởng ủng hộ shop ạ!</p>
+            </div>
+        </div>
+    `).join('');
+};
+
+// 4. Cung cấp hàm getProducts cho các trang con
+window.getProducts = function() {
+    return products;
+};
+
+// 5. Tính năng Yêu thích (Wishlist)
+window.toggleFavorite = function(id) {
+    let favorites = JSON.parse(localStorage.getItem('qh_favorites')) || [];
+    if (favorites.includes(id)) {
+        favorites = favorites.filter(fid => fid !== id);
+        showToast('Đã xóa khỏi danh sách yêu thích');
+    } else {
+        favorites.push(id);
+        showToast('Đã thêm vào danh sách yêu thích');
+    }
+    localStorage.setItem('qh_favorites', JSON.stringify(favorites));
+};
 
 function updateUserDisplay(name) {
     isLoggedIn = true;
