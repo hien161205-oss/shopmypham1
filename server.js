@@ -6,11 +6,9 @@ const app = express();
 app.use(cors());
 app.use(express.json());
 
-// 1. Phục vụ tệp tĩnh
-// Ưu tiên các file ở thư mục gốc trước (index.html, product-detail.html,...)
-app.use(express.static(__dirname)); 
-// Sau đó là các tài nguyên trong public (style.css, script.js, images,...)
-app.use(express.static('public'));
+// 1. Phục vụ tệp tĩnh: Ưu tiên các file ở gốc (HTML), sau đó là thư mục public (CSS/JS)
+app.use(express.static(__dirname));
+app.use(express.static(path.join(__dirname, 'public')));
 
 // --- MOCK API ROUTES (Dùng cho bản không MongoDB) ---
 app.get('/api/products', (req, res) => {

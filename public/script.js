@@ -1055,7 +1055,7 @@ window.goToDetail = function(id) {
         localStorage.setItem('selectedProductName', p.name);
         localStorage.setItem('selectedProductImage', p.image);
         localStorage.setItem('selectedProductData', JSON.stringify(p)); // Lưu toàn bộ data để detail page dùng ngay
-        window.location.href = 'product-detail.html';
+        window.location.href = 'product-detail';
     }
 };
 
