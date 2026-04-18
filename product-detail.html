@@ -983,12 +983,12 @@
                 // Update Buy/Cart Buttons
                 const buyBtn = document.querySelector('.btn-buy-now');
                 if (buyBtn) {
-                    buyBtn.onclick = () => buyNow(product._id || product.id);
+                    buyBtn.onclick = () => window.buyNow(product._id || product.id);
                 }
 
                 const cartBtn = document.querySelector('.btn-add-to-cart');
                 if (cartBtn) {
-                    cartBtn.onclick = () => addToCart(product._id || product.id);
+                    cartBtn.onclick = () => window.addToCart(product._id || product.id);
                 }
 
                 // Lưu sản phẩm đã xem
