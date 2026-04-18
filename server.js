@@ -22,6 +22,16 @@ app.get('/api/products', (req, res) => {
     res.json([]); // Trả về mảng rỗng để Frontend dùng DEFAULT_PRODUCTS
 });
 
+// Mock Data cho Bài viết & Người dùng
+let mockMagazine = [];
+let mockUsers = [
+    { _id: "u1", name: "Nguyễn Văn A", email: "customer@example.com", role: "Khách hàng", createdAt: new Date() },
+    { _id: "u2", name: "Admin", email: "admin@qh.com", role: "Quản trị viên", createdAt: new Date() }
+];
+let mockConfig = {
+    hotline: "1900 636 510", email: "contact@qhskinlab.com", banners: []
+};
+
 // Route đăng nhập (Mô phỏng)
 app.post('/api/users/login', (req, res) => {
     const { email, password } = req.body;
@@ -44,6 +54,28 @@ app.post('/api/users', (req, res) => {
     const token = `mockHeader.${payload}.mockSignature`;
 
     res.status(201).json({ token, name, email, isAdmin: false });
+});
+
+// Quản lý Người dùng (Chỉ xem)
+app.get('/api/users', (req, res) => res.json(mockUsers));
+
+// Quản lý Bài viết (Magazine)
+app.get('/api/magazine', (req, res) => res.json(mockMagazine));
+app.post('/api/magazine', (req, res) => {
+    const post = { ...req.body, _id: "MAG-" + Date.now(), createdAt: new Date() };
+    mockMagazine.push(post);
+    res.status(201).json(post);
+});
+app.delete('/api/magazine/:id', (req, res) => {
+    mockMagazine = mockMagazine.filter(m => m._id !== req.params.id);
+    res.json({ message: "Đã xóa bài viết" });
+});
+
+// Quản lý Cấu hình
+app.get('/api/config', (req, res) => res.json(mockConfig));
+app.post('/api/config', (req, res) => {
+    mockConfig = { ...mockConfig, ...req.body };
+    res.json(mockConfig);
 });
 
 // Route kiểm tra quyền Admin (Dùng cho admin.html)
