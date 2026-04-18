@@ -190,6 +190,14 @@
             <div class="category-products">
                 <div class="sort-bar" style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 20px; background: white; padding: 10px 20px; border-radius: 4px; box-shadow: var(--shadow);">
                     <div style="font-size: 14px; color: #666;"><span id="productCount" style="font-weight: 700; color: var(--black);">0</span> sản phẩm</div>
+                    <div class="sort-options" style="display: flex; align-items: center; gap: 10px;">
+                        <span style="font-size: 13px; color: #666;">Sắp xếp theo:</span>
+                        <select id="sortSelect" style="padding: 5px 10px; border: 1px solid #ddd; border-radius: 4px; font-size: 13px; cursor: pointer;">
+                            <option value="default">Mặc định</option>
+                            <option value="price-asc">Giá: Thấp đến Cao</option>
+                            <option value="price-desc">Giá: Cao đến Thấp</option>
+                        </select>
+                    </div>
                 </div>
 
                 <div class="product-grid" id="categoryProductGrid" style="grid-template-columns: repeat(4, 1fr);">

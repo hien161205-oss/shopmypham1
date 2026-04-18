@@ -1333,9 +1333,13 @@ footer {
 }
 
 @media (max-width: 768px) {
-    .header-main { grid-template-columns: 1fr auto; }
+    .header-main { display: flex; justify-content: space-between; }
+    .mobile-menu-btn { display: block !important; }
     .search-container { grid-row: 2; grid-column: 1 / span 2; margin-top: 10px; }
     .nav-wrap { display: none; }
+    /* Hiện side menu khi click trên mobile */
+    .side-menu { border-right: 1px solid var(--border); }
+    .side-nav-item { padding: 15px; border-bottom: 1px solid #eee; }
     .products-grid { grid-template-columns: repeat(2, 1fr); }
     .footer-grid { grid-template-columns: repeat(2, 1fr); }
 }

@@ -564,9 +564,24 @@ function handleCategoryPage() {
 
     // Initial render
     if (gridEl) {
-        gridEl.innerHTML = filtered.map(p => createProductCard(p)).join('');
+        renderFilteredProducts(filtered);
     }
-    if (countEl) countEl.innerText = filtered.length;
+
+    // Logic Sắp xếp
+    const sortSelect = document.getElementById('sortSelect');
+    if (sortSelect) {
+        sortSelect.addEventListener('change', () => {
+            let sorted = [...filtered];
+            if (sortSelect.value === 'price-asc') sorted.sort((a, b) => a.price - b.price);
+            if (sortSelect.value === 'price-desc') sorted.sort((a, b) => b.price - a.price);
+            renderFilteredProducts(sorted);
+        });
+    }
+
+    function renderFilteredProducts(data) {
+        if (gridEl) gridEl.innerHTML = data.map(p => createProductCard(p)).join('');
+        if (countEl) countEl.innerText = data.length;
+    }
 
     // SIDEBAR FILTER LOGIC
     const brandCheckboxes = document.querySelectorAll('.brand-checkbox');
@@ -959,6 +974,23 @@ function startCountdown() {
 
 // 8. EVENTS
 function initEvents() {
+    // 1. Mobile Menu Toggle
+    const mobBtn = document.getElementById('mobileMenuBtn');
+    const sideMenu = document.querySelector('.side-menu');
+    if (mobBtn && sideMenu) {
+        mobBtn.addEventListener('click', (e) => {
+            e.stopPropagation();
+            const isVisible = sideMenu.style.display === 'block';
+            sideMenu.style.display = isVisible ? 'none' : 'block';
+            sideMenu.style.position = 'fixed';
+            sideMenu.style.top = '70px';
+            sideMenu.style.left = '0';
+            sideMenu.style.width = '250px';
+            sideMenu.style.height = '100vh';
+            sideMenu.style.boxShadow = '5px 0 15px rgba(0,0,0,0.1)';
+        });
+    }
+
     // Sticky Header Logic
     const stickyHeader = document.getElementById('stickyHeader');
     if (stickyHeader) {
