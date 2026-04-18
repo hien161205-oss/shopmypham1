@@ -356,12 +356,11 @@ sold: 1250
 
 // --- SYNC PRODUCTS WITH LOCALSTORAGE ---
 let products = [];
-const INITIAL_PRODUCTS_LIST = [
-  { id: 1, brand: "Laneige", name: "Water Bank Cream", price: 850000, image: "https://images.unsplash.com/photo-1620916566398-39f1143ab7be?auto=format&fit=crop&w=400&q=80", category: "skincare" },
-  { id: 2, brand: "Innisfree", name: "Green Tea Serum", price: 590000, image: "https://images.unsplash.com/photo-1556228720-195a672e8a03?auto=format&fit=crop&w=400&q=80", category: "skincare" },
-  { id: 3, brand: "Romand", name: "Juicy Lasting Tint", price: 169000, image: "https://product.hstatic.net/1000284478/product/romand_juicy_lasting_tint_bare_grape_1_8f8e8e8e8e8e8e8e8e8e8e8e8e8e8e8e_master.jpg", category: "trang-diem" }
-];
-if (!localStorage.getItem('qh_products')) localStorage.setItem('qh_products', JSON.stringify(INITIAL_PRODUCTS_LIST));
+
+// Nếu chưa có dữ liệu trong LocalStorage, hãy lấy toàn bộ từ DEFAULT_PRODUCTS đã soạn ở trên
+if (!localStorage.getItem('qh_products') || JSON.parse(localStorage.getItem('qh_products')).length < 5) {
+    localStorage.setItem('qh_products', JSON.stringify(DEFAULT_PRODUCTS));
+}
 products = JSON.parse(localStorage.getItem('qh_products'));
 window.products = products;
 
