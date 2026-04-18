@@ -675,6 +675,10 @@
                         <input type="text" id="prodImage" placeholder="https://..." required>
                     </div>
                     <div class="form-group">
+                        <label>Danh sách ảnh phụ (cách nhau bằng dấu phẩy)</label>
+                        <textarea id="prodImages" rows="2" placeholder="url1, url2, url3..."></textarea>
+                    </div>
+                    <div class="form-group">
                         <label>Mô tả chi tiết</label>
                         <textarea id="prodDetails" rows="3" placeholder="Nhập mô tả sản phẩm..."></textarea>
                     </div>
@@ -944,6 +948,7 @@
                     document.getElementById('prodPrice').value = p.price;
                     document.getElementById('prodStock').value = p.stock || 100;
                     document.getElementById('prodImage').value = p.image;
+                    document.getElementById('prodImages').value = p.images ? p.images.join(', ') : '';
                     document.getElementById('prodDetails').value = p.details || '';
                 }
             } else {
@@ -966,6 +971,7 @@
                 price: parseInt(document.getElementById('prodPrice').value),
                 stock: parseInt(document.getElementById('prodStock').value),
                 image: document.getElementById('prodImage').value,
+                images: document.getElementById('prodImages').value.split(',').map(img => img.trim()).filter(img => img),
                 details: document.getElementById('prodDetails').value
             };
 
