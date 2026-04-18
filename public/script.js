@@ -448,6 +448,76 @@ sold: 1250
         'Nơi sản xuất': 'Hàn Quốc'
     },
     sold: 3800
+},
+{
+    id: 20,
+    name: 'Son Tint Bóng B.O.M Lip Flash Tint 3g',
+    brand: 'B.O.M',
+    category: 'trang-diem-son-moi',
+    price: 159000,
+    oldPrice: 220000,
+    discount: '28%',
+    image: 'https://cdn.hstatic.net/products/1000006063/bom_f36662e5f6da4e8d91acaed985fcd6f3_1024x1024.jpg',
+    images: [
+        'https://cdn.hstatic.net/products/1000006063/bom_f36662e5f6da4e8d91acaed985fcd6f3_1024x1024.jpg',
+        'https://cdn.hstatic.net/products/1000006063/h3_f73a87790d784b828d1d07ebcac1639c_1024x1024.jpg',
+        'https://cdn.hstatic.net/products/1000006063/h8_83b92fc3b9d54320baa5ce8711981d9e_1024x1024.jpg'
+    ],
+    description: 'Son tint bóng với hiệu ứng bắt sáng cực đỉnh, cho đôi môi căng mọng như pha lê.',
+    details: 'B.O.M Lip Flash Tint sở hữu công thức mỏng nhẹ, mang lại lớp bóng gương rạng rỡ mà không gây nặng môi hay bết dính. Sắc son lên chuẩn chỉ sau một lần quẹt và giữ màu bền bỉ.',
+    specs: {
+        'Tên sản phẩm': 'B.O.M Lip Flash Tint',
+        'Dung tích': '3g',
+        'Thương hiệu': 'B.O.M',
+        'Nơi sản xuất': 'Hàn Quốc'
+    },
+    sold: 5200
+},
+{
+    id: 21,
+    name: 'Son Kem Bùn Judydoll Lì Mịn, Lâu Trôi, Bền Màu Matte Lip Mud',
+    brand: 'Judydoll',
+    category: 'trang-diem-son-moi',
+    price: 139000,
+    oldPrice: 195000,
+    discount: '29%',
+    image: 'https://cdn.hstatic.net/products/1000006063/judydoll_copy_e3bcc32282d746a48f2184206eca8d7e_1024x1024.jpg',
+    images: [
+        'https://cdn.hstatic.net/products/1000006063/judydoll_copy_e3bcc32282d746a48f2184206eca8d7e_1024x1024.jpg',
+        'https://down-vn.img.susercontent.com/file/vn-11134201-7r98o-lpvk332qybsn23',
+        'https://cdn.hstatic.net/products/1000006063/39_3bc9c6a4f12a4806b7b3603bd9b2cb02_1024x1024.png'
+    ],
+    description: 'Kết cấu dạng bùn mềm mịn, tạo hiệu ứng mờ lì đỉnh cao và che phủ vân môi hoàn hảo.',
+    details: 'Son kem bùn Judydoll Matte Lip Mud mang đến trải nghiệm trang điểm môi phong cách Trung Hoa đang cực hot. Chất son siêu mịn, dễ tán, có thể dùng làm cả phấn má.',
+    specs: {
+        'Tên sản phẩm': 'Judydoll Matte Lip Mud',
+        'Thương hiệu': 'Judydoll',
+        'Nơi sản xuất': 'Trung Quốc'
+    },
+    sold: 18900
+},
+{
+    id: 22,
+    name: 'Son Tint Gương Bóng Colorkey Bền Màu, Căng Bóng Airy Lip Mirror Series',
+    brand: 'Colorkey',
+    category: 'trang-diem-son-moi',
+    price: 165000,
+    oldPrice: 210000,
+    discount: '21%',
+    image: 'https://cdn.hstatic.net/products/1000006063/colorkey_78ec67e8ef2d4ddebde815145977f9e3_1024x1024.jpg',
+    images: [
+        'https://cdn.hstatic.net/products/1000006063/colorkey_78ec67e8ef2d4ddebde815145977f9e3_1024x1024.jpg',
+        'https://product.hstatic.net/1000006063/product/cn-11134207-7qukw-liwzga4etilyba_80b821b5d6264f9e9eb1596557bd99bd_1024x1024.jpg',
+        'https://cdn.hstatic.net/products/1000006063/38_57a73af68eec43f3854538a85565afce_1024x1024.png'
+    ],
+    description: 'Lớp bóng gương trong suốt cùng màng phim giữ màu giúp đôi môi luôn rạng rỡ.',
+    details: 'Colorkey Airy Lip Mirror Series sử dụng công nghệ màng phim đặc biệt, giúp lớp bóng tách biệt với lớp màu, giữ cho màu son không bị trôi khi ăn uống nhẹ.',
+    specs: {
+        'Tên sản phẩm': 'Colorkey Airy Lip Mirror Series',
+        'Thương hiệu': 'Colorkey',
+        'Nơi sản xuất': 'Trung Quốc'
+    },
+    sold: 32400
 }
 ];
 
@@ -456,7 +526,7 @@ let products = [];
 const storedProducts = localStorage.getItem('qh_products');
 
 // Nếu chưa có dữ liệu hoặc dữ liệu quá ít, hãy nạp lại từ bộ mặc định
-if (!storedProducts || JSON.parse(storedProducts).length < 19) {
+if (!storedProducts || JSON.parse(storedProducts).length < 22) {
     localStorage.setItem('qh_products', JSON.stringify(DEFAULT_PRODUCTS));
 }
 products = JSON.parse(localStorage.getItem('qh_products'));
