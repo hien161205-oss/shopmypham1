@@ -356,9 +356,10 @@ sold: 1250
 
 // --- SYNC PRODUCTS WITH LOCALSTORAGE ---
 let products = [];
+const storedProducts = localStorage.getItem('qh_products');
 
-// Nếu chưa có dữ liệu trong LocalStorage, hãy lấy toàn bộ từ DEFAULT_PRODUCTS đã soạn ở trên
-if (!localStorage.getItem('qh_products') || JSON.parse(localStorage.getItem('qh_products')).length < 5) {
+// Nếu chưa có dữ liệu hoặc dữ liệu quá ít, hãy nạp lại từ bộ mặc định
+if (!storedProducts || JSON.parse(storedProducts).length < 5) {
     localStorage.setItem('qh_products', JSON.stringify(DEFAULT_PRODUCTS));
 }
 products = JSON.parse(localStorage.getItem('qh_products'));
