@@ -2,6 +2,7 @@ const express = require('express');
 const router = express.Router();
 const Order = require('./public/Order'); 
 const Product = require('./public/Product'); 
+const mongoose = require('mongoose');
 const { protect, admin } = require('./public/auth'); // Khớp chính xác tên file auth.js
 
 // @desc    Lấy tất cả đơn hàng
@@ -15,9 +16,31 @@ router.get('/', protect, admin, async (req, res) => {
     }
 });
 
+// @desc    Lấy đơn hàng của người dùng hiện tại
+// @route   GET /api/orders/myorders
+router.get('/myorders', protect, async (req, res) => {
+    try {
+        const orders = await Order.find({ user: req.user._id }).sort({ createdAt: -1 });
+        res.json(orders);
+    } catch (error) {
+        res.status(500).json({ message: error.message });
+    }
+});
+
 // @desc    Tạo đơn hàng mới
 // @route   POST /api/orders
-router.post('/', async (req, res) => {
+// Sử dụng decodeToken (nếu có) để gắn user, hoặc protect nếu bắt buộc đăng nhập
+router.post('/', async (req, res, next) => {
+    // Middleware nhẹ để kiểm tra token nếu có mà không chặn guest
+    const authHeader = req.headers.authorization;
+    if (authHeader && authHeader.startsWith('Bearer')) {
+        try {
+            const token = authHeader.split(' ')[1];
+            const decoded = require('jsonwebtoken').verify(token, process.env.JWT_SECRET || 'secret');
+            req.user = await require('./public/User').findById(decoded.id);
+        } catch (e) {}
+    }
+    
     try {
         const { customerInfo, items, paymentMethod } = req.body;
         
@@ -30,10 +53,17 @@ router.post('/', async (req, res) => {
         const validatedItems = [];
 
         for (const item of items) {
+            // Kiểm tra ID có phải là ObjectId hợp lệ không
+            if (!mongoose.Types.ObjectId.isValid(item.product)) {
+                return res.status(400).json({
+                    message: `Sản phẩm "${item.name || item.product}" là dữ liệu mẫu. Vui lòng thêm sản phẩm thật từ trang Admin để thử nghiệm thanh toán.`
+                });
+            }
+
             // Tìm sản phẩm thật trong DB dựa trên ID
             const dbProduct = await Product.findById(item.product);
             if (!dbProduct) {
-                return res.status(404).json({ message: `Sản phẩm với ID ${item.product} không tồn tại` });
+                return res.status(404).json({ message: `Sản phẩm "${item.name || 'không xác định'}" (ID: ${item.product}) hiện không còn tồn tại trong kho. Vui lòng cập nhật lại giỏ hàng.` });
             }
 
             // Lấy giá từ Database, không lấy giá từ client gửi lên

@@ -640,6 +640,13 @@ document.addEventListener('DOMContentLoaded', () => {
     
     injectRequiredElements();
     initEvents();
+
+    // Khôi phục hiển thị người dùng ngay lập tức từ Token/localStorage 
+    // mà không cần đợi tải danh sách sản phẩm từ API
+    if (isLoggedIn && currentUserName) {
+        updateUserDisplay(currentUserName);
+    }
+
     loadProductsFromServer();
     
     updateCartUI();
@@ -660,9 +667,6 @@ function renderAllSections() {
     if (document.getElementById('hairCareGrid')) renderHairCareProducts();
     if (document.getElementById('makeupSectionGrid')) renderMakeupSectionProducts();
     updateHomeSectionCounts();
-
-    // Cập nhật hiển thị người dùng dựa trên Token và Session
-    if (isLoggedIn) updateUserDisplay(currentUserName);
 
     // Xử lý các trang đặc biệt
     const path = window.location.pathname;
@@ -1119,10 +1123,10 @@ window.addToCart = function(id, quantity) {
         quantity = qtyInput ? parseInt(qtyInput.value) : 1;
     }
 
-    const product = products.find(p => p.id == id);
+    const product = products.find(p => (p._id || p.id).toString() === id.toString());
     if (!product) return;
 
-    const existing = cart.find(item => item.id == id);
+    const existing = cart.find(item => (item._id || item.id).toString() === id.toString());
 
     if (existing) {
         existing.quantity += quantity;
@@ -1137,13 +1141,13 @@ window.addToCart = function(id, quantity) {
 };
 
 window.buyNow = function(productId) {
-    const product = products.find(p => p.id == productId);
+    const product = products.find(p => (p._id || p.id).toString() === productId.toString());
     if (!product) return;
     let qty = 1;
     const qtyInput = document.getElementById('pdQty');
     if (qtyInput) qty = parseInt(qtyInput.value);
-    window.currentCheckoutItems = [{ ...product, quantity: qty }];
-    window.isDirectCheckout = true;
+    currentCheckoutItems = [{ ...product, quantity: qty }];
+    isDirectCheckout = true;
     
     // Cập nhật lại giao diện tóm tắt đơn hàng trước khi hiển thị
     if (typeof renderCheckoutSummary === 'function') renderCheckoutSummary();
@@ -1153,7 +1157,7 @@ window.buyNow = function(productId) {
 };
 
 window.removeFromCart = function(id) {
-    cart = cart.filter(item => item.id !== id);
+    cart = cart.filter(item => (item._id || item.id).toString() !== id.toString());
     saveCart();
     updateCartUI();
 };
@@ -1177,7 +1181,7 @@ function updateCartUI() {
                 <div style="flex:1;">
                     <p style="font-size:13px; font-weight:600; margin-bottom:5px;">${item.name}</p>
                     <p style="font-size:12px; color:var(--red); font-weight:800;">${item.price.toLocaleString()}đ x ${item.quantity}</p>
-                    <span style="font-size:11px; color:#999; cursor:pointer;" onclick="removeFromCart(${item.id})">Xóa khỏi giỏ</span>
+                    <span style="font-size:11px; color:#999; cursor:pointer;" onclick="removeFromCart('${item._id || item.id}')">Xóa khỏi giỏ</span>
                 </div>
             </div>
         `).join('');
@@ -1322,7 +1326,7 @@ function initEvents() {
 
             if (matches.length > 0) {
                 searchResults.innerHTML = matches.map(p => `
-                    <div class="search-result-item" onclick="goToDetail(${p.id})">
+                    <div class="search-result-item" onclick="goToDetail('${p._id || p.id}')">
                         <img src="${p.image}" alt="${p.name}" referrerPolicy="no-referrer">
                         <div class="search-result-info">
                             <div class="search-result-name">${p.name}</div>
@@ -1414,39 +1418,64 @@ function initEvents() {
     }
 
     if (loginForm) {
-        loginForm.addEventListener('submit', (e) => {
+        loginForm.addEventListener('submit', async (e) => {
             e.preventDefault();
-            const userInput = loginForm.querySelector('input[type="text"]');
-            const passInput = loginForm.querySelector('input[type="password"]');
+            const email = loginForm.querySelector('input[type="text"]').value;
+            const password = loginForm.querySelector('input[type="password"]').value;
             
-            const user = userInput.value;
-            const pass = passInput ? passInput.value : '';
+            try {
+                // GỌI API ĐĂNG NHẬP THẬT TỪ BACKEND
+                const data = await safeFetch(`${API_BASE_URL}/users/login`, {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ email, password })
+                });
 
-            // ADMIN LOGIN CHECK
-            const adminPass = localStorage.getItem('adminPass') || '123456';
-            if (user === 'admin' && pass === adminPass) {
-                sessionStorage.setItem('adminLoggedIn', 'true');
-                updateUserDisplay('admin');
-                showToast('Chào mừng Admin trở lại!');
+                // QUAN TRỌNG: Lưu token và tên vào localStorage để dùng cho các trang sau
+                localStorage.setItem('qh_token', data.token);
+                localStorage.setItem('qh_userName', data.name);
+                localStorage.setItem('qh_userEmail', data.email);
+                
+                // Cập nhật biến toàn cục để logic hiện tại không bị lệch
+                isLoggedIn = true;
+                currentUserName = data.name;
+                
+                updateUserDisplay(data.name);
+                showToast(`Chào mừng ${data.name} đã trở lại!`);
                 if (loginModal) loginModal.classList.remove('active');
-                return;
+            } catch (err) {
+                showToast('Lỗi đăng nhập: ' + err.message);
             }
-
-            const name = user.split('@')[0];
-            updateUserDisplay(name);
-            showToast('Chào mừng bạn đã trở lại với Q&H SKINLAB!');
-            if (loginModal) loginModal.classList.remove('active');
         });
     }
 
     if (registerForm) {
-        registerForm.addEventListener('submit', (e) => {
+        registerForm.addEventListener('submit', async (e) => {
             e.preventDefault();
-            const nameInput = registerForm.querySelector('input[type="text"]');
-            const name = nameInput.value;
-            updateUserDisplay(name);
-            showToast('Đăng ký thành công! Hãy kiểm tra email để xác nhận');
-            if (loginModal) loginModal.classList.remove('active');
+            const name = registerForm.querySelector('input[type="text"]').value;
+            const email = registerForm.querySelector('input[type="email"]').value;
+            const password = registerForm.querySelector('input[type="password"]').value;
+
+            try {
+                const data = await safeFetch(`${API_BASE_URL}/users`, {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ name, email, password })
+                });
+
+                localStorage.setItem('qh_token', data.token);
+                localStorage.setItem('qh_userName', data.name);
+                localStorage.setItem('qh_userEmail', data.email);
+                
+                isLoggedIn = true;
+                currentUserName = data.name;
+
+                updateUserDisplay(data.name);
+                showToast('Đăng ký thành công!');
+                if (loginModal) loginModal.classList.remove('active');
+            } catch (err) {
+                showToast('Lỗi đăng ký: ' + err.message);
+            }
         });
     }
 
@@ -1478,11 +1507,55 @@ function initEvents() {
         }
     };
 
+    window.renderProfileOrders = async function(statusFilter = 'Chờ xác nhận') {
+        const ordersList = document.getElementById('profileOrdersList');
+        if (!ordersList) return;
+
+        try {
+            // Lấy đơn hàng thật từ Database thay vì localStorage
+            const orders = await safeFetch(`${API_BASE_URL}/orders/myorders`, {
+                headers: { 'Authorization': `Bearer ${localStorage.getItem('qh_token')}` }
+            });
+            
+            const filteredOrders = orders.filter(o => (o.status || 'Chờ xác nhận') === statusFilter);
+
+            if (filteredOrders.length === 0) {
+                ordersList.innerHTML = '<div style="color: #888; text-align: center; padding: 60px 20px;">' +
+                                    '<svg width="60" height="60" viewBox="0 0 24 24" fill="none" stroke="#ddd" stroke-width="1.5" style="margin-bottom: 15px;"><path d="M6 2 3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4Z"></path><path d="M3 6h18"></path><path d="M16 10a4 4 0 0 1-8 0"></path></svg>' +
+                                    '<div style="font-size: 15px; font-weight: 500;">Bạn chưa có đơn hàng nào ở trạng thái này!</div>' +
+                                    '</div>';
+                return;
+            }
+
+            let html = '<div style="display: flex; flex-direction: column; gap: 15px;">';
+            filteredOrders.forEach(order => {
+                const statusColor = order.status === 'Đã huỷ' ? '#e74c3c' : (order.status === 'Đã giao' ? '#27ae60' : '#f39c12');
+                html += `
+                    <div style="border: 1px solid #eee; border-radius: 8px; padding: 20px; background: #fff;">
+                        <div style="display: flex; justify-content: space-between; margin-bottom: 10px;">
+                            <span style="font-weight: 700;">Đơn hàng #${order._id.substring(0,8)}</span>
+                            <span style="color: ${statusColor}; font-weight: 700;">${order.status}</span>
+                        </div>
+                        ${order.items.map(item => `<div style="font-size: 13px;">${item.name} x${item.quantity}</div>`).join('')}
+                        <div style="text-align: right; margin-top: 10px; font-weight: 800; color: var(--red);">
+                            ${order.totalPrice.toLocaleString()}đ
+                        </div>
+                    </div>
+                `;
+            });
+            html += '</div>';
+            ordersList.innerHTML = html;
+        } catch (err) {
+            ordersList.innerHTML = '<p style="text-align:center; padding: 20px;">Không thể tải đơn hàng.</p>';
+        }
+    };
+
     window.logoutUser = function() {
         isLoggedIn = false;
         currentUserName = '';
         localStorage.removeItem('qh_token');
         localStorage.removeItem('qh_userName');
+        localStorage.removeItem('qh_userEmail');
         
         const display = document.getElementById('userNameDisplay');
         const adminBtn = document.getElementById('adminPanelBtn');
@@ -1504,61 +1577,6 @@ function initEvents() {
         el.classList.add('active');
         renderProfileOrders(status);
     };
-
-    function renderProfileOrders(statusFilter = 'Chờ xác nhận') {
-        const ordersList = document.getElementById('profileOrdersList');
-        if (!ordersList) return;
-
-        let orders = JSON.parse(localStorage.getItem('qh_orders') || '[]');
-        
-        // Filter by status
-        orders = orders.filter(o => (o.status || 'Chờ xác nhận') === statusFilter);
-        
-        if (orders.length === 0) {
-            ordersList.innerHTML = '<div style="color: #888; text-align: center; padding: 60px 20px;">' +
-                                   '<svg width="60" height="60" viewBox="0 0 24 24" fill="none" stroke="#ddd" stroke-width="1.5" style="margin-bottom: 15px;"><path d="M6 2 3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4Z"></path><path d="M3 6h18"></path><path d="M16 10a4 4 0 0 1-8 0"></path></svg>' +
-                                   '<div style="font-size: 15px; font-weight: 500;">Bạn chưa đặt mua sản phẩm nào!</div>' +
-                                   '</div>';
-            return;
-        }
-
-        let html = '<div style="display: flex; flex-direction: column; gap: 15px;">';
-        orders.forEach(order => {
-            const statusColor = order.status === 'Đã huỷ' ? '#e74c3c' : (order.status === 'Đã giao' ? '#27ae60' : '#f39c12');
-            
-            html += `
-                <div style="border: 1px solid #eee; border-radius: 8px; padding: 20px; background: #fff; box-shadow: 0 2px 5px rgba(0,0,0,0.02);">
-                    <div style="display: flex; justify-content: space-between; margin-bottom: 15px; border-bottom: 1px solid #f9f9f9; padding-bottom: 12px; align-items: center;">
-                        <span style="font-weight: 700; color: #333; font-size: 15px;">Đơn hàng #${order._id.substring(0,8)}</span>
-                        <span style="color: ${statusColor}; font-weight: 700; font-size: 13px; text-transform: uppercase; letter-spacing: 0.5px;">${order.status || 'Chờ xác nhận'}</span>
-                    </div>
-                    
-                    <!-- Order Items -->
-                    <div style="margin-bottom: 15px;">
-                        ${(order.items || []).map(item => `
-                            <div style="display: flex; gap: 12px; margin-bottom: 10px; align-items: center;">
-                                <img src="${item.image}" style="width: 50px; height: 50px; object-fit: cover; border-radius: 4px; border: 1px solid #f0f0f0;" referrerPolicy="no-referrer">
-                                <div style="flex: 1;">
-                                    <div style="font-size: 14px; font-weight: 600; color: #444;">${item.name}</div>
-                                    <div style="font-size: 12px; color: #888;">x${item.quantity} - ${item.price.toLocaleString()}đ</div>
-                                </div>
-                            </div>
-                        `).join('')}
-                    </div>
-
-                    <div style="display: flex; justify-content: space-between; align-items: flex-end; padding-top: 12px; border-top: 1px dotted #eee;">
-                        <div style="font-size: 12px; color: #999;">Ngày đặt: ${new Date(order.createdAt).toLocaleDateString()}</div>
-                        <div style="text-align: right;">
-                            <span style="font-size: 13px; color: #666;">Thành tiền: </span>
-                            <b style="color: var(--red); font-size: 18px;">${order.totalPrice.toLocaleString()}đ</b>
-                        </div>
-                    </div>
-                </div>
-            `;
-        });
-        html += '</div>';
-        ordersList.innerHTML = html;
-    }
 
     // ADMIN REDIRECT
     const adminPanelBtn = document.getElementById('adminPanelBtn');
@@ -1607,6 +1625,14 @@ function initEvents() {
                 showToast('Giỏ hàng của bạn đang trống!');
                 return;
             }
+            
+            // Kiểm tra xem có sản phẩm mẫu (ID là số) trong giỏ hàng không
+            const hasMockProduct = cart.some(item => !item._id);
+            if (hasMockProduct) {
+                showToast('Giỏ hàng chứa sản phẩm mẫu. Vui lòng xóa và chọn sản phẩm từ hệ thống!');
+                return;
+            }
+
             currentCheckoutItems = [...cart];
             isDirectCheckout = false;
             closeCart();
@@ -1642,6 +1668,7 @@ function initEvents() {
                 const address = document.getElementById('orderAddress').value;
                 const note = document.getElementById('orderNote').value;
                 const payment = document.getElementById('orderPaymentMethod').value;
+                const token = localStorage.getItem('qh_token');
 
                 try {
                     // GỬI ĐƠN HÀNG LÊN BACKEND ĐỂ XÁC THỰC GIÁ VÀ LƯU DATABASE
@@ -1649,7 +1676,7 @@ function initEvents() {
                         method: 'POST',
                         headers: {
                             'Content-Type': 'application/json',
-                            'Authorization': `Bearer ${localStorage.getItem('qh_token')}`
+                            ...(token ? { 'Authorization': `Bearer ${token}` } : {})
                         },
                         body: JSON.stringify({
                             customerInfo: { name, phone, email, address, note },
@@ -1761,7 +1788,7 @@ function initEvents() {
     const buyNowBtn = document.querySelector('.btn-buy-now');
     if (buyNowBtn) {
         buyNowBtn.onclick = () => {
-            const productId = parseInt(localStorage.getItem('selectedProductId'));
+            const productId = localStorage.getItem('selectedProductId');
             if (productId) window.buyNow(productId);
         };
     }
@@ -1870,6 +1897,10 @@ window.toggleFavorite = function(id) {
 function updateUserDisplay(name) {
     if (!name) return;
     
+    // Đảm bảo các biến trạng thái được cập nhật
+    isLoggedIn = true;
+    currentUserName = name;
+
     // Giải mã JWT Payload để kiểm tra quyền hiển thị nút Admin trên UI
     const token = localStorage.getItem('qh_token');
     let isAdmin = false;
@@ -1899,14 +1930,15 @@ function updateUserDisplay(name) {
     // Update Profile Overlay Info
     const profileUserName = document.getElementById('profileUserName');
     const profileUserEmail = document.getElementById('profileUserEmail');
+    const actualEmail = localStorage.getItem('qh_userEmail') || (name.toLowerCase().replace(/\s/g, '') + '@gmail.com');
     const profileAvatar = document.getElementById('profileAvatar');
     const infoName = document.getElementById('infoName');
     const infoEmail = document.getElementById('infoEmail');
 
     if (profileUserName) profileUserName.textContent = name;
-    if (profileUserEmail) profileUserEmail.textContent = name.toLowerCase().replace(/\s/g, '') + '@gmail.com';
+    if (profileUserEmail) profileUserEmail.textContent = actualEmail;
     if (infoName) infoName.textContent = name;
-    if (infoEmail) infoEmail.textContent = name.toLowerCase().replace(/\s/g, '') + '@gmail.com';
+    if (infoEmail) infoEmail.textContent = actualEmail;
     if (profileAvatar) {
         profileAvatar.textContent = name.substring(0, 2).toUpperCase();
     }

@@ -794,12 +794,14 @@
 
         async function loadAdminData() {
             try {
-                const [prodData, orderData] = await Promise.all([
+                const [prodData, orderData, catData] = await Promise.all([
                     safeFetch(`${API_BASE_URL}/products`),
-                    safeFetch(`${API_BASE_URL}/orders`, { headers: authHeader })
+                    safeFetch(`${API_BASE_URL}/orders`, { headers: authHeader }),
+                    safeFetch(`${API_BASE_URL}/categories`)
                 ]);
                 products = prodData;
                 orders = orderData;
+                categories = catData.length > 0 ? catData : DEFAULT_CATEGORIES;
                 
                 renderDashboard();
                 renderProducts();
@@ -1014,17 +1016,16 @@
             try {
                 const method = id ? 'PUT' : 'POST';
                 const url = id ? `${API_BASE_URL}/products/${id}` : `${API_BASE_URL}/products`;
-                const res = await fetch(url, {
+                await safeFetch(url, {
                     method,
                     headers: { 'Content-Type': 'application/json', ...authHeader },
                     body: JSON.stringify(productData)
                 });
-                if (res.ok) {
-                    showToast(id ? 'Đã cập nhật sản phẩm' : 'Đã thêm sản phẩm');
-                    loadAdminData();
-                }
+                
+                showToast(id ? 'Đã cập nhật sản phẩm' : 'Đã thêm sản phẩm');
+                loadAdminData();
             } catch (err) {
-                showToast('Lỗi khi lưu sản phẩm');
+                showToast('Lỗi: ' + err.message);
             }
             closeProductModal();
         };
@@ -1032,13 +1033,14 @@
         async function deleteProduct(id) {
             if (confirm('Xóa sản phẩm này?')) {
                 try {
-                    const res = await fetch(`${API_BASE_URL}/products/${id}`, {
+                    await safeFetch(`${API_BASE_URL}/products/${id}`, {
                         method: 'DELETE',
                         headers: authHeader
                     });
-                    if (res.ok) { showToast('Đã xóa'); loadAdminData(); }
+                    showToast('Đã xóa sản phẩm');
+                    loadAdminData();
                 } catch (err) {
-                    showToast('Lỗi xóa sản phẩm');
+                    showToast('Lỗi: ' + err.message);
                 }
             }
         }
@@ -1064,11 +1066,15 @@
             overlay.style.display = 'flex';
         }
 
+        window.editCategory = function(id) {
+            openCategoryModal(id);
+        };
+
         function closeCategoryModal() {
             document.getElementById('categoryModalOverlay').style.display = 'none';
         }
 
-        document.getElementById('saveCategoryBtn').onclick = () => {
+        document.getElementById('saveCategoryBtn').onclick = async () => {
             const id = document.getElementById('catId').value;
             const catData = {
                 id: id ? parseInt(id) : Date.now(),
@@ -1076,61 +1082,63 @@
                 slug: document.getElementById('catSlug').value
             };
 
-            if (id) {
-                const idx = categories.findIndex(c => c.id == id);
-                categories[idx] = catData;
-            } else {
-                categories.push(catData);
+            try {
+                await safeFetch(`${API_BASE_URL}/categories`, {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json', ...authHeader },
+                    body: JSON.stringify(catData)
+                });
+                showToast('Đã lưu danh mục vào hệ thống');
+                loadAdminData();
+                closeCategoryModal();
+            } catch (err) {
+                showToast('Lỗi: ' + err.message);
             }
-
-            localStorage.setItem('qh_categories', JSON.stringify(categories));
-            renderCategories();
-            closeCategoryModal();
-            showToast('Đã cập nhật danh mục');
         };
 
-        function deleteCategory(id) {
-            if (confirm('Xóa danh mục này có thể ảnh hưởng đến các sản phẩm liên quan. Tiếp tục?')) {
-                categories = categories.filter(c => c.id !== id);
-                localStorage.setItem('qh_categories', JSON.stringify(categories));
-                renderCategories();
-                showToast('Đã xóa danh mục');
+        async function deleteCategory(id) {
+            if (confirm('Xóa danh mục này?')) {
+                try {
+                    await safeFetch(`${API_BASE_URL}/categories/${id}`, {
+                        method: 'DELETE',
+                        headers: authHeader
+                    });
+                    showToast('Đã xóa danh mục');
+                    loadAdminData();
+                } catch (err) {
+                    showToast('Lỗi: ' + err.message);
+                }
             }
         }
 
         // --- 6. ORDER LOGIC ---
         async function updateOrderStatus(id, newStatus) {
             try {
-                const res = await fetch(`${API_BASE_URL}/orders/${id}`, {
+                await safeFetch(`${API_BASE_URL}/orders/${id}`, {
                     method: 'PUT',
                     headers: { 'Content-Type': 'application/json', ...authHeader },
                     body: JSON.stringify({ status: newStatus })
                 });
-                if (res.ok) {
-                    showToast(`Cập nhật thành: ${newStatus}`);
-                    loadAdminData();
-                }
+                
+                showToast(`Cập nhật thành: ${newStatus}`);
+                loadAdminData();
             } catch (err) {
-                showToast('Lỗi cập nhật đơn hàng');
+                showToast('Lỗi: ' + err.message);
             }
         }
 
         async function confirmPayment(id) {
             if (confirm('Xác nhận khách hàng đã thanh toán đơn hàng này?')) {
                 try {
-                    const res = await fetch(`${API_BASE_URL}/orders/${id}/pay`, {
+                    await safeFetch(`${API_BASE_URL}/orders/${id}/pay`, {
                         method: 'PUT',
                         headers: { 'Content-Type': 'application/json', ...authHeader }
                     });
-                    if (res.ok) {
-                        showToast('Đã xác nhận thanh toán');
-                        loadAdminData();
-                    } else {
-                        const data = await res.json();
-                        showToast(data.message || 'Lỗi khi xác nhận');
-                    }
+                    
+                    showToast('Đã xác nhận thanh toán');
+                    loadAdminData();
                 } catch (err) {
-                    showToast('Lỗi kết nối máy chủ');
+                    showToast('Lỗi: ' + err.message);
                 }
             }
         }

@@ -591,8 +591,8 @@
                     </div>
 
                     <div class="pd-buttons">
-                        <button class="btn-pd-buy" onclick="alert('Tính năng đang bảo trì')">Mua Online</button>
-                        <button class="btn-pd-cart" onclick="addToCart(9)">Thêm vào giỏ hàng</button>
+                        <button class="btn-pd-buy btn-buy-now">Mua Online</button>
+                        <button class="btn-pd-cart btn-add-to-cart">Thêm vào giỏ hàng</button>
                     </div>
                 </div>
 
@@ -981,21 +981,21 @@
                 }
 
                 // Update Buy/Cart Buttons
-                const buyBtn = document.querySelector('.btn-pd-buy');
+                const buyBtn = document.querySelector('.btn-buy-now');
                 if (buyBtn) {
-                    buyBtn.setAttribute('onclick', `buyNow(${product.id})`);
+                    buyBtn.onclick = () => buyNow(product._id || product.id);
                 }
 
-                const cartBtn = document.querySelector('.btn-pd-cart');
+                const cartBtn = document.querySelector('.btn-add-to-cart');
                 if (cartBtn) {
-                    cartBtn.setAttribute('onclick', `addToCart(${product.id})`);
+                    cartBtn.onclick = () => addToCart(product._id || product.id);
                 }
 
                 // Lưu sản phẩm đã xem
-                if (typeof trackProductView === 'function') trackProductView(product.id);
+                if (typeof trackProductView === 'function') trackProductView(product._id || product.id);
 
                 // Re-render reviews for this specific product
-                if (typeof renderReviews === 'function') renderReviews(product.id);
+                if (typeof renderReviews === 'function') renderReviews(product._id || product.id);
 
                 // Render related products
                 if (typeof renderRelatedProducts === 'function') renderRelatedProducts(product);

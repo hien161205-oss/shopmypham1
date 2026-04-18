@@ -13,10 +13,12 @@ app.use(express.json());
 const productRoutes = require('./public/productRoutes'); 
 const userRoutes = require('./userRoutes'); 
 const orderRoutes = require('./orderRoutes');
+const categoryRoutes = require('./categoryRoutes');
 
 app.use('/api/products', productRoutes);
 app.use('/api/users', userRoutes);
 app.use('/api/orders', orderRoutes);
+app.use('/api/categories', categoryRoutes);
 
 const MONGO_URI = process.env.MONGO_URI;
 
