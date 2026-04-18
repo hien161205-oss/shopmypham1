@@ -6,14 +6,14 @@ const app = express();
 app.use(cors());
 app.use(express.json());
 
-// 1. Phục vụ tệp tĩnh từ cả thư mục public VÀ thư mục gốc (nơi chứa các file HTML)
-// Sử dụng path.join để đảm bảo đường dẫn chính xác trên Linux (Vercel)
-app.use(express.static(path.join(__dirname, 'public')));
-app.use(express.static(__dirname));
+// 1. Phục vụ tệp tĩnh
+// Ưu tiên các file ở thư mục gốc trước (index.html, product-detail.html,...)
+app.use(express.static(__dirname)); 
+// Sau đó là các tài nguyên trong public (style.css, script.js, images,...)
+app.use(express.static('public'));
 
 // --- MOCK API ROUTES (Dùng cho bản không MongoDB) ---
 app.get('/api/products', (req, res) => {
-    // Bạn có thể trả về mảng rỗng hoặc dữ liệu mẫu ở đây nếu muốn
     res.json([]); // Trả về mảng rỗng để Frontend dùng DEFAULT_PRODUCTS
 });
 
@@ -26,11 +26,6 @@ app.post('/api/orders', (req, res) => {
 
 // 2. Route mặc định trả về index.html
 app.get('/', (req, res) => {
-    res.sendFile(path.join(__dirname, 'index.html'));
-});
-
-// 3. Chuyển hướng mọi request không tìm thấy về index.html (SPA routing)
-app.get('*', (req, res) => {
     res.sendFile(path.join(__dirname, 'index.html'));
 });
 
