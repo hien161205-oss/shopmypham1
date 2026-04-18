@@ -1143,6 +1143,23 @@
             }
         }
 
+        // --- 7. SETTINGS LOGIC ---
+        document.getElementById('saveAdminAccount').onclick = () => {
+            const pass = document.getElementById('setAdminPass').value;
+            const confirm = document.getElementById('confirmAdminPass').value;
+            const name = document.getElementById('adminName').value;
+
+            if (pass && pass !== confirm) {
+                showToast('Mật khẩu xác nhận không khớp');
+                return;
+            }
+
+            if (pass) localStorage.setItem('adminPass', pass);
+            localStorage.setItem('qh_userName', name);
+            
+            showToast('Đã cập nhật hồ sơ Quản trị viên');
+        };
+
         // --- 7. INITIAL LOAD ---
         window.onload = () => {
             loadAdminData();
