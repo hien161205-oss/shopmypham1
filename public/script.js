@@ -397,6 +397,53 @@ sold: 1250
         'Nơi sản xuất': 'Việt Nam'
     },
     sold: 8900
+},
+{
+    id: 18,
+    name: 'Son Tint Merzy Mịn Lì, Bền Màu, Fit Môi Tự Nhiên Water Fit Blur Tint',
+    brand: 'Merzy',
+    category: 'trang-diem-son-moi',
+    price: 159000,
+    oldPrice: 250000,
+    discount: '36%',
+    image: 'https://product.hstatic.net/1000006063/product/wb2_7f9f8e8e8e8e8e8e8e8e8e8e8e8e8e8e_master.jpg',
+    images: [
+        'https://product.hstatic.net/1000006063/product/wb2_7f9f8e8e8e8e8e8e8e8e8e8e8e8e8e8e_master.jpg',
+        'https://cdn.hstatic.net/products/1000006063/wb_1_8f8e8e8e8e8e8e8e8e8e8e8e8e8e8e8e_master.jpg'
+    ],
+    description: 'Chất son mịn lì, nhẹ môi, bám màu tốt và che phủ khuyết điểm môi hoàn hảo.',
+    details: 'Son Tint Merzy Water Fit Blur Tint mang đến kết cấu son kem lì mướt mịn như nhung. Công nghệ Blur Fit giúp son bám chặt vào môi nhưng vẫn giữ được sự mềm mại, không gây khô hay lộ vân môi.',
+    specs: {
+        'Tên sản phẩm': 'Merzy Water Fit Blur Tint',
+        'Chất son': 'Tint lì (Blur Tint)',
+        'Dung tích': '4g',
+        'Thương hiệu': 'Merzy',
+        'Nơi sản xuất': 'Hàn Quốc'
+    },
+    sold: 12400
+},
+{
+    id: 19,
+    name: 'Son Tint Bền Màu Fwee Rose Obsession Stay Fit Tint',
+    brand: 'Fwee',
+    category: 'trang-diem-son-moi',
+    price: 289000,
+    oldPrice: 350000,
+    discount: '17%',
+    image: 'https://product.hstatic.net/1000006063/product/fwee_rose_1_8f8e8e8e8e8e8e8e8e8e8e8e8e8e8e8e_master.jpg',
+    images: [
+        'https://product.hstatic.net/1000006063/product/fwee_rose_1_8f8e8e8e8e8e8e8e8e8e8e8e8e8e8e8e_master.jpg',
+        'https://cdn.hstatic.net/products/1000006063/fwee_rose_2_8f8e8e8e8e8e8e8e8e8e8e8e8e8e8e8e_master.jpg'
+    ],
+    description: 'Dòng son lấy cảm hứng từ những đóa hồng kiêu sa, chất son Stay Fit bám màu cả ngày dài.',
+    details: 'Fwee Rose Obsession Stay Fit Tint là sự kết hợp hoàn hảo giữa sắc màu lãng mạn và độ bền màu ấn tượng. Son lên môi chuẩn sắc ngay từ lần quẹt đầu tiên, để lại lớp finish mịn màng như cánh hoa hồng.',
+    specs: {
+        'Tên sản phẩm': 'Fwee Rose Obsession Stay Fit Tint',
+        'Dung tích': '4.5g',
+        'Thương hiệu': 'Fwee',
+        'Nơi sản xuất': 'Hàn Quốc'
+    },
+    sold: 3800
 }
 ];
 
@@ -405,7 +452,7 @@ let products = [];
 const storedProducts = localStorage.getItem('qh_products');
 
 // Nếu chưa có dữ liệu hoặc dữ liệu quá ít, hãy nạp lại từ bộ mặc định
-if (!storedProducts || JSON.parse(storedProducts).length < 17) {
+if (!storedProducts || JSON.parse(storedProducts).length < 19) {
     localStorage.setItem('qh_products', JSON.stringify(DEFAULT_PRODUCTS));
 }
 products = JSON.parse(localStorage.getItem('qh_products'));
