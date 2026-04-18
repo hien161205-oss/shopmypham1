@@ -762,6 +762,11 @@
                     fetch(`${API_BASE_URL}/products`),
                     fetch(`${API_BASE_URL}/orders`, { headers: authHeader })
                 ]);
+
+                if (!prodRes.ok || !orderRes.ok) {
+                    throw new Error("Không thể lấy dữ liệu từ Server (HTTP " + (prodRes.status || orderRes.status) + ")");
+                }
+                
                 products = await prodRes.json();
                 orders = await orderRes.json();
                 

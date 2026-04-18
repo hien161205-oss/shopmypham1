@@ -530,11 +530,21 @@ sold: 1250
 async function loadProductsFromServer() {
     try {
         const res = await fetch(`${API_BASE_URL}/products`);
+        
+        if (!res.ok) {
+            throw new Error(`Server trả về lỗi ${res.status}`);
+        }
+
+        const contentType = res.headers.get("content-type");
+        if (!contentType || !contentType.includes("application/json")) {
+            throw new TypeError("Phản hồi từ server không phải là JSON hợp lệ!");
+        }
+
         const data = await res.json();
         products = (data && data.length > 0) ? data : DEFAULT_PRODUCTS;
         console.log('Dữ liệu sản phẩm từ Server:', products.length);
     } catch (error) {
-        console.error('Lỗi khi tải sản phẩm từ backend, sử dụng dữ liệu mặc định:', error);
+        console.error('Lỗi API:', error.message, 'Sử dụng dữ liệu mặc định.');
         products = DEFAULT_PRODUCTS;
     }
     window.products = products;
@@ -1624,10 +1634,19 @@ function initEvents() {
                         })
                     });
 
-                    const createdOrder = await response.json();
-                    if (!response.ok) throw new Error(createdOrder.message || 'Lỗi đặt hàng');
+                    if (!response.ok) {
+                        const errorData = await response.json().catch(() => ({ message: 'Lỗi đặt hàng' }));
+                        throw new Error(errorData.message);
+                    }
 
-                    const finalizeOrderUI = () => {
+                    const contentType = response.headers.get("content-type");
+                    if (!contentType || !contentType.includes("application/json")) {
+                        throw new Error("Server không trả về dữ liệu đơn hàng dạng JSON");
+                    }
+
+                    const createdOrder = await response.json();
+
+                    const finalizeOrderUI = (order) => {
                         if (!isDirectCheckout) {
                             cart = [];
                             localStorage.setItem('qh_cart', JSON.stringify(cart));
@@ -1641,9 +1660,9 @@ function initEvents() {
                         if (checkoutQR) checkoutQR.style.display = 'none';
                         checkoutSuccess.style.display = 'block';
                         
-                        document.getElementById('successOrderId').textContent = '#' + createdOrder._id.substring(createdOrder._id.length - 8).toUpperCase();
-                        document.getElementById('successOrderTotal').textContent = createdOrder.totalPrice.toLocaleString() + 'đ';
-                        document.getElementById('successOrderItems').innerHTML = createdOrder.items.map(item => `
+                        document.getElementById('successOrderId').textContent = '#' + order._id.substring(order._id.length - 8).toUpperCase();
+                        document.getElementById('successOrderTotal').textContent = order.totalPrice.toLocaleString() + 'đ';
+                        document.getElementById('successOrderItems').innerHTML = order.items.map(item => `
                             <div style="display:flex; justify-content:space-between; margin-bottom:10px; font-size:14px;">
                                 <span>${item.name} x${item.quantity}</span>
                                 <span>${(item.price * item.quantity).toLocaleString()}đ</span>
@@ -1673,15 +1692,15 @@ function initEvents() {
                                 qrCodeImg.src = `https://api.vietqr.io/image/vietcombank/0011004123456/qr_only.jpg?amount=${createdOrder.totalPrice}&addInfo=QH${realOrderCode}&accountName=NGUYEN THI THANH HIEN`;
                             }
 
-                            confirmQRBtn.onclick = () => finalizeOrderUI();
+                            confirmQRBtn.onclick = () => finalizeOrderUI(createdOrder);
                         } else {
-                            finalizeOrderUI();
+                            finalizeOrderUI(createdOrder);
                         }
                     } else {
-                        finalizeOrderUI();
+                        finalizeOrderUI(createdOrder);
                     }
                 } catch (err) {
-                    showToast(err.message || 'Lỗi kết nối máy chủ');
+                    showToast('Lỗi: ' + err.message);
                 }
             });
         }
