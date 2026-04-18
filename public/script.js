@@ -360,10 +360,11 @@ sold: 1250
     price: 359000,
     oldPrice: 420000,
     discount: '15%',
-    image: 'https://product.hstatic.net/1000006063/product/sua-duong-the-trang-da-olay-body-cellscience-super-bright-whitening-lotion-210ml_3a8f8e8e8e8e8e8e8e8e8e8e8e8e8e8e_master.jpg',
+    image: 'https://cdn.hstatic.net/products/1000006063/olay_a6cd68555dec44639f4795f55046ff84_1024x1024.jpg',
     images: [
-        'https://product.hstatic.net/1000006063/product/sua-duong-the-trang-da-olay-body-cellscience-super-bright-whitening-lotion-210ml_3a8f8e8e8e8e8e8e8e8e8e8e8e8e8e8e_master.jpg',
-        'https://cdn.hstatic.net/products/1000006063/olay_2_8f8e8e8e8e8e8e8e8e8e8e8e8e8e8e8e_master.jpg'
+        'https://cdn.hstatic.net/products/1000006063/olay_a6cd68555dec44639f4795f55046ff84_1024x1024.jpg',
+        'https://cdn.hstatic.net/products/1000006063/5_ed3b9af90e734016a9a84307aaace089_1024x1024.jpg',
+        'https://cdn.hstatic.net/products/1000006063/4_ec96bff692734c3ead3aeff263c5e9b7_1024x1024.jpg'
     ],
     description: 'Sữa dưỡng thể Olay chứa Niacinamide và Vitamin C giúp dưỡng trắng da, làm đều màu da.',
     details: 'Sữa Dưỡng Thể Trắng Da Olay Body Cellscience Super Bright Whitening Lotion với hàm lượng Niacinamide tinh khiết cao kết hợp cùng Vitamin C giúp nuôi dưỡng làn da trắng sáng bật tông.',
@@ -383,10 +384,11 @@ sold: 1250
     price: 216000,
     oldPrice: 280000,
     discount: '23%',
-    image: 'https://product.hstatic.net/1000006063/product/sua_duong_the_drceutics_niacinamide_10_arbutin_2_body_lotion_500g_248e8e8e8e8e8e8e8e8e8e8e8e8e8e8e_master.jpg',
+    image: 'https://product.hstatic.net/1000006063/product/200g_3daee16554c6439f92568530e2ff9638_1024x1024.jpg',
     images: [
-        'https://product.hstatic.net/1000006063/product/sua_duong_the_drceutics_niacinamide_10_arbutin_2_body_lotion_500g_248e8e8e8e8e8e8e8e8e8e8e8e8e8e8e_master.jpg',
-        'https://cdn.hstatic.net/products/1000006063/drceutics_body_2_8f8e8e8e8e8e8e8e8e8e8e8e8e8e8e8e_master.jpg'
+        'https://product.hstatic.net/1000006063/product/200g_3daee16554c6439f92568530e2ff9638_1024x1024.jpg',
+        'https://product.hstatic.net/1000006063/product/5_a714da433e814e03b5abb1ec6fd55327_1024x1024.jpg',
+        'https://product.hstatic.net/1000006063/product/3_5318b018ef6a40fbb3c143722314fba0_1024x1024.jpg'
     ],
     description: 'Sữa dưỡng thể chứa 10% Niacinamide và 2% Arbutin giúp cải thiện sắc tố da cơ thể hiệu quả.',
     details: 'Sữa Dưỡng Thể DrCeutics Niacinamide 10% + Arbutin 2% là giải pháp cho làn da cơ thể tối màu, thâm sạm với nồng độ hoạt chất cao.',
@@ -406,10 +408,11 @@ sold: 1250
     price: 159000,
     oldPrice: 250000,
     discount: '36%',
-    image: 'https://product.hstatic.net/1000006063/product/wb2_7f9f8e8e8e8e8e8e8e8e8e8e8e8e8e8e_master.jpg',
+    image: 'https://cdn.hstatic.net/products/1000006063/thum__1__b21510ab0920480da2f579a24031a569_1024x1024.jpg',
     images: [
-        'https://product.hstatic.net/1000006063/product/wb2_7f9f8e8e8e8e8e8e8e8e8e8e8e8e8e8e_master.jpg',
-        'https://cdn.hstatic.net/products/1000006063/wb_1_8f8e8e8e8e8e8e8e8e8e8e8e8e8e8e8e_master.jpg'
+        'https://cdn.hstatic.net/products/1000006063/thum__1__b21510ab0920480da2f579a24031a569_1024x1024.jpg',
+        'https://cdn.hstatic.net/products/1000006063/h1_a285e202ba1140ea829be96edd71dbc1_1024x1024.jpg',
+        'https://cdn.hstatic.net/products/1000006063/image_d6a50ee03503429f8b4b16107edd1c92_1024x1024.png'
     ],
     description: 'Chất son mịn lì, nhẹ môi, bám màu tốt và che phủ khuyết điểm môi hoàn hảo.',
     details: 'Son Tint Merzy Water Fit Blur Tint mang đến kết cấu son kem lì mướt mịn như nhung. Công nghệ Blur Fit giúp son bám chặt vào môi nhưng vẫn giữ được sự mềm mại, không gây khô hay lộ vân môi.',
@@ -430,10 +433,11 @@ sold: 1250
     price: 289000,
     oldPrice: 350000,
     discount: '17%',
-    image: 'https://product.hstatic.net/1000006063/product/fwee_rose_1_8f8e8e8e8e8e8e8e8e8e8e8e8e8e8e8e_master.jpg',
+    image: 'https://cdn.hstatic.net/products/1000006063/fwee_2819eb38e14d48f680a973f8b7e74d9e_1024x1024.jpg',
     images: [
-        'https://product.hstatic.net/1000006063/product/fwee_rose_1_8f8e8e8e8e8e8e8e8e8e8e8e8e8e8e8e_master.jpg',
-        'https://cdn.hstatic.net/products/1000006063/fwee_rose_2_8f8e8e8e8e8e8e8e8e8e8e8e8e8e8e8e_master.jpg'
+        'https://cdn.hstatic.net/products/1000006063/fwee_2819eb38e14d48f680a973f8b7e74d9e_1024x1024.jpg',
+        'https://cdn.hstatic.net/products/1000006063/download_d152b537d81f40cf999ca07a7a3d8af3_1024x1024.jpg',
+        'https://cdn.hstatic.net/products/1000006063/download__1__e660cea62c1c4fe296d1b677e3d241fe_1024x1024.jpg'
     ],
     description: 'Dòng son lấy cảm hứng từ những đóa hồng kiêu sa, chất son Stay Fit bám màu cả ngày dài.',
     details: 'Fwee Rose Obsession Stay Fit Tint là sự kết hợp hoàn hảo giữa sắc màu lãng mạn và độ bền màu ấn tượng. Son lên môi chuẩn sắc ngay từ lần quẹt đầu tiên, để lại lớp finish mịn màng như cánh hoa hồng.',
