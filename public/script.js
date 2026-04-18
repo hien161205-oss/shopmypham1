@@ -490,6 +490,7 @@ document.addEventListener('DOMContentLoaded', () => {
     if (document.getElementById('maskGrid')) renderMaskProducts();
     if (document.getElementById('localBrandGrid')) renderLocalBrandProducts();
     if (document.getElementById('skinCareSectionGrid')) renderSkinCareSectionProducts();
+    if (document.getElementById('bodyCareSectionGrid')) renderBodyCareSectionProducts();
     if (document.getElementById('hairCareGrid')) renderHairCareProducts();
     if (document.getElementById('makeupSectionGrid')) renderMakeupSectionProducts();
     updateHomeSectionCounts();
@@ -868,6 +869,13 @@ function renderBodyCareProducts() {
     grid.innerHTML = items.map(p => createProductCard(p)).join('');
 }
 
+function renderBodyCareSectionProducts() {
+    const grid = document.getElementById('bodyCareSectionGrid');
+    if (!grid) return;
+    const items = products.filter(p => p.category === 'bodycare').slice(0, 5);
+    grid.innerHTML = items.map(p => createProductCard(p)).join('');
+}
+
 function renderHairCareProducts() {
     const grid = document.getElementById('hairCareGrid');
     if (!grid) return;
@@ -892,6 +900,7 @@ function updateHomeSectionCounts() {
         { id: 'countMask', filter: p => p.name.toLowerCase().includes('mask') || p.name.toLowerCase().includes('mặt nạ') || p.name.toLowerCase().includes('pad') },
         { id: 'countLocalBrand', filter: p => ['Lemonade', 'Cocoon', 'CLINICOS', 'Emmié by HappySkin'].includes(p.brand) },
         { id: 'countSkinCare', filter: p => p.category === 'skincare' || p.category === 'cham-soc-da' },
+        { id: 'countBodyCare', filter: p => p.category === 'bodycare' },
         { id: 'countHairCare', filter: p => p.category === 'haircare' || p.category === 'cham-soc-toc' },
         { id: 'countMakeupBottom', filter: p => p.category.startsWith('trang-diem') }
     ];
