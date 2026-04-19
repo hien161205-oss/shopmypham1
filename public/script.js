@@ -996,56 +996,51 @@ function renderProductSection(gridId, filterFn, options = {}) {
     const grid = document.getElementById(gridId);
     if (!grid) return;
 
-    const { limit = 5, linkId = null, isFlashSale = false } = options;
+    const { limit = 15, isFlashSale = false } = options;
     const allFiltered = products.filter(filterFn);
     const items = allFiltered.slice(0, limit);
-
-    if (linkId) {
-        const link = document.getElementById(linkId);
-        if (link) link.innerText = `Xem tất cả ${allFiltered.length} sản phẩm →`;
-    }
 
     grid.innerHTML = items.map(p => createProductCard(p, isFlashSale)).join('');
 }
 
 function renderFlashSale() {
-    renderProductSection('flashSaleGrid', p => parseInt(p.discount) > 30, { limit: 5, isFlashSale: true });
+    renderProductSection('flashSaleGrid', p => parseInt(p.discount) > 30, { limit: 10, isFlashSale: true });
 }
 
 function renderMerzyProducts() {
-    renderProductSection('merzyProductsGrid', p => p.brand === 'Merzy', { limit: 8 });
+    renderProductSection('merzyProductsGrid', p => p.brand === 'Merzy', { limit: 12 });
 }
 
 function renderMakeupProducts() {
-    renderProductSection('makeupGrid', p => p.category.startsWith('trang-diem'), { linkId: 'countMakeupHQ' });
+    renderProductSection('makeupGrid', p => p.category.startsWith('trang-diem'));
 }
 
 function renderSunCareProducts() {
-    renderProductSection('sunCareGrid', p => p.name.toLowerCase().includes('sun') || p.name.toLowerCase().includes('chống nắng'), { linkId: 'countSunCare' });
+    renderProductSection('sunCareGrid', p => p.name.toLowerCase().includes('sun') || p.name.toLowerCase().includes('chống nắng'));
 }
 
 function renderMaskProducts() {
-    renderProductSection('maskGrid', p => p.name.toLowerCase().includes('mask') || p.name.toLowerCase().includes('mặt nạ') || p.name.toLowerCase().includes('pad'), { linkId: 'countMask' });
+    renderProductSection('maskGrid', p => p.name.toLowerCase().includes('mask') || p.name.toLowerCase().includes('mặt nạ') || p.name.toLowerCase().includes('pad'));
 }
 
 function renderLocalBrandProducts() {
-    renderProductSection('localBrandGrid', p => ['Lemonade', 'Cocoon', 'CLINICOS', 'Emmié by HappySkin'].includes(p.brand), { linkId: 'countLocalBrand' });
+    renderProductSection('localBrandGrid', p => ['Lemonade', 'Cocoon', 'CLINICOS', 'Emmié by HappySkin'].includes(p.brand));
 }
 
 function renderSkinCareSectionProducts() {
-    renderProductSection('skinCareSectionGrid', p => p.category.includes('skincare') || p.category.includes('cham-soc-da'), { linkId: 'countSkinCare' });
+    renderProductSection('skinCareSectionGrid', p => p.category.includes('skincare') || p.category.includes('cham-soc-da'));
 }
 
 function renderBodyCareSectionProducts() {
-    renderProductSection('bodyCareSectionGrid', p => p.category.includes('bodycare') || p.category.includes('body'), { linkId: 'countBodyCare' });
+    renderProductSection('bodyCareSectionGrid', p => p.category.includes('bodycare') || p.category.includes('body'));
 }
 
 function renderHairCareProducts() {
-    renderProductSection('hairCareGrid', p => p.category.includes('haircare') || p.category.includes('cham-soc-toc'), { linkId: 'countHairCare' });
+    renderProductSection('hairCareGrid', p => p.category.includes('haircare') || p.category.includes('cham-soc-toc'));
 }
 
 function renderMakeupSectionProducts() {
-    renderProductSection('makeupSectionGrid', p => p.category.startsWith('trang-diem'), { linkId: 'countMakeupBottom' });
+    renderProductSection('makeupSectionGrid', p => p.category.startsWith('trang-diem'));
 }
 
 function updateHomeSectionCounts() {
