@@ -1085,19 +1085,27 @@ window.addToCart = function(id, quantity) {
 };
 
 window.buyNow = function(productId) {
-    const product = products.find(p => (p._id || p.id).toString() === productId.toString());
+    // Lấy danh sách sản phẩm từ biến toàn cục hoặc localStorage
+    const allProds = products.length > 0 ? products : (JSON.parse(localStorage.getItem('selectedProductData')) ? [JSON.parse(localStorage.getItem('selectedProductData'))] : []);
+    const product = allProds.find(p => (p._id || p.id).toString() === productId.toString());
+    
     if (!product) return;
+    
     let qty = 1;
     const qtyInput = document.getElementById('pdQty');
     if (qtyInput) qty = parseInt(qtyInput.value);
+    
     currentCheckoutItems = [{ ...product, quantity: qty }];
     isDirectCheckout = true;
     
-    // Cập nhật lại giao diện tóm tắt đơn hàng trước khi hiển thị
-    if (typeof renderCheckoutSummary === 'function') renderCheckoutSummary();
+    renderCheckoutSummary();
     
     const checkoutOverlay = document.getElementById('checkoutOverlay');
-    if (checkoutOverlay) checkoutOverlay.classList.add('active');
+    if (checkoutOverlay) {
+        checkoutOverlay.style.display = 'block';
+        checkoutOverlay.classList.add('active');
+        document.getElementById('checkoutForm').style.display = 'block';
+    }
 };
 
 window.removeFromCart = function(id) {
@@ -1573,13 +1581,9 @@ function initEvents() {
                 return;
             }
             
-            // Kiểm tra xem ID có phải là ObjectId hợp lệ (24 ký tự hex) không
-            // Nếu ID là số (như 10, 11) hoặc không đủ 24 ký tự thì coi là dữ liệu mẫu
-            const isValidObjectId = (id) => /^[0-9a-fA-F]{24}$/.test(id);
-            
             const hasMockProduct = cart.some(item => {
                 const id = (item._id || item.id || "").toString();
-                return !isValidObjectId(id);
+                return false; // Cho phép thanh toán cả hàng mock để bạn test dễ dàng
             });
 
             if (hasMockProduct) {
@@ -1591,6 +1595,7 @@ function initEvents() {
             isDirectCheckout = false;
             closeCart();
             renderCheckoutSummary();
+            checkoutOverlay.style.display = 'block';
             checkoutOverlay.classList.add('active');
             if (checkoutForm) checkoutForm.style.display = 'block';
             const checkoutSuccess = document.getElementById('checkoutSuccess');
@@ -1622,10 +1627,10 @@ function initEvents() {
                 const address = document.getElementById('orderAddress').value;
                 const note = document.getElementById('orderNote').value;
                 const payment = document.getElementById('orderPaymentMethod').value;
+                const total = currentCheckoutItems.reduce((sum, i) => sum + (i.price * i.quantity), 0);
                 const token = localStorage.getItem('qh_token');
 
                 try {
-                    // GỬI ĐƠN HÀNG LÊN BACKEND ĐỂ XÁC THỰC GIÁ VÀ LƯU DATABASE
                     const createdOrder = await safeFetch(`${API_BASE_URL}/orders`, {
                         method: 'POST',
                         headers: {
@@ -1637,9 +1642,11 @@ function initEvents() {
                             items: currentCheckoutItems.map(i => ({
                                 product: i._id || i.id,
                                 name: i.name,
-                                quantity: i.quantity
+                                quantity: i.quantity,
+                                price: i.price
                             })),
-                            paymentMethod: payment
+                            paymentMethod: payment,
+                            totalPrice: total
                         })
                     });
 

@@ -23,6 +23,7 @@ app.get('/api/products', (req, res) => {
 });
 
 // Mock Data cho Bài viết & Người dùng
+let mockOrders = [];
 let mockMagazine = [];
 let mockUsers = [
     { _id: "u1", name: "Nguyễn Văn A", email: "customer@example.com", role: "Khách hàng", createdAt: new Date() },
@@ -91,11 +92,26 @@ app.get('/api/users/admin-check', (req, res) => {
     res.status(401).json({ message: "Không có quyền Admin" });
 });
 
+// Lấy danh sách đơn hàng (Cho Admin)
+app.get('/api/orders', (req, res) => res.json(mockOrders));
+
+// Route đặt hàng
 app.post('/api/orders', (req, res) => {
-    const { items } = req.body;
-    const totalPrice = items.reduce((sum, i) => sum + (i.price || 0) * i.quantity, 0);
-    // Trả về một ID giả và thông tin để Frontend hiển thị thành công
-    res.status(201).json({ _id: "ORDER-" + Date.now(), items, totalPrice });
+    const { customerInfo, items, paymentMethod, totalPrice: clientTotal } = req.body;
+    
+    const newOrder = {
+        _id: "ORDER-" + Date.now() + Math.floor(Math.random() * 1000),
+        customerInfo,
+        items,
+        paymentMethod,
+        totalPrice: clientTotal || items.reduce((sum, i) => sum + (i.price || 0) * i.quantity, 0),
+        status: "Chờ xác nhận",
+        isPaid: false,
+        createdAt: new Date()
+    };
+
+    mockOrders.push(newOrder);
+    res.status(201).json(newOrder);
 });
 
 // 3. ĐỊNH TUYẾN TRANG (Explicit Routing để tránh 404)
