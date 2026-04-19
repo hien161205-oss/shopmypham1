@@ -7,10 +7,16 @@
 const API_BASE_URL = (window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1')
     ? 'http://localhost:5000/api'
     : window.location.origin + '/api';
+
+/** 2. STATE & GLOBALS (Khai báo duy nhất một lần ở đầu file) */
 let isLoggedIn = !!localStorage.getItem('qh_token');
 let currentUserName = localStorage.getItem('qh_userName') || '';
-
 let cart = JSON.parse(localStorage.getItem('qh_cart')) || [];
+let products = []; 
+let filteredProducts = [];
+let currentSlide = 0;
+let currentCheckoutItems = []; 
+let isDirectCheckout = false;
 
 /**
  * Hàm fetch API an toàn: Kiểm tra response.ok, log text() khi lỗi và chỉ parse JSON khi hợp lệ
@@ -543,7 +549,7 @@ sold: 1250
 },
 {
     id: 22,
-    name: 'Son Tint Gương Bóng Colorkey Airy Lip Mirror Series',
+    name: 'Son Tint Gương Bóng Colorkey Bền Màu, Căng Bóng Airy Lip Mirror Series',
     brand: 'Colorkey',
     category: 'trang-diem-son-moi',
     price: 165000,
@@ -563,56 +569,12 @@ sold: 1250
         'Nơi sản xuất': 'Trung Quốc'
     },
     sold: 32400
-},
-{
-    id: 23,
-    name: 'Mặt Nạ Giấy Klairs Hỗ Trợ Sáng Da Mờ Thâm Freshly Vitamin Skin Prep Pads',
-    brand: 'Klairs',
-    category: 'skincare',
-    price: 350000,
-    oldPrice: 450000,
-    discount: '22%',
-    image: 'https://cdn.hstatic.net/products/1000006063/hdd_1_19407937876b40abb537d599e97ed2e5_1024x1024.jpg',
-    images: [
-        'https://cdn.hstatic.net/products/1000006063/hdd_1_19407937876b40abb537d599e97ed2e5_1024x1024.jpg',
-        'https://cdn.hstatic.net/products/1000006063/565653434_1201546382071482_33934_7767e302a3414875a2d3ceb64efa4ba2_1024x1024.jpg',
-        'https://cdn.hstatic.net/products/1000006063/vn-11134207-820l4-mejscv7w6arr0e_copy_d84ea3ac9d984b81b9398575df276790_1024x1024.jpg'
-    ],
-    description: 'Pad dưỡng da Klairs giúp làm sáng da, mờ thâm và chuẩn bị bề mặt da mịn màng.',
-    details: 'Miếng Pad chứa Vitamin C nguyên khiết và Vitamin E giúp chống oxy hóa, làm đều màu da và thu nhỏ lỗ chân lông nhẹ nhàng.',
-    specs: {
-        'Tên sản phẩm': 'Klairs Freshly Juiced Vitamin Skin Prep Pads',
-        'Dung tích': '50 miếng',
-        'Thương hiệu': 'Klairs (Hàn Quốc)',
-        'Nơi sản xuất': 'Hàn Quốc'
-    },
-    sold: 1200
-},
-{
-    id: 24,
-    name: 'Mặt Nạ Đất Sét Aperire Spa Relief Pore Mask Se Khít Lỗ Chân Lông',
-    brand: 'Aperire',
-    category: 'skincare',
-    price: 259000,
-    oldPrice: 380000,
-    discount: '32%',
-    image: 'https://product.hstatic.net/1000006063/product/hdd_1f4c7fa0b34347dabc855ce0707df457_1024x1024.jpg',
-    images: ['https://product.hstatic.net/1000006063/product/hdd_1f4c7fa0b34347dabc855ce0707df457_1024x1024.jpg'],
-    description: 'Làm sạch sâu bã nhờn và se khít lỗ chân lông với đất sét Alaska.',
-    details: 'Mặt nạ Aperire Spa Relief Pore Mask sử dụng 10.000ppm đất sét vùng núi Alaska cùng chiết xuất rau má giúp thanh lọc làn da sần sùi, mụn đầu đen.',
-    specs: {
-        'Khối lượng': '120g',
-        'Thương hiệu': 'Aperire (Hàn Quốc)',
-        'Nơi sản xuất': 'Hàn Quốc',
-        'Hạn dùng': '3 năm'
-    },
-    sold: 850
 }
 ];
 
-// Khởi tạo products bằng dữ liệu mặc định ngay lập tức
-let products = [...DEFAULT_PRODUCTS];
-let filteredProducts = [];
+// Khởi tạo giá trị ban đầu (Không dùng từ khóa 'let' ở đây)
+products = [...DEFAULT_PRODUCTS];
+filteredProducts = [...products];
 
 async function loadProductsFromServer() {
     try {
@@ -1394,19 +1356,6 @@ function initEvents() {
     if (accountTrigger) {
         accountTrigger.addEventListener('click', () => {
             if (isLoggedIn) {
-                // Kiểm tra xem người dùng hiện tại có phải là Admin không
-                const token = localStorage.getItem('qh_token');
-                let isAdminUser = false;
-                if (token && token.includes('.')) {
-                    try {
-                        const payload = JSON.parse(decodeURIComponent(atob(token.split('.')[1]).split('').map(c => '%' + ('00' + c.charCodeAt(0).toString(16)).slice(-2)).join('')));
-                        isAdminUser = payload.isAdmin === true;
-                    } catch (e) { isAdminUser = false; }
-                }
-
-                // Nếu là Admin, không hiển thị bảng thông tin (overlay) theo yêu cầu
-                if (isAdminUser) return;
-
                 const profileOverlay = document.getElementById('profileOverlay');
                 if (profileOverlay) {
                     profileOverlay.style.display = 'flex';
@@ -1628,15 +1577,15 @@ function initEvents() {
 
     // CHECKOUT LOGIC
     const checkoutOverlay = document.getElementById('checkoutOverlay');
-    const checkoutBtn = document.getElementById('checkoutBtn');
     const closeCheckoutBtn = document.getElementById('closeCheckoutBtn');
     const checkoutForm = document.getElementById('checkoutForm');
     const checkoutSummaryItems = document.getElementById('checkoutSummaryItems');
     const checkoutSubtotal = document.getElementById('checkoutSubtotal');
     const checkoutTotal = document.getElementById('checkoutTotal');
 
-    if (checkoutBtn) {
-        checkoutBtn.addEventListener('click', () => {
+    const mainCheckoutBtn = document.getElementById('checkoutBtn');
+    if (mainCheckoutBtn) {
+        mainCheckoutBtn.addEventListener('click', () => {
             if (cart.length === 0) {
                 showToast('Giỏ hàng của bạn đang trống!');
                 return;
@@ -1814,6 +1763,29 @@ function initEvents() {
             const productId = localStorage.getItem('selectedProductId');
             if (productId) window.buyNow(productId);
         };
+    }
+
+    // Gắn sự kiện cho nút Thanh toán trong giỏ hàng
+    const checkoutBtn = document.getElementById('checkoutBtn');
+    if (checkoutBtn) {
+        checkoutBtn.addEventListener('click', () => {
+            if (cart.length === 0) {
+                showToast('Giỏ hàng của bạn đang trống!');
+                return;
+            }
+            currentCheckoutItems = [...cart];
+            isDirectCheckout = false;
+            closeCart();
+            renderCheckoutSummary();
+            const checkoutOverlay = document.getElementById('checkoutOverlay');
+            if (checkoutOverlay) {
+                checkoutOverlay.style.display = 'block';
+                checkoutOverlay.classList.add('active');
+                document.getElementById('checkoutForm').style.display = 'block';
+                document.getElementById('checkoutSuccess').style.display = 'none';
+                document.getElementById('checkoutQR').style.display = 'none';
+            }
+        });
     }
 }
 
@@ -2071,8 +2043,8 @@ function updateUserDisplay(name) {
     currentUserName = name;
     
     if (display) {
-        display.textContent = name;
-        display.style.display = 'inline-block';
+        // Ẩn bảng tên/thông tin để giữ lại logo icon duy nhất theo yêu cầu
+        display.style.display = 'none';
     }
 
     // Hiển thị nút Admin nếu là tài khoản admin thật sự
