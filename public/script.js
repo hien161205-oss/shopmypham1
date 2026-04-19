@@ -1024,7 +1024,7 @@ function renderMaskProducts() {
 }
 
 function renderLocalBrandProducts() {
-    renderProductSection('localBrandGrid', p => ['Lemonade', 'Cocoon', 'CLINICOS', 'Emmié by HappySkin'].includes(p.brand));
+    renderProductSection('localBrandGrid', p => ['DrCeutics', 'Cocoon', 'CLINICOS', 'Emmié by HappySkin', 'B.O.M', 'La Roche-Posay', 'Anessa'].includes(p.brand));
 }
 
 function renderSkinCareSectionProducts() {
