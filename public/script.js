@@ -1099,10 +1099,13 @@ window.buyNow = function(productId) {
     currentCheckoutItems = [{ ...product, quantity: qty }];
     isDirectCheckout = true;
     
+    // Gắn lại sự kiện cho form trước khi mở overlay (để chắc chắn preventDefault hoạt động)
+    window.initCheckoutListeners();
+    
     renderCheckoutSummary();
     
     const checkoutOverlay = document.getElementById('checkoutOverlay');
-    if (checkoutOverlay) {
+    if (checkoutOverlay) { 
         checkoutOverlay.style.display = 'block';
         checkoutOverlay.classList.add('active');
         document.getElementById('checkoutForm').style.display = 'block';
@@ -1787,13 +1790,17 @@ window.initCheckoutListeners = function() {
     const checkoutOverlay = document.getElementById('checkoutOverlay');
 
     if (closeCheckoutBtn && checkoutOverlay) {
-        closeCheckoutBtn.onclick = () => checkoutOverlay.classList.remove('active');
+        closeCheckoutBtn.onclick = (e) => {
+            e.preventDefault();
+            checkoutOverlay.classList.remove('active');
+            checkoutOverlay.style.display = 'none';
+        };
     }
 
     if (checkoutForm) {
-        // Loại bỏ listener cũ nếu có để tránh trùng lặp
-        checkoutForm.onsubmit = async (e) => {
-            e.preventDefault();
+        // Sử dụng addEventListener và remove cũ để tránh trùng lặp hoặc mất sự kiện
+        const handleCheckoutSubmit = async (e) => {
+            e.preventDefault(); // QUAN TRỌNG: Ngăn trang web load lại
 
             const name = document.getElementById('orderName').value;
             const phone = document.getElementById('orderPhone').value;
