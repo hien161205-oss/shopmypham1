@@ -176,28 +176,22 @@
             </div>
         </div>
 
-        <!-- BRANDS & PRODUCTS LAYOUT -->
-        <div class="featured-brands-wrap">
-            <h2 class="section-title">THƯƠNG HIỆU NỔI BẬT</h2>
-            <div class="brand-logos-row">
-                <span style="font-weight: 600; cursor: pointer;" onclick="updateBrandSection('Merzy')">MERZY</span>
-                <span style="font-weight: 600; cursor: pointer;" onclick="updateBrandSection('B.O.M')">B.O.M</span>
-                <span style="font-weight: 600; cursor: pointer;" onclick="updateBrandSection('La Roche-Posay')">LA ROCHE-POSAY</span>
-                <span style="font-weight: 600; cursor: pointer;" onclick="updateBrandSection('CLINICOS')">CLINICOS</span>
-                <span style="font-weight: 600; cursor: pointer;" onclick="updateBrandSection('Anessa')">ANESSA</span>
-                <span style="font-weight: 600; cursor: pointer;" onclick="updateBrandSection('Cocoon')">COCOON</span>
-                <span style="font-weight: 600; cursor: pointer;" onclick="updateBrandSection('Olay')">OLAY</span>
-                <span style="font-weight: 600; cursor: pointer;" onclick="updateBrandSection('Colorkey')">COLORKEY</span>
-                <span style="font-weight: 600; cursor: pointer;" onclick="updateBrandSection('Klairs')">KLAIRS</span>
-            </div>
-        </div>
-
         <div class="brand-layout-wrap">
             <div class="brand-side-banner">
                 <img src="https://picsum.photos/seed/merzy/400/800" alt="Merzy Banner" referrerPolicy="no-referrer">
             </div>
-            <div class="products-grid" id="merzyProductsGrid">
-                <!-- JS Render -->
+            <div class="brand-content-area">
+                <div class="brand-nav-inline">
+                    <span class="active" onclick="updateBrandSection('Merzy', this)">MERZY</span>
+                    <span onclick="updateBrandSection('B.O.M', this)">B.O.M</span>
+                    <span onclick="updateBrandSection('La Roche-Posay', this)">LA ROCHE-POSAY</span>
+                    <span onclick="updateBrandSection('Anessa', this)">ANESSA</span>
+                    <span onclick="updateBrandSection('Cocoon', this)">COCOON</span>
+                    <span onclick="updateBrandSection('DrCeutics', this)">DRCEUTICS</span>
+                </div>
+                <div class="products-grid" id="merzyProductsGrid">
+                    <!-- JS Render -->
+                </div>
             </div>
         </div>
 

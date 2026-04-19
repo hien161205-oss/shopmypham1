@@ -804,6 +804,25 @@ sold: 1250
     details: 'Mela B3 Cream chứa thành phần đột phá Melasyl™ kết hợp cùng 10% Niacinamide giúp giải quyết tận gốc nguyên nhân gây thâm nám. Sản phẩm mang lại hiệu quả rõ rệt sau 4 tuần sử dụng, giúp da sáng mịn và rạng rỡ hơn.',
     specs: { 'Dung tích': '40ml', 'Thương hiệu': 'La Roche-Posay (Pháp)', 'Thành phần': 'Melasyl™, 10% Niacinamide', 'Loại da': 'Mọi loại da, da thâm nám' },
     sold: 150
+},
+{
+    id: 38,
+    name: 'Gel Rửa Mặt & Tắm La Roche-Posay Effaclar Micro-Peeling Purifying Gel 400ml',
+    brand: 'La Roche-Posay',
+    category: 'cham-soc-da',
+    price: 485000,
+    oldPrice: 625000,
+    discount: '22%',
+    image: 'https://product.hstatic.net/1000006063/product/26_e8bfd61716b64bbfb7526f1ec9f67bc5_1024x1024.png',
+    images: [
+        'https://product.hstatic.net/1000006063/product/26_e8bfd61716b64bbfb7526f1ec9f67bc5_1024x1024.png',
+        'https://product.hstatic.net/1000006063/product/74e6c93a3137612d794eab2b2266d358_1ad4c2ce42264f8d9b3bf651bbce4b9e_1024x1024.jpg',
+        'https://product.hstatic.net/1000006063/product/zoom-front-210004_ba17c06cc7bf41adab4f9a5439ac1c56_1024x1024.jpg'
+    ],
+    description: 'Gel rửa mặt và tắm dành cho da dầu mụn với thành phần Salicylic Acid và LHA giúp làm sạch sâu, giảm mụn sưng viêm và ngăn ngừa mụn tái phát.',
+    details: 'La Roche-Posay Effaclar Micro-Peeling Purifying Gel là gel rửa mặt dành cho da dầu, mụn trứng cá nghiêm trọng và mụn cơ thể. Với 2% Salicylic Acid và LHA, sản phẩm giúp làm sạch sâu lỗ chân lông, loại bỏ tế bào chết và bã nhờn dư thừa, làm giảm mụn sưng viêm rõ rệt và ngăn ngừa vết thâm sau mụn.',
+    specs: { 'Dung tích': '400ml', 'Thương hiệu': 'La Roche-Posay (Pháp)', 'Thành phần': '2% Salicylic Acid, LHA, Zinc', 'Loại da': 'Da dầu, da mụn nghiêm trọng' },
+    sold: 340
 }
 ];
 
@@ -1221,7 +1240,7 @@ function renderMerzyProducts() {
     renderProductSection('merzyProductsGrid', p => p.brand === 'Merzy', { limit: 12 });
 }
 
-window.updateBrandSection = function(brandName) {
+window.updateBrandSection = function(brandName, element) {
     // 1. Cập nhật banner bên cạnh cho đúng thương hiệu (dùng picsum seed để tạo ảnh khác biệt)
     const bannerImg = document.querySelector('.brand-side-banner img');
     if (bannerImg) {
@@ -1232,6 +1251,13 @@ window.updateBrandSection = function(brandName) {
     // 2. Render lại grid sản phẩm theo thương hiệu đã chọn
     renderProductSection('merzyProductsGrid', p => p.brand.toLowerCase() === brandName.toLowerCase(), { limit: 12 });
     
+    // 3. Highlight tên thương hiệu được chọn
+    if (element) {
+        const siblings = element.parentElement.querySelectorAll('span');
+        siblings.forEach(s => s.classList.remove('active'));
+        element.classList.add('active');
+    }
+
     showToast(`Đang hiển thị sản phẩm của ${brandName}`);
 };
 

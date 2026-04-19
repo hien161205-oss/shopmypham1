@@ -405,6 +405,20 @@ let mockProducts = [
         details: 'Kem dưỡng mờ thâm nám và làm sáng da đột phá với Melasyl™.',
         specs: { 'Dung tích': '40ml', 'Thương hiệu': 'La Roche-Posay (Pháp)', 'Loại da': 'Da thâm nám' },
         sold: 150, stock: 40
+    },
+    {
+        _id: "p40",
+        name: 'Gel Rửa Mặt & Tắm La Roche-Posay Effaclar Micro-Peeling Purifying Gel 400ml',
+        brand: 'La Roche-Posay',
+        category: 'cham-soc-da',
+        price: 485000,
+        oldPrice: 625000,
+        discount: '22%',
+        image: 'https://product.hstatic.net/1000006063/product/26_e8bfd61716b64bbfb7526f1ec9f67bc5_1024x1024.png',
+        images: ['https://product.hstatic.net/1000006063/product/26_e8bfd61716b64bbfb7526f1ec9f67bc5_1024x1024.png', 'https://product.hstatic.net/1000006063/product/74e6c93a3137612d794eab2b2266d358_1ad4c2ce42264f8d9b3bf651bbce4b9e_1024x1024.jpg', 'https://product.hstatic.net/1000006063/product/zoom-front-210004_ba17c06cc7bf41adab4f9a5439ac1c56_1024x1024.jpg'],
+        details: 'Gel rửa mặt và tắm cho da dầu mụn giúp làm sạch sâu và giảm mụn.',
+        specs: { 'Dung tích': '400ml', 'Thương hiệu': 'La Roche-Posay (Pháp)', 'Loại da': 'Da dầu mụn' },
+        sold: 340, stock: 90
     }
 ]; // Thêm nhiều sản phẩm hơn nếu cần
 
