@@ -647,21 +647,10 @@
         <!-- PRODUCT DETAILS SECTION -->
         <div class="pd-details-section">
             <h2 class="pd-section-title">Chi tiết sản phẩm</h2>
-            <ul class="pd-spec-list">
-                <li><strong>Tên sản phẩm:</strong> La Roche-Posay Anthelios Dry Touch Finish Mattifying Effect</li>
-                <li><strong>Kết cấu:</strong> Dạng gel cream</li>
-                <li><strong>Dung tích:</strong> 50ml</li>
-                <li><strong>Thương hiệu:</strong> La Roche-Posay (Pháp)</li>
-                <li><strong>Hạn sử dụng:</strong> 3 năm kể từ ngày sản xuất in trên bao bì</li>
-            </ul>
+            <ul class="pd-spec-list" id="pdSpecList"></ul>
 
-            <div class="pd-content-text">
-                <h4>1. Thông tin sản phẩm</h4>
-                <p>Kem Chống Nắng Kiểm Soát Dầu La Roche-Posay Anthelios Dry Touch Finish Mattifying Effect là kem chống nắng dành cho da dầu giúp kiểm soát bóng nhờn và bảo vệ da trước tác hại từ ánh nắng & ô nhiễm. Sản phẩm có công thức chống thấm nước thích hợp dùng hằng ngày và cả những hoạt động ngoài trời thuộc thương hiệu dược mỹ phẩm La Roche-Posay đến từ Pháp.</p>
-                
-                <h4>2. Ưu điểm của Kem Chống Nắng La Roche-Posay Anthelios Dry Touch Finish Mattifying Effect</h4>
-                <p>Màng lọc độc quyền XL-PROTECT™: Sự kết hợp giữa màng lọc quang phổ rộng chứa nhiều màng lọc tia UV và khả năng bảo vệ vượt trội trước tia UVA, UVB mà còn giúp bảo vệ da trước các tác nhân khác gây hại cho da như ô nhiễm, tia hồng ngoại.</p>
-                <p>Chứa hoạt chất AIRLICIUM: Là thành phần giúp hỗ trợ giảm mồ hôi, giảm dầu và bã nhờn trên da, có thể hấp thụ lượng bã nhờn gấp 100 lần khối lượng. Kiểm soát dầu nhờn tới 9h.</p>
+            <div class="pd-content-text" id="pdContentText">
+                <p>Đang tải nội dung chi tiết...</p>
             </div>
         </div>
 
@@ -874,7 +863,7 @@
                 }
 
                 // Update Specs
-                const specList = document.querySelector('.pd-spec-list');
+                const specList = document.getElementById('pdSpecList');
                 if (specList && product.specs) {
                     specList.innerHTML = `
                         <li><strong>Tên sản phẩm:</strong> ${product.name}</li>
@@ -888,15 +877,19 @@
                     favBtn.onclick = () => window.toggleFavorite(product._id || product.id);
                 }
 
-                // Update Description
-                const descText = document.querySelector('.pd-content-text');
-                if (descText && product.details) {
+                // Update Description/Details
+                const descText = document.getElementById('pdContentText');
+                const detailedContent = product.details || product.description;
+                
+                if (descText && detailedContent) {
                     descText.innerHTML = `
                         <h4>1. Thông tin sản phẩm</h4>
-                        <p>${product.details}</p>
+                        <p>${detailedContent}</p>
                         <h4>2. Đặc điểm nổi bật</h4>
                         <p>Sản phẩm chính hãng, được phân phối trực tiếp từ thương hiệu. Đảm bảo chất lượng và an toàn cho người sử dụng.</p>
                     `;
+                } else if (descText) {
+                    descText.innerHTML = `<p>Thông tin chi tiết về sản phẩm đang được cập nhật.</p>`;
                 }
 
                 // Update Buy/Cart Buttons
