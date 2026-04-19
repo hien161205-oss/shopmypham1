@@ -419,6 +419,48 @@ let mockProducts = [
         details: 'Gel rửa mặt và tắm cho da dầu mụn giúp làm sạch sâu và giảm mụn.',
         specs: { 'Dung tích': '400ml', 'Thương hiệu': 'La Roche-Posay (Pháp)', 'Loại da': 'Da dầu mụn' },
         sold: 340, stock: 90
+    },
+    {
+        _id: "p41",
+        name: 'Sữa Rửa Mặt La Roche-Posay Cho Da Dầu Mụn Effaclar Purifying Foaming Gel 400ml',
+        brand: 'La Roche-Posay',
+        category: 'cham-soc-da',
+        price: 445000,
+        oldPrice: 560000,
+        discount: '21%',
+        image: 'https://cdn.hstatic.net/products/1000006063/12_95e900c7b6164e418d924f0f3c6b95ef_1024x1024.png',
+        images: ['https://cdn.hstatic.net/products/1000006063/12_95e900c7b6164e418d924f0f3c6b95ef_1024x1024.png', 'https://product.hstatic.net/1000006063/product/a_roche-posay_effaclar_purifying_foaming_gel_for_oily_sensitive_skin_3_39c1f4880f594637983417111e449355_1024x1024.jpg', 'https://product.hstatic.net/1000006063/product/5_b40da5596e6b445cba47b190d3294359_1024x1024_6ae7be4f1542407294d65d6f659874bb_1024x1024.jpg'],
+        details: 'Gel rửa mặt tạo bọt cho da dầu nhạy cảm, làm sạch sâu và cân bằng độ pH.',
+        specs: { 'Dung tích': '400ml', 'Thương hiệu': 'La Roche-Posay (Pháp)', 'Loại da': 'Da dầu mụn' },
+        sold: 15500, stock: 120
+    },
+    {
+        _id: "p42",
+        name: 'Nước Tẩy Trang La Roche-Posay Cho Da Dầu Mụn Effaclar Micellar Water Ultra 400ml',
+        brand: 'La Roche-Posay',
+        category: 'cham-soc-da',
+        price: 395000,
+        oldPrice: 525000,
+        discount: '25%',
+        image: 'https://product.hstatic.net/1000006063/product/4_d9cd1f1ffdcf402aa64f0095ae8202bd_1024x1024.png',
+        images: ['https://product.hstatic.net/1000006063/product/4_d9cd1f1ffdcf402aa64f0095ae8202bd_1024x1024.png', 'https://product.hstatic.net/1000006063/product/2_9e68389d85cb4aaca96c101051bbc110_1024x1024.jpg', 'https://product.hstatic.net/1000006063/product/3_d241d88fac304c5a9fabe0a3306b785f_1024x1024.jpg'],
+        details: 'Nước tẩy trang công nghệ Micellar dành cho da dầu mụn, làm sạch sâu và kiểm soát bã nhờn.',
+        specs: { 'Dung tích': '400ml', 'Thương hiệu': 'La Roche-Posay (Pháp)', 'Loại da': 'Da dầu mụn' },
+        sold: 4200, stock: 150
+    },
+    {
+        _id: "p43",
+        name: 'Nước Tẩy Trang La Roche-Posay Cho Da Nhạy Cảm Micellar Water Ultra Sensitive Skin 400ml',
+        brand: 'La Roche-Posay',
+        category: 'cham-soc-da',
+        price: 395000,
+        oldPrice: 525000,
+        discount: '25%',
+        image: 'https://cdn.hstatic.net/products/1000006063/16_35a6bd73494d41dd8cb945af4bcd9db3_1024x1024.png',
+        images: ['https://cdn.hstatic.net/products/1000006063/16_35a6bd73494d41dd8cb945af4bcd9db3_1024x1024.png', 'https://product.hstatic.net/1000006063/product/la_roche-posay_micellar_water_ultra_sensitive_skin_06be85eaf44b4597be3d8b6db0eb8b72_1024x1024.jpeg', 'https://product.hstatic.net/1000006063/product/z6081464560649_1025bbf578d8f6f9e82fd831634c07af_f139cc02fc9448d18cd23c01b671b485_1024x1024.jpg'],
+        details: 'Nước tẩy trang Micellar cho da nhạy cảm giúp làm sạch sâu và dịu da mà không cần rửa lại.',
+        specs: { 'Dung tích': '400ml', 'Thương hiệu': 'La Roche-Posay (Pháp)', 'Loại da': 'Da nhạy cảm' },
+        sold: 3500, stock: 120
     }
 ]; // Thêm nhiều sản phẩm hơn nếu cần
 

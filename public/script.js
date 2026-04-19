@@ -823,6 +823,63 @@ sold: 1250
     details: 'La Roche-Posay Effaclar Micro-Peeling Purifying Gel là gel rửa mặt dành cho da dầu, mụn trứng cá nghiêm trọng và mụn cơ thể. Với 2% Salicylic Acid và LHA, sản phẩm giúp làm sạch sâu lỗ chân lông, loại bỏ tế bào chết và bã nhờn dư thừa, làm giảm mụn sưng viêm rõ rệt và ngăn ngừa vết thâm sau mụn.',
     specs: { 'Dung tích': '400ml', 'Thương hiệu': 'La Roche-Posay (Pháp)', 'Thành phần': '2% Salicylic Acid, LHA, Zinc', 'Loại da': 'Da dầu, da mụn nghiêm trọng' },
     sold: 340
+},
+{
+    id: 39,
+    name: 'Sữa Rửa Mặt La Roche-Posay Cho Da Dầu Mụn Effaclar Purifying Foaming Gel 400ml',
+    brand: 'La Roche-Posay',
+    category: 'cham-soc-da',
+    price: 445000,
+    oldPrice: 560000,
+    discount: '21%',
+    image: 'https://cdn.hstatic.net/products/1000006063/12_95e900c7b6164e418d924f0f3c6b95ef_1024x1024.png',
+    images: [
+        'https://cdn.hstatic.net/products/1000006063/12_95e900c7b6164e418d924f0f3c6b95ef_1024x1024.png',
+        'https://product.hstatic.net/1000006063/product/a_roche-posay_effaclar_purifying_foaming_gel_for_oily_sensitive_skin_3_39c1f4880f594637983417111e449355_1024x1024.jpg',
+        'https://product.hstatic.net/1000006063/product/5_b40da5596e6b445cba47b190d3294359_1024x1024_6ae7be4f1542407294d65d6f659874bb_1024x1024.jpg'
+    ],
+    description: 'Gel rửa mặt tạo bọt dành cho da dầu, nhạy cảm giúp làm sạch bụi bẩn và bã nhờn dư thừa, mang lại làn da sạch thoáng và cân bằng.',
+    details: 'Sữa rửa mặt La Roche-Posay Effaclar Purifying Foaming Gel nhẹ nhàng làm sạch da từ sâu trong lỗ chân lông, loại bỏ bụi bẩn cùng dầu thừa, đồng thời giữ độ pH luôn ở mức cân bằng 5.5 giúp da không bị khô căng sau khi rửa.',
+    specs: { 'Dung tích': '400ml', 'Thương hiệu': 'La Roche-Posay (Pháp)', 'Loại da': 'Da dầu & da mụn nhạy cảm', 'Kết cấu': 'Dạng gel tạo bọt' },
+    sold: 15500
+},
+{
+    id: 40,
+    name: 'Nước Tẩy Trang La Roche-Posay Cho Da Dầu Mụn Effaclar Micellar Water Ultra 400ml',
+    brand: 'La Roche-Posay',
+    category: 'cham-soc-da',
+    price: 395000,
+    oldPrice: 525000,
+    discount: '25%',
+    image: 'https://product.hstatic.net/1000006063/product/4_d9cd1f1ffdcf402aa64f0095ae8202bd_1024x1024.png',
+    images: [
+        'https://product.hstatic.net/1000006063/product/4_d9cd1f1ffdcf402aa64f0095ae8202bd_1024x1024.png',
+        'https://product.hstatic.net/1000006063/product/2_9e68389d85cb4aaca96c101051bbc110_1024x1024.jpg',
+        'https://product.hstatic.net/1000006063/product/3_d241d88fac304c5a9fabe0a3306b785f_1024x1024.jpg'
+    ],
+    description: 'Nước tẩy trang công nghệ Micellar dành cho da dầu mụn giúp làm sạch sâu lớp trang điểm, bụi mịn và bã nhờn mà không gây khô da.',
+    details: 'Effaclar Micellar Water Ultra giúp làm sạch đến 99% lớp trang điểm, 70% mascara và các hạt bụi siêu mịn chỉ sau một miếng bông. Thành phần chứa Zinc PCA giúp kiểm soát dầu và nước khoáng La Roche-Posay làm dịu da.',
+    specs: { 'Dung tích': '400ml', 'Thương hiệu': 'La Roche-Posay (Pháp)', 'Loại da': 'Da dầu, da mụn, nhạy cảm', 'Công nghệ': 'Glyco Micellar' },
+    sold: 4200
+},
+{
+    id: 41,
+    name: 'Nước Tẩy Trang La Roche-Posay Cho Da Nhạy Cảm Micellar Water Ultra Sensitive Skin 400ml',
+    brand: 'La Roche-Posay',
+    category: 'cham-soc-da',
+    price: 395000,
+    oldPrice: 525000,
+    discount: '25%',
+    image: 'https://cdn.hstatic.net/products/1000006063/16_35a6bd73494d41dd8cb945af4bcd9db3_1024x1024.png',
+    images: [
+        'https://cdn.hstatic.net/products/1000006063/16_35a6bd73494d41dd8cb945af4bcd9db3_1024x1024.png',
+        'https://product.hstatic.net/1000006063/product/la_roche-posay_micellar_water_ultra_sensitive_skin_06be85eaf44b4597be3d8b6db0eb8b72_1024x1024.jpeg',
+        'https://product.hstatic.net/1000006063/product/z6081464560649_1025bbf578d8f6f9e82fd831634c07af_f139cc02fc9448d18cd23c01b671b485_1024x1024.jpg'
+    ],
+    description: 'Nước tẩy trang dành cho da nhạy cảm giúp làm sạch sâu lớp trang điểm và bụi mịn mà không gây khô da hay kích ứng.',
+    details: 'Micellar Water Ultra Sensitive Skin giúp làm sạch sâu lớp trang điểm, bụi mịn và bã nhờn, đồng thời cấp ẩm và làm dịu da nhạy cảm. Công thức chứa Glycerin giúp dưỡng ẩm và giảm ma sát tối đa khi làm sạch, đảm bảo an toàn cho cả vùng da mắt và môi.',
+    specs: { 'Dung tích': '400ml', 'Thương hiệu': 'La Roche-Posay (Pháp)', 'Loại da': 'Da nhạy cảm', 'Công nghệ': 'Glyco Micellar' },
+    sold: 3500
 }
 ];
 
