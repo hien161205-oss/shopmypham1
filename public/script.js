@@ -651,6 +651,63 @@ sold: 1250
     details: 'Với công nghệ One Shot, dầu tẩy trang Merzy dễ dàng hòa tan các loại mỹ phẩm chống nước. Thành phần chiết xuất từ thiên nhiên giúp nhũ hóa nhanh, sạch sâu lỗ chân lông và mang lại cảm giác tươi mới sau khi sử dụng.',
     specs: { 'Dung tích': '300ml', 'Thương hiệu': 'Merzy (Hàn Quốc)', 'Nơi sản xuất': 'Hàn Quốc', 'Hạn sử dụng': '3 năm' },
     sold: 560
+},
+{
+    id: 30,
+    name: 'Phấn Nước Trang Điểm Che Phủ Hoàn Hảo B.O.M Cover Flex Cushion SPF50+ PA+++ 15g',
+    brand: 'B.O.M',
+    category: 'trang-diem-nen',
+    price: 329000,
+    oldPrice: 520000,
+    discount: '37%',
+    image: 'https://product.hstatic.net/1000006063/product/2_edb54b7aaec546b1b3c19ecf91f53810_1024x1024.jpg',
+    images: [
+        'https://product.hstatic.net/1000006063/product/2_edb54b7aaec546b1b3c19ecf91f53810_1024x1024.jpg',
+        'https://product.hstatic.net/1000006063/product/31_ebfea447934e4a3facbfa16ac648cba2_1024x1024.jpg',
+        'https://product.hstatic.net/1000006063/product/37_2e824118ff174d7d801f848dc4717247_1024x1024.jpg'
+    ],
+    description: 'Phấn nước B.O.M Cover Flex Cushion mang lại lớp nền mỏng nhẹ tự nhiên nhưng vẫn có độ che phủ tuyệt vời, kiềm dầu tốt và bền màu suốt ngày dài.',
+    details: 'B.O.M Cover Flex Cushion sở hữu công nghệ Flex-Cover giúp lớp nền bám chặt vào da, che phủ các khuyết điểm một cách tự nhiên mà không gây cảm giác dày nặng. Sản phẩm còn chứa các thành phần dưỡng da giúp duy trì độ ẩm và bảo vệ da trước tác hại của tia UV.',
+    specs: { 'Khối lượng': '15g', 'Thương hiệu': 'B.O.M (Hàn Quốc)', 'Nơi sản xuất': 'Hàn Quốc', 'Hạn sử dụng': '3 năm' },
+    sold: 210
+},
+{
+    id: 31,
+    name: 'Kem Nền B.O.M Che Phủ Tốt, Mỏng Mịn, Lâu Trôi Cover Flex Skin Fit Foundation 30ml',
+    brand: 'B.O.M',
+    category: 'trang-diem-nen',
+    price: 339000,
+    oldPrice: 480000,
+    discount: '29%',
+    image: 'https://product.hstatic.net/1000006063/product/b.o.m_cover_flex_skin_fit_foundation_30ml_ddede178af2949549402c7996965cf59_1024x1024.jpg',
+    images: [
+        'https://product.hstatic.net/1000006063/product/b.o.m_cover_flex_skin_fit_foundation_30ml_ddede178af2949549402c7996965cf59_1024x1024.jpg',
+        'https://product.hstatic.net/1000006063/product/bt_21_3c16cf293d134e248ea410e3cb4b2073_510a4e41228c479d8e90366dd957e0f0_1024x1024.jpg',
+        'https://product.hstatic.net/1000006063/product/b.o.m_cover_flex_skin_fit_foundation_30ml_ddede178af2949549402c7996965cf59_1024x1024.jpg'
+    ],
+    description: 'Kem nền B.O.M Cover Flex Skin Fit Foundation với công nghệ Flex-fit giúp lớp nền mỏng mịn, bám chặt vào da và che phủ hoàn hảo các khuyết điểm.',
+    details: 'Sản phẩm mang lại lớp finish tự nhiên, mỏng nhẹ như làn da thật nhưng vẫn có khả năng che phủ tốt các vết thâm, lỗ chân lông. Công thức lâu trôi giúp duy trì lớp trang điểm rạng rỡ suốt ngày dài mà không gây bí da.',
+    specs: { 'Dung tích': '30ml', 'Thương hiệu': 'B.O.M (Hàn Quốc)', 'Nơi sản xuất': 'Hàn Quốc', 'Hạn sử dụng': '3 năm' },
+    sold: 185
+},
+{
+    id: 32,
+    name: 'Phấn Phủ Dạng Nén Kiềm Dầu, Mịn Da B.O.M Fixing Flex Powder Pact 7.5g',
+    brand: 'B.O.M',
+    category: 'trang-diem-nen',
+    price: 189000,
+    oldPrice: 320000,
+    discount: '41%',
+    image: 'https://product.hstatic.net/1000006063/product/1060_4669370f245643b5a1622a7aa0c7c1c9_1024x1024.jpg',
+    images: [
+        'https://product.hstatic.net/1000006063/product/1060_4669370f245643b5a1622a7aa0c7c1c9_1024x1024.jpg',
+        'https://product.hstatic.net/1000006063/product/1057_62788948b7cb471c8f09460f9cc6b246_870c1cb506104a629041fbefb640b580_1024x1024.jpg',
+        'https://product.hstatic.net/1000006063/product/1060_4669370f245643b5a1622a7aa0c7c1c9_1024x1024.jpg'
+    ],
+    description: 'Phấn phủ dạng nén B.O.M Fixing Flex Powder Pact với khả năng kiềm dầu vượt trội, giúp cố định lớp trang điểm và mang lại làn da mịn màng, không bóng nhờn.',
+    details: 'Phấn phủ nén B.O.M Fixing Flex Powder Pact sở hữu hạt phấn siêu nhỏ, mịn màng, dễ dàng che phủ lỗ chân lông và các khuyết điểm nhỏ. Công thức kiềm dầu hiệu quả giúp duy trì lớp nền khô thoáng suốt nhiều giờ liền.',
+    specs: { 'Khối lượng': '7.5g', 'Thương hiệu': 'B.O.M (Hàn Quốc)', 'Nơi sản xuất': 'Hàn Quốc', 'Hạn sử dụng': '3 năm' },
+    sold: 150
 }
 ];
 
