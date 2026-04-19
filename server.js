@@ -24,7 +24,9 @@ let mockProducts = [
     { _id: "p1", name: '[NEW DEW] Son Tint Bóng Merzy Dạng Thạch', brand: 'Merzy', category: 'trang-diem', price: 179000, oldPrice: 309000, discount: '42%', image: 'https://product.hstatic.net/1000006063/product/wd23_c168ab0ee2c24edda27693a18de15bb5_1024x1024.jpg', sold: 25200, stock: 100 },
     { _id: "p2", name: 'Serum Chống Nắng B.O.M Dưỡng Ẩm', brand: 'B.O.M', category: 'skincare', price: 438000, oldPrice: 548000, discount: '20%', image: 'https://cdn.hstatic.net/products/1000006063/bt_770a3fcae16d4350ad40ad252a1805fb_1024x1024.jpg', sold: 1500, stock: 50 },
     { _id: "p3", name: 'Sữa Dưỡng Thể Trắng Da Olay Cellscience', brand: 'Olay', category: 'bodycare', price: 359000, oldPrice: 420000, discount: '15%', image: 'https://cdn.hstatic.net/products/1000006063/olay_a6cd68555dec44639f4795f55046ff84_1024x1024.jpg', sold: 15600, stock: 80 },
-    { _id: "p4", name: 'Nước Dưỡng Tóc Tinh Dầu Bưởi Cocoon', brand: 'Cocoon', category: 'haircare', price: 158000, oldPrice: 185000, discount: '15%', image: 'https://product.hstatic.net/1000006063/product/dai_dien_dce04d99812b47ada407478149e79841_1024x1024.jpg', sold: 1250, stock: 200 }
+    { _id: "p4", name: 'Nước Dưỡng Tóc Tinh Dầu Bưởi Cocoon', brand: 'Cocoon', category: 'haircare', price: 158000, oldPrice: 185000, discount: '15%', image: 'https://product.hstatic.net/1000006063/product/dai_dien_dce04d99812b47ada407478149e79841_1024x1024.jpg', sold: 1250, stock: 200 },
+    { _id: "p5", name: 'Mặt Nạ Miếng Pad Dưỡng Ẩm Emmié', brand: 'Emmié by HappySkin', category: 'skincare', price: 315000, oldPrice: 450000, discount: '30%', image: 'https://cdn.hstatic.net/products/1000006063/emmie_copy_28ed3a4f9ae3421db56ff99742a1599f_1024x1024.jpg', sold: 850, stock: 100 },
+    { _id: "p6", name: 'Kem Chống Nắng La Roche-Posay Anthelios', brand: 'La Roche-Posay', category: 'skincare', price: 449000, oldPrice: 640000, discount: '30%', image: 'https://product.hstatic.net/1000006063/product/bth_b1850e1e326b4a60ab803afca16b55af_1024x1024.jpg', sold: 3200, stock: 80 }
 ]; // Thêm nhiều sản phẩm hơn nếu cần
 
 let mockCategories = [

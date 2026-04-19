@@ -568,7 +568,7 @@ sold: 1250
 
 // Khởi tạo products bằng dữ liệu mặc định ngay lập tức
 let products = [...DEFAULT_PRODUCTS];
-let filteredProducts = [...products];
+let filteredProducts = [];
 
 async function loadProductsFromServer() {
     try {
