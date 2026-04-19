@@ -1027,7 +1027,7 @@ function renderFlashSale() {
 }
 
 function renderMerzyProducts() {
-    renderProductSection('merzyProductsGrid', p => p.brand === 'Merzy', { limit: 12 });
+    renderProductSection('merzyProductsGrid', p => p.brand === 'Merzy', { limit: 8 });
 }
 
 window.updateBrandSection = function(brandName) {
@@ -1039,7 +1039,7 @@ window.updateBrandSection = function(brandName) {
     }
 
     // 2. Render lại grid sản phẩm theo thương hiệu đã chọn
-    renderProductSection('merzyProductsGrid', p => p.brand.toLowerCase() === brandName.toLowerCase(), { limit: 12 });
+    renderProductSection('merzyProductsGrid', p => p.brand.toLowerCase() === brandName.toLowerCase(), { limit: 8 });
     
     showToast(`Đang hiển thị sản phẩm của ${brandName}`);
 };

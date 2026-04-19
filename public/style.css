@@ -953,6 +953,19 @@ body {
     border-radius: 8px;
 }
 
+#merzyProductsGrid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr); /* Chia làm 4 cột */
+    overflow-x: hidden; /* Bỏ cuộn ngang */
+    gap: 10px;
+}
+
+#merzyProductsGrid .product-card {
+    flex: unset; /* Bỏ thuộc tính flex cố định để card co dãn theo grid */
+    width: 100%;
+    min-width: unset;
+}
+
 /* SEARCH TRENDS */
 .search-trends-wrap {
     margin-bottom: 40px;
