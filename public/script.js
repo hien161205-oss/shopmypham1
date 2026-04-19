@@ -9,14 +9,8 @@ const API_BASE_URL = (window.location.hostname === 'localhost' || window.locatio
     : window.location.origin + '/api';
 let isLoggedIn = !!localStorage.getItem('qh_token');
 let currentUserName = localStorage.getItem('qh_userName') || '';
-let cart = JSON.parse(localStorage.getItem('qh_cart')) || [];
 
-/** 2. STATE & GLOBALS */
-let products = []; 
-let filteredProducts = [];
-let currentSlide = 0;
-let currentCheckoutItems = []; 
-let isDirectCheckout = false;
+let cart = JSON.parse(localStorage.getItem('qh_cart')) || [];
 
 /**
  * Hàm fetch API an toàn: Kiểm tra response.ok, log text() khi lỗi và chỉ parse JSON khi hợp lệ
@@ -572,9 +566,9 @@ sold: 1250
 }
 ];
 
-// Khởi tạo giá trị ban đầu (Không dùng từ khóa 'let' ở đây)
-products = [...DEFAULT_PRODUCTS];
-filteredProducts = [...products];
+// Khởi tạo products bằng dữ liệu mặc định ngay lập tức
+let products = [...DEFAULT_PRODUCTS];
+let filteredProducts = [];
 
 async function loadProductsFromServer() {
     try {
@@ -1356,6 +1350,19 @@ function initEvents() {
     if (accountTrigger) {
         accountTrigger.addEventListener('click', () => {
             if (isLoggedIn) {
+                // Kiểm tra xem người dùng hiện tại có phải là Admin không
+                const token = localStorage.getItem('qh_token');
+                let isAdminUser = false;
+                if (token && token.includes('.')) {
+                    try {
+                        const payload = JSON.parse(decodeURIComponent(atob(token.split('.')[1]).split('').map(c => '%' + ('00' + c.charCodeAt(0).toString(16)).slice(-2)).join('')));
+                        isAdminUser = payload.isAdmin === true;
+                    } catch (e) { isAdminUser = false; }
+                }
+
+                // Nếu là Admin, không hiển thị bảng thông tin (overlay) theo yêu cầu
+                if (isAdminUser) return;
+
                 const profileOverlay = document.getElementById('profileOverlay');
                 if (profileOverlay) {
                     profileOverlay.style.display = 'flex';
@@ -1577,15 +1584,15 @@ function initEvents() {
 
     // CHECKOUT LOGIC
     const checkoutOverlay = document.getElementById('checkoutOverlay');
+    const checkoutBtn = document.getElementById('checkoutBtn');
     const closeCheckoutBtn = document.getElementById('closeCheckoutBtn');
     const checkoutForm = document.getElementById('checkoutForm');
     const checkoutSummaryItems = document.getElementById('checkoutSummaryItems');
     const checkoutSubtotal = document.getElementById('checkoutSubtotal');
     const checkoutTotal = document.getElementById('checkoutTotal');
 
-    const mainCheckoutBtn = document.getElementById('checkoutBtn');
-    if (mainCheckoutBtn) {
-        mainCheckoutBtn.addEventListener('click', () => {
+    if (checkoutBtn) {
+        checkoutBtn.addEventListener('click', () => {
             if (cart.length === 0) {
                 showToast('Giỏ hàng của bạn đang trống!');
                 return;
@@ -1763,29 +1770,6 @@ function initEvents() {
             const productId = localStorage.getItem('selectedProductId');
             if (productId) window.buyNow(productId);
         };
-    }
-
-    // Gắn sự kiện cho nút Thanh toán trong giỏ hàng
-    const checkoutBtn = document.getElementById('checkoutBtn');
-    if (checkoutBtn) {
-        checkoutBtn.addEventListener('click', () => {
-            if (cart.length === 0) {
-                showToast('Giỏ hàng của bạn đang trống!');
-                return;
-            }
-            currentCheckoutItems = [...cart];
-            isDirectCheckout = false;
-            closeCart();
-            renderCheckoutSummary();
-            const checkoutOverlay = document.getElementById('checkoutOverlay');
-            if (checkoutOverlay) {
-                checkoutOverlay.style.display = 'block';
-                checkoutOverlay.classList.add('active');
-                document.getElementById('checkoutForm').style.display = 'block';
-                document.getElementById('checkoutSuccess').style.display = 'none';
-                document.getElementById('checkoutQR').style.display = 'none';
-            }
-        });
     }
 }
 
@@ -2043,8 +2027,8 @@ function updateUserDisplay(name) {
     currentUserName = name;
     
     if (display) {
-        // Ẩn bảng tên/thông tin để giữ lại logo icon duy nhất theo yêu cầu
-        display.style.display = 'none';
+        display.textContent = name;
+        display.style.display = 'inline-block';
     }
 
     // Hiển thị nút Admin nếu là tài khoản admin thật sự
