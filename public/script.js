@@ -2099,11 +2099,24 @@ function injectRequiredElements() {
                             <textarea id="orderNote" placeholder="Ghi chú (tùy chọn)" style="width:100%; padding:10px; border:1px solid #eee; margin-bottom:20px;"></textarea>
                             <button type="submit" style="width:100%; padding:15px; background:#5dade2; color:white; border:none; font-weight:800; cursor:pointer; text-transform:uppercase;">HOÀN TẤT ĐẶT HÀNG</button>
                         </form>
-                        <div id="checkoutQR" style="display:none; text-align:center;">
-                            <h3>Quét mã QR để thanh toán</h3>
-                            <img id="qrCodeImg" style="width:200px; margin:20px 0;">
-                            <p>Nội dung: <strong id="qrNote"></strong></p>
-                            <button id="confirmQRBtn" style="padding:10px 20px; background:var(--primary); color:white; border:none; cursor:pointer;">XÁC NHẬN ĐÃ CHUYỂN</button>
+                        <div id="checkoutQR" style="display:none; text-align:center; padding: 20px 0;">
+                            <h2 style="font-size: 22px; font-weight: 800; margin-bottom: 20px; color: #333;">THANH TOÁN CHUYỂN KHOẢN</h2>
+                            <p style="color: #666; margin-bottom: 20px; font-size: 14px;">Vui lòng quét mã QR bên dưới để thanh toán đơn hàng.</p>
+                            
+                            <div style="background: white; padding: 20px; border-radius: 12px; box-shadow: 0 4px 15px rgba(0,0,0,0.1); display: inline-block; margin-bottom: 20px;">
+                                <img id="qrCodeImg" src="" alt="QR Code" style="width: 250px; height: 250px; object-fit: contain; margin-bottom: 15px;">
+                                <div style="text-align: left; font-size: 14px; line-height: 1.6;">
+                                    <p><strong>Chủ tài khoản:</strong> Nguyễn Thị Thanh Hiền</p>
+                                    <p><strong>Số tài khoản:</strong> 1234567890</p>
+                                    <p><strong>Ngân hàng:</strong> Vietcombank</p>
+                                    <p><strong>Số tiền:</strong> <span id="qrAmount" style="color: var(--red); font-weight: 800;">0đ</span></p>
+                                    <p><strong>Nội dung:</strong> <span id="qrNote" style="color: var(--primary); font-weight: 700;">QH123456</span></p>
+                                </div>
+                            </div>
+                            
+                            <div style="display: flex; gap: 15px; justify-content: center;">
+                                <button id="confirmQRBtn" style="padding: 12px 25px; background: var(--primary); color: white; border: none; border-radius: 6px; font-weight: 700; cursor: pointer;">XÁC NHẬN ĐÃ CHUYỂN</button>
+                            </div>
                         </div>
                         <div id="checkoutSuccess" style="display:none; text-align:center; padding:20px;">
                             <h2 style="color:var(--primary);">ĐẶT HÀNG THÀNH CÔNG!</h2>
