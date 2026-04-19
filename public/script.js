@@ -9,7 +9,7 @@ const API_BASE_URL = (window.location.hostname === 'localhost' || window.locatio
     : window.location.origin + '/api';
 let isLoggedIn = !!localStorage.getItem('qh_token');
 let currentUserName = localStorage.getItem('qh_userName') || '';
-let products = [];
+
 let cart = JSON.parse(localStorage.getItem('qh_cart')) || [];
 
 /**
@@ -50,6 +50,7 @@ async function safeFetch(url, options = {}) {
     return await response.text();
 }
 
+// Chuyển DEFAULT_PRODUCTS lên đầu file (trước khi sử dụng)
 const DEFAULT_PRODUCTS = [
 {
   id: 1,
@@ -565,22 +566,26 @@ sold: 1250
 }
 ];
 
+// Khởi tạo products bằng dữ liệu mặc định ngay lập tức
+let products = [...DEFAULT_PRODUCTS];
+let filteredProducts = [...products];
+
 async function loadProductsFromServer() {
     try {
+        // Hiển thị ngay dữ liệu mặc định để người dùng không phải chờ
+        renderAllSections();
+
         const data = await safeFetch(`${API_BASE_URL}/products`);
         if (data && Array.isArray(data) && data.length > 0) {
             products = data;
-        } else {
-            console.log('Server trả về danh sách trống, dùng dữ liệu mặc định');
-            products = DEFAULT_PRODUCTS;
+            window.products = products;
+            filteredProducts = [...products]; 
+            // Cập nhật lại giao diện khi đã có dữ liệu từ Server
+            renderAllSections();
         }
     } catch (error) {
-        console.error('Lỗi tải sản phẩm từ server:', error.message);
-        products = DEFAULT_PRODUCTS;
+        console.warn('Không thể kết nối Backend, đang dùng dữ liệu dự phòng.');
     }
-    window.products = products; // Luôn gán lại để các hàm khác sử dụng
-    filteredProducts = [...products]; 
-    renderAllSections(); // Đảm bảo render sau khi có dữ liệu
 }
 
 const magazinePosts = [
@@ -626,8 +631,6 @@ const magazinePosts = [
     }
 ];
 
-// 2. STATE
-let filteredProducts = [...products];
 let currentSlide = 0;
 let currentCheckoutItems = []; // To track what's being checked out
 let isDirectCheckout = false;
@@ -638,17 +641,14 @@ function removeAccents(str) {
 
 // 3. INIT
 document.addEventListener('DOMContentLoaded', () => {
-    // Kiểm tra xem có đang ở trang admin không
     const path = window.location.pathname;
     if (path.includes('admin.html')) {
         return;
     }
     
     injectRequiredElements();
-    initEvents();
+    initEvents(); // Hàm này chứa window.initCheckoutListeners()
 
-    // Khôi phục hiển thị người dùng ngay lập tức từ Token/localStorage 
-    // mà không cần đợi tải danh sách sản phẩm từ API
     if (isLoggedIn && currentUserName) {
         updateUserDisplay(currentUserName);
     }
