@@ -708,6 +708,44 @@ sold: 1250
     details: 'Phấn phủ nén B.O.M Fixing Flex Powder Pact sở hữu hạt phấn siêu nhỏ, mịn màng, dễ dàng che phủ lỗ chân lông và các khuyết điểm nhỏ. Công thức kiềm dầu hiệu quả giúp duy trì lớp nền khô thoáng suốt nhiều giờ liền.',
     specs: { 'Khối lượng': '7.5g', 'Thương hiệu': 'B.O.M (Hàn Quốc)', 'Nơi sản xuất': 'Hàn Quốc', 'Hạn sử dụng': '3 năm' },
     sold: 150
+},
+{
+    id: 33,
+    name: 'Nước Tẩy Trang Chiết Xuất 8 Loại Trà B.O.M Eight Tea Cleansing Water 500ml',
+    brand: 'B.O.M',
+    category: 'cham-soc-da',
+    price: 169000,
+    oldPrice: 320000,
+    discount: '47%',
+    image: 'https://product.hstatic.net/1000006063/product/b.o.m_copy_a47a1f15c76d41d8a2d94a76f489a74b_1024x1024.jpg',
+    images: [
+        'https://product.hstatic.net/1000006063/product/b.o.m_copy_a47a1f15c76d41d8a2d94a76f489a74b_1024x1024.jpg',
+        'https://product.hstatic.net/1000006063/product/3_95e0468d512f400b9a41c46622533f4c_1024x1024.png',
+        'https://product.hstatic.net/1000006063/product/download__5__a0c7113e4ef5408f99535ec32e77dbe5_1024x1024.jpg'
+    ],
+    description: 'Nước tẩy trang B.O.M Eight Tea Cleansing Water giúp làm sạch sâu bụi bẩn, bã nhờn và lớp trang điểm một cách dịu nhẹ nhờ chiết xuất từ 8 loại trà thảo mộc.',
+    details: 'Sản phẩm có độ pH 5.5 lý tưởng, không gây khô căng da sau khi sử dụng. Chiết xuất từ 8 loại trà giúp làm dịu da nhạy cảm, chống oxy hóa và duy trì độ ẩm tự nhiên.',
+    specs: { 'Dung tích': '500ml', 'Thương hiệu': 'B.O.M (Hàn Quốc)', 'Nơi sản xuất': 'Hàn Quốc', 'Hạn sử dụng': '3 năm' },
+    sold: 890
+},
+{
+    id: 34,
+    name: 'Son Thỏi Thuần Chay, Lì Mịn Như Mây B.O.M Cloud Blur Lipstick 3.3g',
+    brand: 'B.O.M',
+    category: 'trang-diem-son-moi',
+    price: 179000,
+    oldPrice: 320000,
+    discount: '44%',
+    image: 'https://product.hstatic.net/1000006063/product/bom_1d91920c26cc4c96b4ac5b5f5d925b77_1024x1024.jpg',
+    images: [
+        'https://product.hstatic.net/1000006063/product/bom_1d91920c26cc4c96b4ac5b5f5d925b77_1024x1024.jpg',
+        'https://product.hstatic.net/1000006063/product/2_f3a11550edfd4a958ed0b93eb8675538_1024x1024.jpg',
+        'https://product.hstatic.net/1000006063/product/3_88978aeb360e45a7ae5074e35bcc29aa_1024x1024.jpg'
+    ],
+    description: 'Son thỏi lì B.O.M Cloud Blur Lipstick với công thức thuần chay lành tính, mang lại hiệu ứng mờ lì mịn mượt như mây, mỏng nhẹ và bền màu trên môi.',
+    details: 'B.O.M Cloud Blur Lipstick sở hữu chất son mềm mượt, dễ tán, giúp che phủ rãnh môi hiệu quả. Sản phẩm đạt chứng nhận thuần chay (Vegan), an toàn và nhẹ tênh trên môi suốt cả ngày dài.',
+    specs: { 'Khối lượng': '3.3g', 'Thương hiệu': 'B.O.M (Hàn Quốc)', 'Nơi sản xuất': 'Hàn Quốc', 'Đặc tính': 'Thuần chay (Vegan)' },
+    sold: 560
 }
 ];
 

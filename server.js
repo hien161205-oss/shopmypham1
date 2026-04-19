@@ -335,6 +335,34 @@ let mockProducts = [
         details: 'Phấn phủ dạng nén B.O.M Fixing Flex Powder Pact với khả năng kiềm dầu vượt trội, giúp cố định lớp trang điểm.',
         specs: { 'Khối lượng': '7.5g', 'Thương hiệu': 'B.O.M (Hàn Quốc)', 'Nơi sản xuất': 'Hàn Quốc' },
         sold: 150, stock: 60
+    },
+    {
+        _id: "p35",
+        name: 'Nước Tẩy Trang Chiết Xuất 8 Loại Trà B.O.M Eight Tea Cleansing Water 500ml',
+        brand: 'B.O.M',
+        category: 'cham-soc-da',
+        price: 169000,
+        oldPrice: 320000,
+        discount: '47%',
+        image: 'https://product.hstatic.net/1000006063/product/b.o.m_copy_a47a1f15c76d41d8a2d94a76f489a74b_1024x1024.jpg',
+        images: ['https://product.hstatic.net/1000006063/product/b.o.m_copy_a47a1f15c76d41d8a2d94a76f489a74b_1024x1024.jpg', 'https://product.hstatic.net/1000006063/product/3_95e0468d512f400b9a41c46622533f4c_1024x1024.png', 'https://product.hstatic.net/1000006063/product/download__5__a0c7113e4ef5408f99535ec32e77dbe5_1024x1024.jpg'],
+        details: 'Nước tẩy trang chiết xuất từ 8 loại trà giúp làm sạch dịu nhẹ và cân bằng độ pH cho da.',
+        specs: { 'Dung tích': '500ml', 'Thương hiệu': 'B.O.M (Hàn Quốc)', 'Nơi sản xuất': 'Hàn Quốc' },
+        sold: 890, stock: 150
+    },
+    {
+        _id: "p36",
+        name: 'Son Thỏi Thuần Chay, Lì Mịn Như Mây B.O.M Cloud Blur Lipstick 3.3g',
+        brand: 'B.O.M',
+        category: 'trang-diem-son-moi',
+        price: 179000,
+        oldPrice: 320000,
+        discount: '44%',
+        image: 'https://product.hstatic.net/1000006063/product/bom_1d91920c26cc4c96b4ac5b5f5d925b77_1024x1024.jpg',
+        images: ['https://product.hstatic.net/1000006063/product/bom_1d91920c26cc4c96b4ac5b5f5d925b77_1024x1024.jpg', 'https://product.hstatic.net/1000006063/product/2_f3a11550edfd4a958ed0b93eb8675538_1024x1024.jpg', 'https://product.hstatic.net/1000006063/product/3_88978aeb360e45a7ae5074e35bcc29aa_1024x1024.jpg'],
+        details: 'Son thỏi lì thuần chay mang lại hiệu ứng mờ lì tự nhiên, mỏng nhẹ như mây.',
+        specs: { 'Khối lượng': '3.3g', 'Thương hiệu': 'B.O.M (Hàn Quốc)', 'Đặc tính': 'Thuần chay' },
+        sold: 560, stock: 120
     }
 ]; // Thêm nhiều sản phẩm hơn nếu cần
 
