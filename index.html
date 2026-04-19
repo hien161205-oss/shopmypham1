@@ -177,21 +177,20 @@
         </div>
 
         <div class="brand-layout-wrap">
-            <div class="brand-side-banner">
-                <img src="https://picsum.photos/seed/merzy/400/800" alt="Merzy Banner" referrerPolicy="no-referrer">
-            </div>
-            <div class="brand-content-area">
-                <div class="brand-nav-inline">
-                    <span class="active" onclick="updateBrandSection('Merzy', this)">MERZY</span>
-                    <span onclick="updateBrandSection('B.O.M', this)">B.O.M</span>
-                    <span onclick="updateBrandSection('La Roche-Posay', this)">LA ROCHE-POSAY</span>
-                    <span onclick="updateBrandSection('Anessa', this)">ANESSA</span>
-                    <span onclick="updateBrandSection('Cocoon', this)">COCOON</span>
-                    <span onclick="updateBrandSection('DrCeutics', this)">DRCEUTICS</span>
+            <aside class="brand-sidebar">
+                <div class="brand-side-banner">
+                    <img src="https://picsum.photos/seed/merzy/400/600" alt="Brand Banner" id="brandBannerImg">
                 </div>
-                <div class="products-grid" id="merzyProductsGrid">
-                    <!-- JS Render -->
+                <div class="brand-nav-vertical">
+                    <div class="brand-item active" onclick="updateBrandSection('Merzy', this)">MERZY</div>
+                    <div class="brand-item" onclick="updateBrandSection('B.O.M', this)">B.O.M</div>
+                    <div class="brand-item" onclick="updateBrandSection('La Roche-Posay', this)">LA ROCHE-POSAY</div>
+                    <div class="brand-item" onclick="updateBrandSection('Anessa', this)">ANESSA</div>
+                    <div class="brand-item" onclick="updateBrandSection('Cocoon', this)">COCOON</div>
                 </div>
+            </aside>
+            <div class="products-grid" id="merzyProductsGrid">
+                <!-- JS Render -->
             </div>
         </div>
 

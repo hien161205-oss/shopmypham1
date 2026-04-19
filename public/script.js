@@ -1242,7 +1242,7 @@ function renderMerzyProducts() {
 
 window.updateBrandSection = function(brandName, element) {
     // 1. Cập nhật banner bên cạnh cho đúng thương hiệu (dùng picsum seed để tạo ảnh khác biệt)
-    const bannerImg = document.querySelector('.brand-side-banner img');
+    const bannerImg = document.getElementById('brandBannerImg');
     if (bannerImg) {
         bannerImg.src = `https://picsum.photos/seed/${brandName.toLowerCase()}/400/800`;
         bannerImg.alt = `${brandName} Banner`;
@@ -1253,7 +1253,7 @@ window.updateBrandSection = function(brandName, element) {
     
     // 3. Highlight tên thương hiệu được chọn
     if (element) {
-        const siblings = element.parentElement.querySelectorAll('span');
+        const siblings = element.parentElement.querySelectorAll('.brand-item');
         siblings.forEach(s => s.classList.remove('active'));
         element.classList.add('active');
     }
