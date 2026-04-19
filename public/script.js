@@ -596,23 +596,23 @@ sold: 1250
     sold: 1200
 },
 {
-    id: 25,
-    name: 'Son Kem Lì Mịn Mướt Nhẹ Môi Bền Màu Merzy Cyber Mellow Tint 4g',
+    id: 26,
+    name: 'Son Kem Lì Mịn Như Nhung, Bền Màu Merzy Noir In The Mellow Tint 4g',
     brand: 'Merzy',
     category: 'trang-diem-son-moi',
     price: 159000,
     oldPrice: 250000,
     discount: '36%',
-    image: 'https://cdn.hstatic.net/products/1000006063/19_a90426028a164b06a558394b6b49731c_1024x1024.png',
+    image: 'https://cdn.hstatic.net/products/1000006063/17_003d0bb5105e4c0bb67a68870033cf8d_1024x1024.png',
     images: [
-        'https://cdn.hstatic.net/products/1000006063/19_a90426028a164b06a558394b6b49731c_1024x1024.png',
-        'https://product.hstatic.net/1000006063/product/merzy_cyber_mellow_tint_4g_e084f_5107aee8ff8f41dbbe8f13f701e820d6_1024x1024.jpg',
-        'https://product.hstatic.net/1000006063/product/merzy_cyber_mellow_tint_4g_e084fc059ce1486daab899d9c949c00b_1024x1024.jpg'
+        'https://cdn.hstatic.net/products/1000006063/17_003d0bb5105e4c0bb67a68870033cf8d_1024x1024.png',
+        'https://product.hstatic.net/1000006063/product/m13_f7d8c8d9b32447748e21d51d81365ca7_1024x1024.jpg',
+        'https://product.hstatic.net/1000006063/product/20241026_093654219_ios_1_aec468ae4cdf4f20a33a8c07311b9ec8_1024x1024.jpg'
     ],
-    description: 'Son Kem Lì Mịn Mướt Nhẹ Môi Bền Màu Merzy Cyber Mellow Tint mang lại lớp finish mịn lì hoàn hảo, cảm giác nhẹ tênh trên môi cùng độ bám màu cực tốt.',
-    details: 'Merzy Cyber Mellow Tint là dòng son kem lì mới với thiết kế hiện đại, chất son xốp mịn dễ tán. Sản phẩm giúp che phủ vân môi hiệu quả và bền màu suốt ngày dài mà không gây khô môi.',
+    description: 'Son Kem Lì Mịn Như Nhung, Bền Màu Merzy Noir In The Mellow Tint mang đến vẻ đẹp cổ điển và bí ẩn với chất son velvet mịn mượt, bám màu tốt.',
+    details: 'Dòng son Noir In The Mellow Tint từ Merzy sở hữu bảng màu trầm ấm, chất son xốp mịn dễ tán, giúp che phủ vân môi hoàn hảo và giữ màu rạng rỡ suốt ngày dài.',
     specs: { 'Dung tích': '4g', 'Thương hiệu': 'Merzy (Hàn Quốc)', 'Nơi sản xuất': 'Hàn Quốc', 'Hạn sử dụng': '3 năm' },
-    sold: 1100
+    sold: 950
 }
 ];
 
@@ -1027,7 +1027,7 @@ function renderFlashSale() {
 }
 
 function renderMerzyProducts() {
-    renderProductSection('merzyProductsGrid', p => p.brand === 'Merzy', { limit: 8 });
+    renderProductSection('merzyProductsGrid', p => p.brand === 'Merzy', { limit: 12 });
 }
 
 window.updateBrandSection = function(brandName) {
@@ -1039,7 +1039,7 @@ window.updateBrandSection = function(brandName) {
     }
 
     // 2. Render lại grid sản phẩm theo thương hiệu đã chọn
-    renderProductSection('merzyProductsGrid', p => p.brand.toLowerCase() === brandName.toLowerCase(), { limit: 8 });
+    renderProductSection('merzyProductsGrid', p => p.brand.toLowerCase() === brandName.toLowerCase(), { limit: 12 });
     
     showToast(`Đang hiển thị sản phẩm của ${brandName}`);
 };
