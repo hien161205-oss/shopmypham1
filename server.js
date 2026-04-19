@@ -223,6 +223,20 @@ let mockProducts = [
         specs: { 'Khối lượng': '3.7g', 'Thương hiệu': 'Merzy (Hàn Quốc)', 'Nơi sản xuất': 'Hàn Quốc', 'Hạn sử dụng': '3 năm' },
         sold: 1200,
         stock: 100
+    },
+    {
+        _id: "p27",
+        name: 'Son Kem Lì Mịn Mướt Nhẹ Môi Bền Màu Merzy Cyber Mellow Tint 4g',
+        brand: 'Merzy',
+        category: 'trang-diem-son-moi',
+        price: 159000,
+        oldPrice: 250000,
+        discount: '36%',
+        image: 'https://cdn.hstatic.net/products/1000006063/19_a90426028a164b06a558394b6b49731c_1024x1024.png',
+        images: ['https://cdn.hstatic.net/products/1000006063/19_a90426028a164b06a558394b6b49731c_1024x1024.png', 'https://product.hstatic.net/1000006063/product/merzy_cyber_mellow_tint_4g_e084f_5107aee8ff8f41dbbe8f13f701e820d6_1024x1024.jpg', 'https://product.hstatic.net/1000006063/product/merzy_cyber_mellow_tint_4g_e084fc059ce1486daab899d9c949c00b_1024x1024.jpg'],
+        details: 'Merzy Cyber Mellow Tint là dòng son kem lì mới với thiết kế hiện đại, chất son xốp mịn dễ tán.',
+        specs: { 'Khối lượng': '4g', 'Thương hiệu': 'Merzy (Hàn Quốc)', 'Nơi sản xuất': 'Hàn Quốc', 'Hạn sử dụng': '3 năm' },
+        sold: 1100, stock: 150
     }
 ]; // Thêm nhiều sản phẩm hơn nếu cần
 
