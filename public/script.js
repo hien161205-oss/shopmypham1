@@ -2043,8 +2043,8 @@ function updateUserDisplay(name) {
     currentUserName = name;
     
     if (display) {
-        display.textContent = name;
-        display.style.display = 'inline-block';
+        // Ẩn bảng tên/thông tin để giữ lại logo icon duy nhất theo yêu cầu
+        display.style.display = 'none';
     }
 
     // Hiển thị nút Admin nếu là tài khoản admin thật sự
