@@ -1011,6 +1011,20 @@ function renderMerzyProducts() {
     renderProductSection('merzyProductsGrid', p => p.brand === 'Merzy', { limit: 12 });
 }
 
+window.updateBrandSection = function(brandName) {
+    // 1. Cập nhật banner bên cạnh cho đúng thương hiệu (dùng picsum seed để tạo ảnh khác biệt)
+    const bannerImg = document.querySelector('.brand-side-banner img');
+    if (bannerImg) {
+        bannerImg.src = `https://picsum.photos/seed/${brandName.toLowerCase()}/400/800`;
+        bannerImg.alt = `${brandName} Banner`;
+    }
+
+    // 2. Render lại grid sản phẩm theo thương hiệu đã chọn
+    renderProductSection('merzyProductsGrid', p => p.brand.toLowerCase() === brandName.toLowerCase(), { limit: 12 });
+    
+    showToast(`Đang hiển thị sản phẩm của ${brandName}`);
+};
+
 function renderMakeupProducts() {
     renderProductSection('makeupGrid', p => p.category.startsWith('trang-diem'));
 }
