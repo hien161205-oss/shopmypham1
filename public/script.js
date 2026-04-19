@@ -41,31 +41,6 @@ async function safeFetch(url, options = {}) {
             }
         }
         throw new Error(errorMessage);
-    },
-    {
-        id: 24,
-        name: 'Son Kem Lì Bền Màu, Lâu Trôi Merzy Puffer Velvet Tint 3.7g',
-        brand: 'Merzy',
-        category: 'trang-diem-son-moi',
-        price: 169000,
-        oldPrice: 280000,
-        discount: '40%',
-        image: 'https://product.hstatic.net/1000006063/product/thum_3e5a7c11b45444c6bb35c6727751ce6f_1024x1024.jpg',
-        images: [
-            'https://product.hstatic.net/1000006063/product/thum_3e5a7c11b45444c6bb35c6727751ce6f_1024x1024.jpg',
-            'https://product.hstatic.net/1000006063/product/hinh_son_5ecbd0ea1b9d4a5281bccb05294097dc_1024x1024.jpg',
-            'https://product.hstatic.net/1000006063/product/untitled-1_c8f7c634730d4939b82325acccef4803_1024x1024.jpg'
-        ],
-        description: 'Son Kem Lì Bền Màu, Lâu Trôi Merzy Puffer Velvet Tint 3.7g với kết cấu xốp mịn, mỏng nhẹ, độ bám màu cực cao giúp đôi môi luôn rạng rỡ suốt ngày dài.',
-        details: 'Merzy Puffer Velvet Tint sở hữu thiết kế độc đáo, lấy cảm hứng từ những chiếc áo phao ấm áp. Chất son xốp mịn, dễ tán, mang lại hiệu ứng mờ lì hoàn hảo mà không làm lộ vân môi hay gây khô môi.',
-        specs: {
-            'Tên sản phẩm': 'Merzy Puffer Velvet Tint',
-            'Khối lượng': '3.7g',
-            'Thương hiệu': 'Merzy (Hàn Quốc)',
-            'Nơi sản xuất': 'Hàn Quốc',
-            'Hạn sử dụng': '3 năm kể từ ngày sản xuất'
-        },
-        sold: 1200
     }
 
     if (contentType.includes("application/json")) {
@@ -617,6 +592,31 @@ sold: 1250
         'Thương hiệu': 'B.O.M (Hàn Quốc)',
         'Nơi sản xuất': 'Hàn Quốc',
         'Đối tượng': 'Mọi loại da'
+    },
+    sold: 1200
+},
+{
+    id: 24,
+    name: 'Son Kem Lì Bền Màu, Lâu Trôi Merzy Puffer Velvet Tint 3.7g',
+    brand: 'Merzy',
+    category: 'trang-diem-son-moi',
+    price: 169000,
+    oldPrice: 280000,
+    discount: '40%',
+    image: 'https://product.hstatic.net/1000006063/product/thum_3e5a7c11b45444c6bb35c6727751ce6f_1024x1024.jpg',
+    images: [
+        'https://product.hstatic.net/1000006063/product/thum_3e5a7c11b45444c6bb35c6727751ce6f_1024x1024.jpg',
+        'https://product.hstatic.net/1000006063/product/hinh_son_5ecbd0ea1b9d4a5281bccb05294097dc_1024x1024.jpg',
+        'https://product.hstatic.net/1000006063/product/untitled-1_c8f7c634730d4939b82325acccef4803_1024x1024.jpg'
+    ],
+    description: 'Son Kem Lì Bền Màu, Lâu Trôi Merzy Puffer Velvet Tint 3.7g với kết cấu xốp mịn, mỏng nhẹ, độ bám màu cực cao giúp đôi môi luôn rạng rỡ suốt ngày dài.',
+    details: 'Merzy Puffer Velvet Tint sở hữu thiết kế độc đáo, lấy cảm hứng từ những chiếc áo phao ấm áp. Chất son xốp mịn, dễ tán, mang lại hiệu ứng mờ lì hoàn hảo mà không làm lộ vân môi hay gây khô môi.',
+    specs: {
+        'Tên sản phẩm': 'Merzy Puffer Velvet Tint',
+        'Khối lượng': '3.7g',
+        'Thương hiệu': 'Merzy (Hàn Quốc)',
+        'Nơi sản xuất': 'Hàn Quốc',
+        'Hạn sử dụng': '3 năm kể từ ngày sản xuất'
     },
     sold: 1200
 }

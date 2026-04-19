@@ -204,6 +204,25 @@ let mockProducts = [
         details: 'Mặt nạ chứa chiết xuất mật ong và sữa giúp cấp ẩm sâu, nuôi dưỡng làn da mềm mại và sáng mịn tức thì.',
         specs: { 'Dung tích': '25ml', 'Thương hiệu': 'B.O.M (Hàn Quốc)', 'Thành phần': 'Mật ong, Sữa tươi', 'Loại da': 'Mọi loại da' },
         sold: 1200, stock: 500
+    },
+    {
+        _id: "p26",
+        name: 'Son Kem Lì Bền Màu, Lâu Trôi Merzy Puffer Velvet Tint 3.7g',
+        brand: 'Merzy',
+        category: 'trang-diem-son-moi',
+        price: 169000,
+        oldPrice: 280000,
+        discount: '40%',
+        image: 'https://product.hstatic.net/1000006063/product/thum_3e5a7c11b45444c6bb35c6727751ce6f_1024x1024.jpg',
+        images: [
+            'https://product.hstatic.net/1000006063/product/thum_3e5a7c11b45444c6bb35c6727751ce6f_1024x1024.jpg',
+            'https://product.hstatic.net/1000006063/product/hinh_son_5ecbd0ea1b9d4a5281bccb05294097dc_1024x1024.jpg',
+            'https://product.hstatic.net/1000006063/product/untitled-1_c8f7c634730d4939b82325acccef4803_1024x1024.jpg'
+        ],
+        details: 'Son Kem Lì Bền Màu, Lâu Trôi Merzy Puffer Velvet Tint 3.7g với kết cấu xốp mịn, mỏng nhẹ, độ bám màu cực cao giúp đôi môi luôn rạng rỡ suốt ngày dài.',
+        specs: { 'Khối lượng': '3.7g', 'Thương hiệu': 'Merzy (Hàn Quốc)', 'Nơi sản xuất': 'Hàn Quốc', 'Hạn sử dụng': '3 năm' },
+        sold: 1200,
+        stock: 100
     }
 ]; // Thêm nhiều sản phẩm hơn nếu cần
 
