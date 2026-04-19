@@ -14,12 +14,80 @@ app.get('/style.css', (req, res) => res.sendFile(path.join(publicDir, 'style.css
 app.get('/script.js', (req, res) => res.sendFile(path.join(publicDir, 'script.js')));
 app.use('/public', express.static(publicDir));
 
-// 2. Phục vụ các file HTML ở thư mục gốc
+// 2. Phục vụ các file HTML
 app.use(express.static(root, { extensions: ['html'], index: false }));
 
 // --- MOCK API ROUTES (Dùng cho bản không MongoDB) ---
-app.get('/api/products', (req, res) => {
-    res.json([]); // Trả về mảng rỗng để Frontend dùng DEFAULT_PRODUCTS
+
+// Dữ liệu sản phẩm mẫu (Bạn có thể copy toàn bộ DEFAULT_PRODUCTS từ script.js vào đây)
+let mockProducts = [
+    {
+        _id: "p1",
+        name: '[NEW DEW] Son Tint Bóng Merzy Dạng Thạch The Watery Dew Tint',
+        brand: 'Merzy',
+        category: 'trang-diem-son-moi',
+        price: 179000,
+        oldPrice: 309000,
+        discount: '42%',
+        image: 'https://product.hstatic.net/1000006063/product/wd23_c168ab0ee2c24edda27693a18de15bb5_1024x1024.jpg',
+        sold: 25200,
+        stock: 100
+    },
+    {
+        _id: "p2",
+        name: 'Serum Chống Nắng B.O.M Dưỡng Ẩm Water Glow Sun Serum SPF50+',
+        brand: 'B.O.M',
+        category: 'cham-soc-da',
+        price: 438000,
+        oldPrice: 548000,
+        discount: '20%',
+        image: 'https://cdn.hstatic.net/products/1000006063/bt_770a3fcae16d4350ad40ad252a1805fb_1024x1024.jpg',
+        sold: 1500,
+        stock: 50
+    }
+];
+
+let mockCategories = [
+    { id: 1, name: 'Trang điểm', slug: 'trang-diem' },
+    { id: 2, name: 'Chăm sóc da mặt', slug: 'skincare' },
+    { id: 3, name: 'Chăm sóc cơ thể', slug: 'bodycare' },
+    { id: 4, name: 'Chăm sóc tóc', slug: 'haircare' }
+];
+
+// API Sản phẩm
+app.get('/api/products', (req, res) => res.json(mockProducts));
+
+app.post('/api/products', (req, res) => {
+    const newProd = { ...req.body, _id: "P-" + Date.now() };
+    mockProducts.push(newProd);
+    res.status(201).json(newProd);
+});
+
+app.put('/api/products/:id', (req, res) => {
+    const index = mockProducts.findIndex(p => p._id === req.params.id);
+    if (index !== -1) {
+        mockProducts[index] = { ...mockProducts[index], ...req.body };
+        res.json(mockProducts[index]);
+    } else {
+        res.status(404).json({ message: "Không tìm thấy SP" });
+    }
+});
+
+app.delete('/api/products/:id', (req, res) => {
+    mockProducts = mockProducts.filter(p => p._id !== req.params.id);
+    res.json({ message: "Đã xóa" });
+});
+
+// API Danh mục
+app.get('/api/categories', (req, res) => res.json(mockCategories));
+app.post('/api/categories', (req, res) => {
+    const newCat = { ...req.body };
+    mockCategories.push(newCat);
+    res.status(201).json(newCat);
+});
+app.delete('/api/categories/:id', (req, res) => {
+    mockCategories = mockCategories.filter(c => c.id != req.params.id);
+    res.json({ message: "Đã xóa danh mục" });
 });
 
 // Mock Data cho Bài viết & Người dùng

@@ -569,7 +569,7 @@ async function loadProductsFromServer() {
     try {
         const data = await safeFetch(`${API_BASE_URL}/products`);
         products = (data && Array.isArray(data) && data.length > 0) ? data : DEFAULT_PRODUCTS;
-        console.log('Dữ liệu sản phẩm từ Server:', products.length);
+        window.products = products; // Cập nhật biến toàn cục cho các trang khác
     } catch (error) {
         console.warn('Sử dụng dữ liệu mặc định do lỗi tải:', error.message);
         products = DEFAULT_PRODUCTS;
