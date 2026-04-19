@@ -9,8 +9,14 @@ const API_BASE_URL = (window.location.hostname === 'localhost' || window.locatio
     : window.location.origin + '/api';
 let isLoggedIn = !!localStorage.getItem('qh_token');
 let currentUserName = localStorage.getItem('qh_userName') || '';
-
 let cart = JSON.parse(localStorage.getItem('qh_cart')) || [];
+
+/** 2. STATE & GLOBALS */
+let products = []; 
+let filteredProducts = [];
+let currentSlide = 0;
+let currentCheckoutItems = []; 
+let isDirectCheckout = false;
 
 /**
  * Hàm fetch API an toàn: Kiểm tra response.ok, log text() khi lỗi và chỉ parse JSON khi hợp lệ
@@ -566,9 +572,9 @@ sold: 1250
 }
 ];
 
-// Khởi tạo products bằng dữ liệu mặc định ngay lập tức
-let products = [...DEFAULT_PRODUCTS];
-let filteredProducts = [];
+// Khởi tạo giá trị ban đầu (Không dùng từ khóa 'let' ở đây)
+products = [...DEFAULT_PRODUCTS];
+filteredProducts = [...products];
 
 async function loadProductsFromServer() {
     try {
@@ -1571,15 +1577,15 @@ function initEvents() {
 
     // CHECKOUT LOGIC
     const checkoutOverlay = document.getElementById('checkoutOverlay');
-    const checkoutBtn = document.getElementById('checkoutBtn');
     const closeCheckoutBtn = document.getElementById('closeCheckoutBtn');
     const checkoutForm = document.getElementById('checkoutForm');
     const checkoutSummaryItems = document.getElementById('checkoutSummaryItems');
     const checkoutSubtotal = document.getElementById('checkoutSubtotal');
     const checkoutTotal = document.getElementById('checkoutTotal');
 
-    if (checkoutBtn) {
-        checkoutBtn.addEventListener('click', () => {
+    const mainCheckoutBtn = document.getElementById('checkoutBtn');
+    if (mainCheckoutBtn) {
+        mainCheckoutBtn.addEventListener('click', () => {
             if (cart.length === 0) {
                 showToast('Giỏ hàng của bạn đang trống!');
                 return;
@@ -1757,6 +1763,29 @@ function initEvents() {
             const productId = localStorage.getItem('selectedProductId');
             if (productId) window.buyNow(productId);
         };
+    }
+
+    // Gắn sự kiện cho nút Thanh toán trong giỏ hàng
+    const checkoutBtn = document.getElementById('checkoutBtn');
+    if (checkoutBtn) {
+        checkoutBtn.addEventListener('click', () => {
+            if (cart.length === 0) {
+                showToast('Giỏ hàng của bạn đang trống!');
+                return;
+            }
+            currentCheckoutItems = [...cart];
+            isDirectCheckout = false;
+            closeCart();
+            renderCheckoutSummary();
+            const checkoutOverlay = document.getElementById('checkoutOverlay');
+            if (checkoutOverlay) {
+                checkoutOverlay.style.display = 'block';
+                checkoutOverlay.classList.add('active');
+                document.getElementById('checkoutForm').style.display = 'block';
+                document.getElementById('checkoutSuccess').style.display = 'none';
+                document.getElementById('checkoutQR').style.display = 'none';
+            }
+        });
     }
 }
 
