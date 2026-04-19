@@ -752,11 +752,11 @@ function handleCategoryPage() {
 
     // Hide breadcrumbs and banner if searching
     if (q) {
-        if (breadcrumbContainer) breadcrumbContainer.style.display = 'none';
-        if (bannerEl) bannerEl.style.display = 'none';
-        if (sidebarEl) sidebarEl.style.display = 'none';
-        if (layoutEl) layoutEl.style.gridTemplateColumns = '1fr';
-        if (gridEl) gridEl.style.gridTemplateColumns = 'repeat(5, 1fr)';
+        if (breadcrumbContainer) breadcrumbContainer.style.display = 'block';
+        if (bannerEl) bannerEl.style.display = 'flex';
+        if (sidebarEl) sidebarEl.style.display = 'block';
+        if (layoutEl) layoutEl.style.gridTemplateColumns = '280px 1fr';
+        if (gridEl) gridEl.style.gridTemplateColumns = 'repeat(4, 1fr)';
     } else {
         if (breadcrumbContainer) breadcrumbContainer.style.display = 'block';
         if (bannerEl) bannerEl.style.display = 'flex';
