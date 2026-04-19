@@ -569,6 +569,31 @@ sold: 1250
         'Nơi sản xuất': 'Trung Quốc'
     },
     sold: 32400
+},
+{
+    id: 23,
+    name: 'Mặt Nạ Dưỡng Ẩm Chiết Xuất Mật Ong Và Sữa B.O.M Honey & Milk Mask 25ml',
+    brand: 'B.O.M',
+    category: 'cham-soc-da',
+    price: 19000,
+    oldPrice: 30000,
+    discount: '37%',
+    image: 'https://cdn.hstatic.net/products/1000006063/29_626508f41adf4988875fe8d5ca022e8c_1024x1024.png',
+    images: [
+        'https://cdn.hstatic.net/products/1000006063/29_626508f41adf4988875fe8d5ca022e8c_1024x1024.png',
+        'https://product.hstatic.net/1000006063/product/untitled-1_87d859435cbc447d864323b7b8fe88f6_1024x1024.jpg',
+        'https://product.hstatic.net/1000006063/product/sg-11134201-22100-5z94njq6h2ivff_2c98017ae89d402fbe9b3d92c296df84_1024x1024.jpg'
+    ],
+    description: 'Mặt nạ giấy dưỡng ẩm B.O.M Honey & Milk Mask giàu dưỡng chất từ mật ong và protein sữa giúp phục hồi làn da khô ráp, mang lại vẻ rạng rỡ, căng mướt.',
+    details: 'Mặt nạ giấy dưỡng ẩm B.O.M Honey & Milk Mask là giải pháp cấp ẩm cấp tốc cho làn da mệt mỏi. Sự kết hợp giữa mật ong kháng khuẩn và sữa dưỡng sáng giúp da mịn màng, giảm kích ứng.',
+    specs: {
+        'Tên sản phẩm': 'B.O.M Honey & Milk Mask',
+        'Dung tích': '25ml',
+        'Thương hiệu': 'B.O.M (Hàn Quốc)',
+        'Nơi sản xuất': 'Hàn Quốc',
+        'Đối tượng': 'Mọi loại da'
+    },
+    sold: 1200
 }
 ];
 

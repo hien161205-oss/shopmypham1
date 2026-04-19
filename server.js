@@ -196,6 +196,14 @@ let mockProducts = [
         details: 'Hút sạch bã nhờn sâu trong lỗ chân lông, làm dịu da và se khít lỗ chân lông hiệu quả.',
         specs: { 'Khối lượng': '120g', 'Thương hiệu': 'Aperire (Hàn Quốc)', 'Thành phần': 'Đất sét Alaska', 'Nơi sản xuất': 'Hàn Quốc' },
         sold: 850, stock: 120
+    },
+    {
+        _id: "p25", name: 'Mặt Nạ Dưỡng Ẩm Chiết Xuất Mật Ong Và Sữa B.O.M Honey & Milk Mask 25ml', brand: 'B.O.M', category: 'cham-soc-da', price: 19000, oldPrice: 30000, discount: '37%',
+        image: 'https://cdn.hstatic.net/products/1000006063/29_626508f41adf4988875fe8d5ca022e8c_1024x1024.png',
+        images: ['https://cdn.hstatic.net/products/1000006063/29_626508f41adf4988875fe8d5ca022e8c_1024x1024.png', 'https://product.hstatic.net/1000006063/product/untitled-1_87d859435cbc447d864323b7b8fe88f6_1024x1024.jpg', 'https://product.hstatic.net/1000006063/product/sg-11134201-22100-5z94njq6h2ivff_2c98017ae89d402fbe9b3d92c296df84_1024x1024.jpg'],
+        details: 'Mặt nạ chứa chiết xuất mật ong và sữa giúp cấp ẩm sâu, nuôi dưỡng làn da mềm mại và sáng mịn tức thì.',
+        specs: { 'Dung tích': '25ml', 'Thương hiệu': 'B.O.M (Hàn Quốc)', 'Thành phần': 'Mật ong, Sữa tươi', 'Loại da': 'Mọi loại da' },
+        sold: 1200, stock: 500
     }
 ]; // Thêm nhiều sản phẩm hơn nếu cần
 
