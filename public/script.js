@@ -918,6 +918,63 @@ sold: 1250
     details: 'Anessa Brightening UV Sunscreen Gel chứa thành phần dưỡng sáng da m-Tranexamic Acid giúp mờ thâm nám. Kết cấu gel ẩm mượt với sắc hồng tím nhẹ giúp hiệu chỉnh tông da, mang lại vẻ rạng rỡ tức thì.',
     specs: { 'Khối lượng': '90g', 'Thương hiệu': 'Anessa (Nhật Bản)', 'Chỉ số': 'SPF50+/PA++++', 'Đặc tính': 'Dưỡng sáng, nâng tông' },
     sold: 850
+},
+{
+    id: 44,
+    name: 'Sữa Chống Nắng Anessa Dịu Nhẹ Cho Da Nhạy Cảm & Em Bé Perfect UV Sunscreen Mild Milk SPF50+/PA++++ 60ml',
+    brand: 'Anessa',
+    category: 'cham-soc-da',
+    price: 445000,
+    oldPrice: 685000,
+    discount: '35%',
+    image: 'https://product.hstatic.net/1000006063/product/anessa_e_copy_2_d9f98cf5a11e4349af635e8915875cbd_1024x1024.jpg',
+    images: [
+        'https://product.hstatic.net/1000006063/product/anessa_e_copy_2_d9f98cf5a11e4349af635e8915875cbd_1024x1024.jpg',
+        'https://product.hstatic.net/1000006063/product/bthe_2e4d05fa682a48e186a60839f42bd311_1024x1024.jpg',
+        'https://product.hstatic.net/1000006063/product/vn-11134207-7r98o-lsmiwacsl6mc82_c7bc5a9b34674b1b83620e5af25f849e_1024x1024.jpg'
+    ],
+    description: 'Sữa chống nắng dịu nhẹ dành cho da nhạy cảm và trẻ em với công nghệ Smooth Protect giúp bảo vệ da tối ưu trước tia UV và bụi mịn.',
+    details: 'Anessa Perfect UV Sunscreen Mild Milk là kem chống nắng dạng sữa cực kỳ dịu nhẹ, không chứa cồn, màu, mùi hay paraben. Sản phẩm thẩm thấu nhanh, mang lại lớp nền mịn mượt và bảo vệ da bền bỉ ngay cả trong môi trường nóng ẩm.',
+    specs: { 'Dung tích': '60ml', 'Thương hiệu': 'Anessa (Nhật Bản)', 'Chỉ số': 'SPF50+/PA++++', 'Loại da': 'Da nhạy cảm, em bé' },
+    sold: 1500
+},
+{
+    id: 45,
+    name: 'Sữa Chống Nắng Anessa Bảo Vệ Hoàn Hảo Perfect UV Sunscreen Skincare Milk SPF50+/PA++++ 60ml',
+    brand: 'Anessa',
+    category: 'cham-soc-da',
+    price: 515000,
+    oldPrice: 715000,
+    discount: '28%',
+    image: 'https://product.hstatic.net/1000006063/product/anessa_e_copy_2_807fe7318e944a3680effcfae3ad0c3a_1024x1024.jpg',
+    images: [
+        'https://product.hstatic.net/1000006063/product/anessa_e_copy_2_807fe7318e944a3680effcfae3ad0c3a_1024x1024.jpg',
+        'https://product.hstatic.net/1000006063/product/download__21__6e7729bbc0764785aef2096deeabb221_1024x1024.jpeg',
+        'https://product.hstatic.net/1000006063/product/download__20__de7b795d0f52475ab06ab52e4bd01de0_1024x1024.jpeg'
+    ],
+    description: 'Sữa chống nắng bảo vệ hoàn hảo với công nghệ Auto Booster giúp màng lọc chống tia UV trở nên bền vững hơn khi gặp nhiệt độ cao, độ ẩm, nước và mồ hôi.',
+    details: 'Anessa Perfect UV Sunscreen Skincare Milk tích hợp công nghệ chống trôi tối ưu, bảo vệ da toàn diện trong mọi điều kiện môi trường khắc nghiệt nhất mà vẫn duy trì độ ẩm mịn nhờ 50% thành phần dưỡng da.',
+    specs: { 'Dung tích': '60ml', 'Thương hiệu': 'Anessa (Nhật Bản)', 'Chỉ số': 'SPF50+/PA++++', 'Loại da': 'Mọi loại da, đặc biệt da dầu' },
+    sold: 18200
+},
+{
+    id: 46,
+    name: 'Xịt Chống Nắng Anessa Dưỡng Da Đa Năng SPF50+ PA++++ 60g',
+    brand: 'Anessa',
+    category: 'cham-soc-da',
+    price: 355000,
+    oldPrice: 435000,
+    discount: '18%',
+    image: 'https://cocolux.com/storage/upload_image/files/xit-chong-nang-anessa-duong-da-da-nang-spf50-pa-60g-6.jpg',
+    images: [
+        'https://cocolux.com/storage/upload_image/files/xit-chong-nang-anessa-duong-da-da-nang-spf50-pa-60g-6.jpg',
+        'https://cocolux.com/storage/upload_image/files/xit-chong-nang-anessa-duong-da-da-nang-spf50-pa-60g-3.jpg',
+        'https://cocolux.com/storage/upload_image/files/xit-chong-nang-anessa-duong-da-da-nang-spf50-pa-60g.jpg'
+    ],
+    description: 'Xịt chống nắng dưỡng da đa năng bảo vệ da hoàn hảo trước tia UV & bụi mịn, dùng cho cả mặt, tóc và cơ thể.',
+    details: 'Xịt Chống Nắng Anessa Perfect UV Sunscreen Skincare Spray với công nghệ Auto Booster giúp màng lọc chống tia UV trở nên bền vững hơn khi gặp Nhiệt độ cao - Độ ẩm - Nước - Mồ hôi. Kết cấu mỏng nhẹ, khô ráo, có thể dùng trước và sau khi trang điểm.',
+    specs: { 'Khối lượng': '60g', 'Thương hiệu': 'Anessa (Nhật Bản)', 'Chỉ số': 'SPF50+ PA++++', 'Loại da': 'Mọi loại da' },
+    sold: 5200
 }
 ];
 
