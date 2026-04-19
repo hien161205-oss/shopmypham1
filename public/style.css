@@ -941,7 +941,7 @@ body {
 /* BRAND BANNER LAYOUT */
 .brand-layout-wrap {
     display: grid;
-    grid-template-columns: 280px 1fr; /* Thu nhỏ banner một chút */
+    grid-template-columns: 350px 1fr;
     gap: 25px;
     margin-bottom: 40px;
     background: white;
@@ -964,7 +964,7 @@ body {
 }
 
 .brand-item {
-    font-size: 14px;
+    font-size: 16px;
     font-weight: 700;
     color: #999;
     cursor: pointer;
@@ -990,7 +990,7 @@ body {
 
 .brand-side-banner img {
     width: 100%;
-    height: 480px; /* Cố định chiều cao banner để cân đối với 2 hàng sản phẩm */
+    height: 600px;
     object-fit: cover;
     border-radius: 8px;
 }
