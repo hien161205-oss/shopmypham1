@@ -285,11 +285,6 @@ body {
     padding: 10px 0;
 }
 
-.nav-link:hover > .nav-dropdown {
-    opacity: 1;
-    visibility: visible;
-}
-
 /* Vertical Dropdown Style (like Trang Diem) */
 .dropdown-list {
     list-style: none;
@@ -341,11 +336,6 @@ body {
     display: grid;
     grid-template-columns: repeat(5, 1fr);
     gap: 20px;
-}
-
-.nav-link:hover > .mega-menu {
-    opacity: 1;
-    visibility: visible;
 }
 
 .mega-col h4 {
