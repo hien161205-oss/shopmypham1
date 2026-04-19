@@ -12,51 +12,7 @@ const API_BASE_URL = (window.location.hostname === 'localhost' || window.locatio
 let isLoggedIn = !!localStorage.getItem('qh_token');
 let currentUserName = localStorage.getItem('qh_userName') || '';
 let cart = JSON.parse(localStorage.getItem('qh_cart')) || [];
-let products = []; 
-let filteredProducts = []; 
-let currentSlide = 0;
-let currentCheckoutItems = []; 
-let isDirectCheckout = false;
 
-/**
- * Hàm fetch API an toàn: Kiểm tra response.ok, log text() khi lỗi và chỉ parse JSON khi hợp lệ
- */
-async function safeFetch(url, options = {}) {
-    const response = await fetch(url, options);
-    const contentType = response.headers.get("content-type") || "";
-
-    if (!response.ok) {
-        let errorMessage = `Yêu cầu thất bại: ${response.status}`;
-        if (contentType.includes("application/json")) {
-            const errorData = await response.json();
-            errorMessage = errorData.message || errorMessage;
-        } else {
-            const errorText = await response.text();
-            console.error(`API Error [${response.status}] tại ${url}:`, errorText.substring(0, 500));
-            // Nếu trả về HTML (trang lỗi mặc định của host), hiển thị thông báo thân thiện hơn
-            if (contentType.includes("text/html")) {
-                errorMessage = `Lỗi hệ thống (${response.status}). Vui lòng kiểm tra lại endpoint API.`;
-            } else {
-                errorMessage = errorText || errorMessage;
-            }
-        }
-        throw new Error(errorMessage);
-    }
-
-    if (contentType.includes("application/json")) {
-        return await response.json();
-    }
-    
-    // Chống gọi nhầm file tĩnh (HTML/JS) trả về 200 OK nhưng sai định dạng mong muốn
-    if (contentType.includes("text/html")) {
-        console.warn(`Cảnh báo: Nhận phản hồi HTML thay vì JSON tại ${url}. Kiểm tra cấu hình router.`);
-        throw new Error("Phản hồi không hợp lệ từ máy chủ (HTML thay vì JSON)");
-    }
-
-    return await response.text();
-}
-
-// Chuyển DEFAULT_PRODUCTS lên đầu file (trước khi sử dụng)
 const DEFAULT_PRODUCTS = [
 {
   id: 1,
@@ -572,9 +528,41 @@ sold: 1250
 }
 ];
 
-// Khởi tạo dữ liệu ban đầu từ danh sách mặc định (Bỏ từ khóa 'let' ở đây)
-products = [...DEFAULT_PRODUCTS];
-filteredProducts = [...products];
+/** KHỞI TẠO BIẾN TRẠNG THÁI */
+let products = [...DEFAULT_PRODUCTS]; 
+let filteredProducts = [...products]; 
+let currentSlide = 0;
+let currentCheckoutItems = []; 
+let isDirectCheckout = false;
+
+/**
+ * Hàm fetch API an toàn
+ */
+async function safeFetch(url, options = {}) {
+    const response = await fetch(url, options);
+    const contentType = response.headers.get("content-type") || "";
+
+    if (!response.ok) {
+        let errorMessage = `Yêu cầu thất bại: ${response.status}`;
+        if (contentType.includes("application/json")) {
+            const errorData = await response.json();
+            errorMessage = errorData.message || errorMessage;
+        } else {
+            const errorText = await response.text();
+            if (contentType.includes("text/html")) {
+                errorMessage = `Lỗi hệ thống (${response.status}).`;
+            } else {
+                errorMessage = errorText || errorMessage;
+            }
+        }
+        throw new Error(errorMessage);
+    }
+
+    if (contentType.includes("application/json")) {
+        return await response.json();
+    }
+    return await response.text();
+}
 
 async function loadProductsFromServer() {
     try {
