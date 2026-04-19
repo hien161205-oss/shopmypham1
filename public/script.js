@@ -880,6 +880,44 @@ sold: 1250
     details: 'Micellar Water Ultra Sensitive Skin giúp làm sạch sâu lớp trang điểm, bụi mịn và bã nhờn, đồng thời cấp ẩm và làm dịu da nhạy cảm. Công thức chứa Glycerin giúp dưỡng ẩm và giảm ma sát tối đa khi làm sạch, đảm bảo an toàn cho cả vùng da mắt và môi.',
     specs: { 'Dung tích': '400ml', 'Thương hiệu': 'La Roche-Posay (Pháp)', 'Loại da': 'Da nhạy cảm', 'Công nghệ': 'Glyco Micellar' },
     sold: 3500
+},
+{
+    id: 42,
+    name: 'Gel Chống Nắng Dịu Nhẹ Cho Da Nhạy Cảm & Trẻ Em Anessa Moisture UV Sunscreen Mild Gel SPF35/PA+++ 90g',
+    brand: 'Anessa',
+    category: 'cham-soc-da',
+    price: 369000,
+    oldPrice: 485000,
+    discount: '24%',
+    image: 'https://product.hstatic.net/1000006063/product/anessa_e_copy_2_a64b87c0efed4a17b83070d3345ef905_1024x1024.jpg',
+    images: [
+        'https://product.hstatic.net/1000006063/product/anessa_e_copy_2_a64b87c0efed4a17b83070d3345ef905_1024x1024.jpg',
+        'https://product.hstatic.net/1000006063/product/z6687283442849_0cadcf4547cbe266fa3c4134ba42f073_0cca78944872482d8e6beba19b40b6b3_1024x1024.jpg',
+        'https://product.hstatic.net/1000006063/product/vn-11134207-7r98o-lt39m2gtw5g952_8d3683b3dda342178110414cd1edc097_1024x1024.jpg'
+    ],
+    description: 'Gel chống nắng dịu nhẹ, dưỡng ẩm tối ưu cho làn da nhạy cảm và trẻ em, bảo vệ da trước tia UV và bụi mịn.',
+    details: 'Anessa Moisture UV Sunscreen Mild Gel với công thức 5 không (không cồn, màu, mùi, paraben, dầu khoáng), an toàn tuyệt đối cho làn da nhạy cảm nhất và cả trẻ em. Kết cấu gel ẩm mượt giúp duy trì độ mịn màng cho da suốt ngày dài.',
+    specs: { 'Khối lượng': '90g', 'Thương hiệu': 'Anessa (Nhật Bản)', 'Chỉ số': 'SPF35/PA+++', 'Loại da': 'Da nhạy cảm, trẻ em' },
+    sold: 1200
+},
+{
+    id: 43,
+    name: 'Gel Chống Nắng Dưỡng Sáng, Nâng Tông Anessa Brightening UV Sunscreen Gel SPF50+/PA++++ 90g',
+    brand: 'Anessa',
+    category: 'cham-soc-da',
+    price: 395000,
+    oldPrice: 575000,
+    discount: '31%',
+    image: 'https://product.hstatic.net/1000006063/product/anessa_tone_up_brightening_uv_sunscreen_gel__6141635759054be09aef5eedf9f2c2d6_1024x1024.jpg',
+    images: [
+        'https://product.hstatic.net/1000006063/product/anessa_tone_up_brightening_uv_sunscreen_gel__6141635759054be09aef5eedf9f2c2d6_1024x1024.jpg',
+        'https://product.hstatic.net/1000006063/product/5_02f5db58203a4094a2e6c79263b381ab_1024x1024.jpg',
+        'https://product.hstatic.net/1000006063/product/6_b5d683c3bb1046348ea10451ec67634f_1024x1024.jpg'
+    ],
+    description: 'Gel chống nắng dưỡng sáng da, ngăn ngừa thâm nám và nâng tông nhẹ nhàng với chỉ số chống nắng cao SPF50+ PA++++.',
+    details: 'Anessa Brightening UV Sunscreen Gel chứa thành phần dưỡng sáng da m-Tranexamic Acid giúp mờ thâm nám. Kết cấu gel ẩm mượt với sắc hồng tím nhẹ giúp hiệu chỉnh tông da, mang lại vẻ rạng rỡ tức thì.',
+    specs: { 'Khối lượng': '90g', 'Thương hiệu': 'Anessa (Nhật Bản)', 'Chỉ số': 'SPF50+/PA++++', 'Đặc tính': 'Dưỡng sáng, nâng tông' },
+    sold: 850
 }
 ];
 

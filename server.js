@@ -461,6 +461,34 @@ let mockProducts = [
         details: 'Nước tẩy trang Micellar cho da nhạy cảm giúp làm sạch sâu và dịu da mà không cần rửa lại.',
         specs: { 'Dung tích': '400ml', 'Thương hiệu': 'La Roche-Posay (Pháp)', 'Loại da': 'Da nhạy cảm' },
         sold: 3500, stock: 120
+    },
+    {
+        _id: "p44",
+        name: 'Gel Chống Nắng Dịu Nhẹ Cho Da Nhạy Cảm & Trẻ Em Anessa Moisture UV Sunscreen Mild Gel SPF35/PA+++ 90g',
+        brand: 'Anessa',
+        category: 'cham-soc-da',
+        price: 369000,
+        oldPrice: 485000,
+        discount: '24%',
+        image: 'https://product.hstatic.net/1000006063/product/anessa_e_copy_2_a64b87c0efed4a17b83070d3345ef905_1024x1024.jpg',
+        images: ['https://product.hstatic.net/1000006063/product/anessa_e_copy_2_a64b87c0efed4a17b83070d3345ef905_1024x1024.jpg', 'https://product.hstatic.net/1000006063/product/z6687283442849_0cadcf4547cbe266fa3c4134ba42f073_0cca78944872482d8e6beba19b40b6b3_1024x1024.jpg', 'https://product.hstatic.net/1000006063/product/vn-11134207-7r98o-lt39m2gtw5g952_8d3683b3dda342178110414cd1edc097_1024x1024.jpg'],
+        details: 'Gel chống nắng dịu nhẹ cho da nhạy cảm và trẻ em, không gây kích ứng.',
+        specs: { 'Khối lượng': '90g', 'Thương hiệu': 'Anessa (Nhật Bản)', 'Loại da': 'Da nhạy cảm' },
+        sold: 1200, stock: 150
+    },
+    {
+        _id: "p45",
+        name: 'Gel Chống Nắng Dưỡng Sáng, Nâng Tông Anessa Brightening UV Sunscreen Gel SPF50+/PA++++ 90g',
+        brand: 'Anessa',
+        category: 'cham-soc-da',
+        price: 395000,
+        oldPrice: 575000,
+        discount: '31%',
+        image: 'https://product.hstatic.net/1000006063/product/anessa_tone_up_brightening_uv_sunscreen_gel__6141635759054be09aef5eedf9f2c2d6_1024x1024.jpg',
+        images: ['https://product.hstatic.net/1000006063/product/anessa_tone_up_brightening_uv_sunscreen_gel__6141635759054be09aef5eedf9f2c2d6_1024x1024.jpg', 'https://product.hstatic.net/1000006063/product/5_02f5db58203a4094a2e6c79263b381ab_1024x1024.jpg', 'https://product.hstatic.net/1000006063/product/6_b5d683c3bb1046348ea10451ec67634f_1024x1024.jpg'],
+        details: 'Gel chống nắng dưỡng sáng và hiệu chỉnh tông da rạng rỡ với chỉ số bảo vệ tối ưu.',
+        specs: { 'Khối lượng': '90g', 'Thương hiệu': 'Anessa (Nhật Bản)', 'Loại da': 'Mọi loại da' },
+        sold: 850, stock: 90
     }
 ]; // Thêm nhiều sản phẩm hơn nếu cần
 
