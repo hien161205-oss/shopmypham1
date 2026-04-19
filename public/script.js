@@ -975,6 +975,63 @@ sold: 1250
     details: 'Xịt Chống Nắng Anessa Perfect UV Sunscreen Skincare Spray với công nghệ Auto Booster giúp màng lọc chống tia UV trở nên bền vững hơn khi gặp Nhiệt độ cao - Độ ẩm - Nước - Mồ hôi. Kết cấu mỏng nhẹ, khô ráo, có thể dùng trước và sau khi trang điểm.',
     specs: { 'Khối lượng': '60g', 'Thương hiệu': 'Anessa (Nhật Bản)', 'Chỉ số': 'SPF50+ PA++++', 'Loại da': 'Mọi loại da' },
     sold: 5200
+},
+{
+    id: 47,
+    name: 'Mặt Nạ Nghệ Hưng Yên Cocoon Sáng Da, Giảm Thâm 30ml',
+    brand: 'Cocoon',
+    category: 'skincare',
+    price: 129000,
+    oldPrice: 165000,
+    discount: '21%',
+    image: 'https://product.hstatic.net/1000006063/product/30_8d1f5a4cf76143328267195c327ae4c4_1024x1024_0db834a4c3a7416bb63f91b382d339dd_1024x1024.jpg',
+    images: [
+        'https://product.hstatic.net/1000006063/product/30_8d1f5a4cf76143328267195c327ae4c4_1024x1024_0db834a4c3a7416bb63f91b382d339dd_1024x1024.jpg',
+        'https://product.hstatic.net/1000006063/product/cocoon_turmeric_face_mask_30ml_61f301f004ad4ede8244a8ead2654350_1024x1024.jpg',
+        'https://product.hstatic.net/1000006063/product/mask_nghe_4c4b329de73f4b27a2163a4db56db0cb_1024x1024.jpg'
+    ],
+    description: 'Mặt nạ nghệ Hưng Yên giúp làm sáng da, mờ thâm và mang lại làn da rạng rỡ, mịn màng.',
+    details: 'Mặt nạ nghệ Hưng Yên chứa chiết xuất nghệ từ vùng đất Hưng Yên kết hợp cùng Vitamin B3 và chiết xuất yến mạch. Sản phẩm giúp loại bỏ tế bào chết, cải thiện bề mặt da, làm mờ các vết thâm và dưỡng sáng da tự nhiên mà không gây vàng da sau khi sử dụng.',
+    specs: { 'Dung tích': '30ml', 'Thương hiệu': 'Cocoon (Việt Nam)', 'Thành phần chính': 'Nghệ, Vitamin B3', 'Loại da': 'Mọi loại da' },
+    sold: 2100
+},
+{
+    id: 48,
+    name: 'Kem Ủ Tóc Bưởi Cocoon Giảm Gãy Rụng Tóc, Mềm Mượt 200ml',
+    brand: 'Cocoon',
+    category: 'cham-soc-toc',
+    price: 165000,
+    oldPrice: 215000,
+    discount: '23%',
+    image: 'https://product.hstatic.net/1000006063/product/cocoon_pomelo_hair_mask_200ml_1c1d6fc3b2d242e285c4a2f79dfeb934_1024x1024.jpg',
+    images: [
+        'https://product.hstatic.net/1000006063/product/cocoon_pomelo_hair_mask_200ml_1c1d6fc3b2d242e285c4a2f79dfeb934_1024x1024.jpg',
+        'https://product.hstatic.net/1000006063/product/7_5734334c12f144e88a1fc5af8771a808_1024x1024.jpg',
+        'https://product.hstatic.net/1000006063/product/9_73d05053102040fa9f59fd57eb81a5f8_1024x1024.jpg'
+    ],
+    description: 'Kem ủ tóc bưởi Cocoon với tinh dầu vỏ bưởi, Vitamin B5 và Xylishine giúp giảm gãy rụng và làm mềm mượt tóc hiệu quả.',
+    details: 'Kem ủ tóc bưởi Cocoon chứa tinh dầu vỏ bưởi truyền thống kết hợp với Vitamin B5 và hoạt chất dưỡng ẩm giúp nuôi dưỡng tóc chắc khỏe từ gốc đến ngọn, giảm tình trạng tóc gãy rụng và mang lại vẻ bóng mượt tự nhiên.',
+    specs: { 'Dung tích': '200ml', 'Thương hiệu': 'Cocoon (Việt Nam)', 'Nơi sản xuất': 'Việt Nam', 'Hạn sử dụng': '3 năm' },
+    sold: 1800
+},
+{
+    id: 49,
+    name: 'Kem Dưỡng Gel Bí Đao Cocoon Giảm Mụn, Mờ Thâm 30ml',
+    brand: 'Cocoon',
+    category: 'cham-soc-da',
+    price: 195000,
+    oldPrice: 260000,
+    discount: '25%',
+    image: 'https://product.hstatic.net/1000006063/product/18_9a6f482ae5e74855a7c0c74bcee51ce0_1024x1024.png',
+    images: [
+        'https://product.hstatic.net/1000006063/product/18_9a6f482ae5e74855a7c0c74bcee51ce0_1024x1024.png',
+        'https://product.hstatic.net/1000006063/product/z2188849104724_38d06f829bd4ce6bd61097f5b93aa2b9_900x_a0e544b99d614802ab720fda28a070c7_1024x1024.jpg',
+        'https://product.hstatic.net/1000006063/product/242175534_4325988320830094_1002399940995592185_n_b48f3071b06943d49de042f7a90b0037_1024x1024.jpg'
+    ],
+    description: 'Kem dưỡng dạng gel chiết xuất bí đao giúp kiểm soát dầu, giảm mụn và làm dịu da, mang lại làn da thông thoáng, mịn màng.',
+    details: 'Kem dưỡng bí đao Cocoon với công thức thuần chay, không cồn, không paraben, an toàn cho da mụn nhạy cảm. Sản phẩm giúp cấp ẩm nhẹ nhàng, giảm sưng viêm mụn và làm mờ các vết thâm sau mụn hiệu quả.',
+    specs: { 'Dung tích': '30ml', 'Thương hiệu': 'Cocoon (Việt Nam)', 'Thành phần chính': 'Bí đao, Rau má, Tràm trà', 'Loại da': 'Da dầu mụn, nhạy cảm' },
+    sold: 950
 }
 ];
 

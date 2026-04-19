@@ -531,6 +531,48 @@ let mockProducts = [
         details: 'Xịt chống nắng đa năng bảo vệ hoàn hảo cho mặt, cơ thể và tóc với khả năng chống trôi vượt trội.',
         specs: { 'Khối lượng': '60g', 'Thương hiệu': 'Anessa (Nhật Bản)', 'Loại da': 'Mọi loại da' },
         sold: 5200, stock: 150
+    },
+    {
+        _id: "p49",
+        name: 'Mặt Nạ Nghệ Hưng Yên Cocoon Sáng Da, Giảm Thâm 30ml',
+        brand: 'Cocoon',
+        category: 'skincare',
+        price: 129000,
+        oldPrice: 165000,
+        discount: '21%',
+        image: 'https://product.hstatic.net/1000006063/product/30_8d1f5a4cf76143328267195c327ae4c4_1024x1024_0db834a4c3a7416bb63f91b382d339dd_1024x1024.jpg',
+        images: ['https://product.hstatic.net/1000006063/product/30_8d1f5a4cf76143328267195c327ae4c4_1024x1024_0db834a4c3a7416bb63f91b382d339dd_1024x1024.jpg', 'https://product.hstatic.net/1000006063/product/cocoon_turmeric_face_mask_30ml_61f301f004ad4ede8244a8ead2654350_1024x1024.jpg', 'https://product.hstatic.net/1000006063/product/mask_nghe_4c4b329de73f4b27a2163a4db56db0cb_1024x1024.jpg'],
+        details: 'Mặt nạ nghệ Hưng Yên giúp làm sáng da, mờ thâm và mang lại làn da rạng rỡ.',
+        specs: { 'Dung tích': '30ml', 'Thương hiệu': 'Cocoon (Việt Nam)', 'Nơi sản xuất': 'Việt Nam' },
+        sold: 2100, stock: 120
+    },
+    {
+        _id: "p50",
+        name: 'Kem Ủ Tóc Bưởi Cocoon Giảm Gãy Rụng Tóc, Mềm Mượt 200ml',
+        brand: 'Cocoon',
+        category: 'cham-soc-toc',
+        price: 165000,
+        oldPrice: 215000,
+        discount: '23%',
+        image: 'https://product.hstatic.net/1000006063/product/cocoon_pomelo_hair_mask_200ml_1c1d6fc3b2d242e285c4a2f79dfeb934_1024x1024.jpg',
+        images: ['https://product.hstatic.net/1000006063/product/cocoon_pomelo_hair_mask_200ml_1c1d6fc3b2d242e285c4a2f79dfeb934_1024x1024.jpg', 'https://product.hstatic.net/1000006063/product/7_5734334c12f144e88a1fc5af8771a808_1024x1024.jpg', 'https://product.hstatic.net/1000006063/product/9_73d05053102040fa9f59fd57eb81a5f8_1024x1024.jpg'],
+        details: 'Kem ủ tóc bưởi giúp giảm gãy rụng và dưỡng tóc mềm mượt với tinh dầu bưởi và Vitamin B5.',
+        specs: { 'Dung tích': '200ml', 'Thương hiệu': 'Cocoon (Việt Nam)', 'Nơi sản xuất': 'Việt Nam' },
+        sold: 1800, stock: 150
+    },
+    {
+        _id: "p51",
+        name: 'Kem Dưỡng Gel Bí Đao Cocoon Giảm Mụn, Mờ Thâm 30ml',
+        brand: 'Cocoon',
+        category: 'cham-soc-da',
+        price: 195000,
+        oldPrice: 260000,
+        discount: '25%',
+        image: 'https://product.hstatic.net/1000006063/product/18_9a6f482ae5e74855a7c0c74bcee51ce0_1024x1024.png',
+        images: ['https://product.hstatic.net/1000006063/product/18_9a6f482ae5e74855a7c0c74bcee51ce0_1024x1024.png', 'https://product.hstatic.net/1000006063/product/z2188849104724_38d06f829bd4ce6bd61097f5b93aa2b9_900x_a0e544b99d614802ab720fda28a070c7_1024x1024.jpg', 'https://product.hstatic.net/1000006063/product/242175534_4325988320830094_1002399940995592185_n_b48f3071b06943d49de042f7a90b0037_1024x1024.jpg'],
+        details: 'Kem dưỡng dạng gel bí đao giúp kiểm soát dầu, giảm mụn và làm dịu da.',
+        specs: { 'Dung tích': '30ml', 'Thương hiệu': 'Cocoon (Việt Nam)', 'Loại da': 'Da dầu mụn' },
+        sold: 950, stock: 80
     }
 ]; // Thêm nhiều sản phẩm hơn nếu cần
 
