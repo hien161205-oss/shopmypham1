@@ -22,199 +22,179 @@ app.use(express.static(root, { extensions: ['html'], index: false }));
 // Dữ liệu sản phẩm mẫu (Bạn có thể copy toàn bộ DEFAULT_PRODUCTS từ script.js vào đây)
 let mockProducts = [
     {
-        _id: "p1", name: '[NEW DEW] Son Tint Bóng Merzy Dạng Thạch', brand: 'Merzy', category: 'trang-diem-son-moi', price: 179000, oldPrice: 309000, discount: '42%',
+        _id: "p1", name: '[NEW DEW] Son Tint Bóng Merzy Dạng Thạch The Watery Dew Tint', brand: 'Merzy', category: 'trang-diem-son-moi', price: 179000, oldPrice: 309000, discount: '42%',
         image: 'https://product.hstatic.net/1000006063/product/wd23_c168ab0ee2c24edda27693a18de15bb5_1024x1024.jpg',
-        images: ['https://product.hstatic.net/1000006063/product/wd23_c168ab0ee2c24edda27693a18de15bb5_1024x1024.jpg', 'https://cdn.hstatic.net/products/1000006063/36_3232d9509c31426c9ea371625b3fc168_1024x1024.png', 'https://product.hstatic.net/1000006063/product/m13_1f176b01a3ef42f1ba6e7566e23a0ae5_1024x1024.jpg'],
+        images: ['https://product.hstatic.net/1000006063/product/wd23_c168ab0ee2c24edda27693a18de15bb5_1024x1024.jpg', 'https://cdn.hstatic.net/products/1000006063/36_3232d9509c31426c9ea371625b3fc168_1024x1024.png'],
+        details: 'Son Tint Bóng Dạng Thạch Merzy The Watery Dew Tint lấy cảm hứng từ tinh thần Old Money, mang lại đôi môi căng mọng, bền màu suốt ngày dài.',
+        specs: { 'Chất son': 'Son thạch, son tint', 'Dung tích': '4g', 'Thương hiệu': 'Merzy (Hàn Quốc)', 'Nơi sản xuất': 'Hàn Quốc' },
         sold: 25200, stock: 100
     },
     {
-        _id: "p2", name: 'Serum Chống Nắng B.O.M Dưỡng Ẩm', brand: 'B.O.M', category: 'cham-soc-da', price: 438000, oldPrice: 548000, discount: '20%',
+        _id: "p2", name: 'Serum Chống Nắng B.O.M Water Glow Sun Serum SPF50+PA++++ 50g', brand: 'B.O.M', category: 'cham-soc-da', price: 438000, oldPrice: 548000, discount: '20%',
         image: 'https://cdn.hstatic.net/products/1000006063/bt_770a3fcae16d4350ad40ad252a1805fb_1024x1024.jpg',
-        images: ['https://cdn.hstatic.net/products/1000006063/bt_770a3fcae16d4350ad40ad252a1805fb_1024x1024.jpg', 'https://cdn.hstatic.net/products/1000006063/download_761a7597092b4c799c8d06e2f284d44c_1024x1024.jpg', 'https://cdn.hstatic.net/products/1000006063/h9_f28910f385f74ac697b04ac151da657b_1024x1024.jpg'],
+        images: ['https://cdn.hstatic.net/products/1000006063/bt_770a3fcae16d4350ad40ad252a1805fb_1024x1024.jpg', 'https://cdn.hstatic.net/products/1000006063/download_761a7597092b4c799c8d06e2f284d44c_1024x1024.jpg'],
+        details: 'Tinh chất chống nắng bảo vệ da phổ rộng, cấp ẩm vượt trội với 89% thành phần dưỡng da.',
+        specs: { 'Dung tích': '50g', 'Chỉ số': 'SPF50+ PA++++', 'Thương hiệu': 'B.O.M (Hàn Quốc)', 'Loại da': 'Mọi loại da' },
         sold: 1500, stock: 50
     },
     {
-        _id: "p3", name: 'Kem Chống Nắng La Roche-Posay Anthelios', brand: 'La Roche-Posay', category: 'cham-soc-da', price: 449000, oldPrice: 640000, discount: '30%',
+        _id: "p3", name: 'Kem Chống Nắng La Roche-Posay Anthelios UVMune 400 SPF50+', brand: 'La Roche-Posay', category: 'cham-soc-da', price: 449000, oldPrice: 640000, discount: '30%',
         image: 'https://product.hstatic.net/1000006063/product/bth_b1850e1e326b4a60ab803afca16b55af_1024x1024.jpg',
-        images: ['https://product.hstatic.net/1000006063/product/bth_b1850e1e326b4a60ab803afca16b55af_1024x1024.jpg', 'https://cdn.hstatic.net/products/1000006063/22_2d9c2cc106af4ff5a8b76a5eabf5a099_1024x1024.png', 'https://product.hstatic.net/1000006063/product/download__9__copy_0db1ec89680a4115ab3a2719df116552_1024x1024.jpg'],
+        images: ['https://product.hstatic.net/1000006063/product/bth_b1850e1e326b4a60ab803afca16b55af_1024x1024.jpg', 'https://cdn.hstatic.net/products/1000006063/22_2d9c2cc106af4ff5a8b76a5eabf5a099_1024x1024.png'],
+        details: 'Dòng sản phẩm bảo vệ da toàn diện trước tia UVA dài, ngăn ngừa thâm nám và lão hóa sớm.',
+        specs: { 'Dung tích': '50ml', 'Thương hiệu': 'La Roche-Posay (Pháp)', 'Kết cấu': 'Dạng sữa lỏng', 'Đặc tính': 'Không nhờn rít' },
         sold: 3200, stock: 80
     },
     {
-        _id: "p4", name: 'Kem Chống Nắng CLINICOS Truth Sunscreen', brand: 'CLINICOS', category: 'cham-soc-da', price: 129000, oldPrice: 219000, discount: '41%',
+        _id: "p4", name: 'Kem Chống Nắng CLINICOS Truth Sunscreen SPF 50+ PA++++', brand: 'CLINICOS', category: 'cham-soc-da', price: 129000, oldPrice: 219000, discount: '41%',
         image: 'https://cdn.hstatic.net/products/1000006063/clinicos_1_01852f0e66eb4f66a1868e5d5c336d03_1024x1024.jpg',
-        images: ['https://cdn.hstatic.net/products/1000006063/clinicos_1_01852f0e66eb4f66a1868e5d5c336d03_1024x1024.jpg', 'https://cdn.hstatic.net/products/1000006063/download__9__af2f0acce36047ca8221217379bc5092_1024x1024.jpg', 'https://cdn.hstatic.net/products/1000006063/download__11__31e86468b1e6423587aaae76e74ab00d_1024x1024.jpg'],
+        images: ['https://cdn.hstatic.net/products/1000006063/clinicos_1_01852f0e66eb4f66a1868e5d5c336d03_1024x1024.jpg', 'https://cdn.hstatic.net/products/1000006063/download__9__af2f0acce36047ca8221217379bc5092_1024x1024.jpg'],
+        details: 'Củng cố hàng rào bảo vệ da với Niacinamide và Vitamin E, hỗ trợ làm dịu và sáng da.',
+        specs: { 'Dung tích': '50ml', 'Thương hiệu': 'CLINICOS (Việt Nam)', 'Nơi sản xuất': 'Việt Nam', 'Chỉ số': 'SPF50+ PA++++' },
         sold: 33, stock: 200
     },
     {
-        _id: "p5", name: 'Kem Chống Nắng Caryophy Nâng Tông', brand: 'CARYOPHY', category: 'cham-soc-da', price: 310000, oldPrice: 360000, discount: '14%',
+        _id: "p5", name: 'Kem Chống Nắng Caryophy Nâng Tông Smart Sunscreen SPF50+', brand: 'CARYOPHY', category: 'cham-soc-da', price: 310000, oldPrice: 360000, discount: '14%',
         image: 'https://product.hstatic.net/1000006063/product/a5dee1093d94a01c9bed0bd7d75_72f7f1f42a4a4a3c9f89d24674a0cc6f_1024x1024_884db8ac03f643708b5baed015ec0eb7_1024x1024.jpg',
-        images: [
-            'https://product.hstatic.net/1000006063/product/a5dee1093d94a01c9bed0bd7d75_72f7f1f42a4a4a3c9f89d24674a0cc6f_1024x1024_884db8ac03f643708b5baed015ec0eb7_1024x1024.jpg',
-            'https://cdn.hstatic.net/products/1000006063/1_8ad78ee4ef8d47c0a72c3d6dbfa1741d_1024x1024.png',
-            'https://product.hstatic.net/1000006063/product/446_f1efbaa6e8cb4adea046ed01153f_bbb13221bad44567a371ea3d014a8d6d_1024x1024.jpg'
-        ],
+        images: ['https://product.hstatic.net/1000006063/product/a5dee1093d94a01c9bed0bd7d75_72f7f1f42a4a4a3c9f89d24674a0cc6f_1024x1024_884db8ac03f643708b5baed015ec0eb7_1024x1024.jpg'],
+        details: 'Tác dụng 3in1: Chống nắng, nâng tông tự nhiên và dưỡng da với chiết xuất rau má, rau sam.',
+        specs: { 'Dung tích': '50ml', 'Thương hiệu': 'Caryophy (Hàn Quốc)', 'Nơi sản xuất': 'Hàn Quốc', 'Loại da': 'Mọi loại da' },
         sold: 2600, stock: 100
     },
     {
-        _id: "p8", name: 'Kem Chống Nắng Make P:rem UV Defense Me', brand: 'Make P:rem', category: 'cham-soc-da', price: 309000, oldPrice: 450000, discount: '31%',
+        _id: "p8", name: 'Kem Chống Nắng Make P:rem UV Defense Me Sun Cream SPF50+', brand: 'Make P:rem', category: 'cham-soc-da', price: 309000, oldPrice: 450000, discount: '31%',
         image: 'https://product.hstatic.net/1000006063/product/bt_watery_e83562e4e591408c9801d18259120ea1_1024x1024.jpg',
-        images: [
-            'https://product.hstatic.net/1000006063/product/bt_watery_e83562e4e591408c9801d18259120ea1_1024x1024.jpg',
-            'https://product.hstatic.net/1000006063/product/make_prem_93c720d528a04423af56f1bc861aada8_1024x1024.jpg',
-            'https://product.hstatic.net/1000006063/product/download_c05eacf6bae846e28efda26483aa8ea3_1024x1024.jpg'
-        ],
+        images: ['https://product.hstatic.net/1000006063/product/bt_watery_e83562e4e591408c9801d18259120ea1_1024x1024.jpg'],
+        details: 'Kem chống nắng vật lý lành tính cho da nhạy cảm, giúp làm dịu và bảo vệ da tối ưu.',
+        specs: { 'Dung tích': '50ml', 'Thương hiệu': 'Make P:rem (Hàn Quốc)', 'Kết cấu': 'Dạng kem mỏng nhẹ', 'Hạn dùng': '3 năm' },
         sold: 351, stock: 100
     },
     {
-        _id: "p9", name: 'Kem Chống Nắng Acnes Giảm Mụn', brand: 'Acnes', category: 'cham-soc-da', price: 148000, oldPrice: 158000, discount: '6%',
+        _id: "p9", name: 'Kem Chống Nắng Acnes Giảm Mụn Blemish Control Sunscreen', brand: 'Acnes', category: 'cham-soc-da', price: 148000, oldPrice: 158000, discount: '6%',
         image: 'https://product.hstatic.net/1000006063/product/vn-11134201-23030-scu1mi2xkpov69_ea5a65254a374a0a89a267fd4eed714f_1024x1024.jpg',
-        images: [
-            'https://product.hstatic.net/1000006063/product/vn-11134201-23030-scu1mi2xkpov69_ea5a65254a374a0a89a267fd4eed714f_1024x1024.jpg',
-            'https://cdn.hstatic.net/products/1000006063/3_b43b4db3418c4e519b5435a275ea48eb_1024x1024.jpg',
-            'https://product.hstatic.net/1000006063/product/vn-11134201-23030-8zz36v5xkpov52_7af8369aa9ca402b889e86cb79d34974_1024x1024.jpg'
-        ],
+        images: ['https://product.hstatic.net/1000006063/product/vn-11134201-23030-scu1mi2xkpov69_ea5a65254a374a0a89a267fd4eed714f_1024x1024.jpg'],
+        details: 'Sản phẩm chuyên biệt cho da mụn với chiết xuất tràm trà, giúp bảo vệ và cải thiện tình trạng mụn.',
+        specs: { 'Khối lượng': '50g', 'Thương hiệu': 'Acnes (Nhật Bản)', 'Nơi sản xuất': 'Việt Nam', 'Thành phần': 'Tràm trà, B3, B5' },
         sold: 24, stock: 150
     },
     {
-        _id: "p10", name: 'Gel Chống Nắng Anessa Perfect UV', brand: 'Anessa', category: 'cham-soc-da', price: 488000, oldPrice: 575000, discount: '15%',
+        _id: "p10", name: 'Gel Chống Nắng Anessa Perfect UV Skincare Gel SPF50+', brand: 'Anessa', category: 'cham-soc-da', price: 488000, oldPrice: 575000, discount: '15%',
         image: 'https://product.hstatic.net/1000006063/product/8_38fdbb4cd52541b58537b5136a144bea_1024x1024.jpg',
-        images: [
-            'https://product.hstatic.net/1000006063/product/8_38fdbb4cd52541b58537b5136a144bea_1024x1024.jpg',
-            'https://product.hstatic.net/1000006063/product/anessa_perfect_uv_sunscreen_skincare_gel__8278941c81214a26bbd0e44cbb0a002e_1024x1024.jpg',
-            'https://product.hstatic.net/1000006063/product/download__2__2ac2e645c84f452ca877838118652902_1024x1024.jpeg'
-        ],
+        images: ['https://product.hstatic.net/1000006063/product/8_38fdbb4cd52541b58537b5136a144bea_1024x1024.jpg'],
+        details: 'Công nghệ Auto Veil tự phục hồi màng bảo vệ, dưỡng ẩm sâu và chống bụi PM2.5.',
+        specs: { 'Khối lượng': '90g', 'Thương hiệu': 'Anessa (Nhật Bản)', 'Loại da': 'Da thường đến da khô', 'Chỉ số': 'SPF50+ PA++++' },
         sold: 517, stock: 200
     },
     {
-        _id: "p11", name: 'Miếng Pad Dưỡng Ẩm Emmié Semi-Gel Mask Pad', brand: 'Emmié by HappySkin', category: 'cham-soc-da', price: 315000, oldPrice: 450000, discount: '30%',
+        _id: "p11", name: 'Miếng Pad Dưỡng Ẩm Emmié Semi-Gel Mask Pad (60 miếng)', brand: 'Emmié by HappySkin', category: 'cham-soc-da', price: 315000, oldPrice: 450000, discount: '30%',
         image: 'https://cdn.hstatic.net/products/1000006063/emmie_copy_28ed3a4f9ae3421db56ff99742a1599f_1024x1024.jpg',
-        images: [
-            'https://cdn.hstatic.net/products/1000006063/emmie_copy_28ed3a4f9ae3421db56ff99742a1599f_1024x1024.jpg',
-            'https://cdn.hstatic.net/products/1000006063/8_01e92ca367694f6bb15915fd83145447_1024x1024.jpg',
-            'https://cdn.hstatic.net/products/1000006063/1_b1358f2c00ac452bb870597c0352a8a3_1024x1024.jpg'
-        ],
+        images: ['https://cdn.hstatic.net/products/1000006063/emmie_copy_28ed3a4f9ae3421db56ff99742a1599f_1024x1024.jpg'],
+        details: 'Toner pad đa năng giúp làm sạch nhẹ nhàng và cấp ẩm sâu cho da tức thì.',
+        specs: { 'Quy cách': '60 miếng', 'Thương hiệu': 'Emmié by HappySkin', 'Nơi sản xuất': 'Việt Nam', 'Thành phần': 'Niacinamide, HA' },
         sold: 850, stock: 100
     },
     {
         _id: "p12", name: 'Nước Dưỡng Tóc Tinh Dầu Bưởi Cocoon 140ml', brand: 'Cocoon', category: 'cham-soc-toc', price: 158000, oldPrice: 185000, discount: '15%',
         image: 'https://product.hstatic.net/1000006063/product/dai_dien_dce04d99812b47ada407478149e79841_1024x1024.jpg',
-        images: [
-            'https://product.hstatic.net/1000006063/product/dai_dien_dce04d99812b47ada407478149e79841_1024x1024.jpg',
-            'https://product.hstatic.net/1000006063/product/vn-11134207-7qukw-lgghts6etzze18_4e025266eb46464381ed1214c2a30f95.jfif',
-            'https://product.hstatic.net/1000006063/product/vn-11134207-7r98o-lwqnel1sckih70_594a1032dac54224bc4c246808d12d51_1024x1024.jpg'
-        ],
+        images: ['https://product.hstatic.net/1000006063/product/dai_dien_dce04d99812b47ada407478149e79841_1024x1024.jpg'],
+        details: 'Sản phẩm thuần chay giúp giảm rụng tóc và kích thích tóc mọc nhanh, chắc khỏe.',
+        specs: { 'Dung tích': '140ml', 'Thương hiệu': 'Cocoon (Việt Nam)', 'Đặc tính': 'Thuần chay', 'Hạn dùng': '3 năm' },
         sold: 1250, stock: 200
     },
     {
-        _id: "p13", name: 'Dầu Dưỡng Tóc L\'Oreal Elseve 100ml', brand: 'L\'Oreal', category: 'cham-soc-toc', price: 199000, oldPrice: 259000, discount: '23%',
+        _id: "p13", name: 'Dầu Dưỡng Tóc L\'Oreal Elseve Extraordinary Oil 100ml', brand: 'L\'Oreal', category: 'cham-soc-toc', price: 199000, oldPrice: 259000, discount: '23%',
         image: 'https://product.hstatic.net/1000006063/product/l_oreal_elseve_extraordinary_oil_serum_100ml_007ce77196394a61be72d344439c24d9_1024x1024.jpg',
-        images: [
-            'https://product.hstatic.net/1000006063/product/l_oreal_elseve_extraordinary_oil_serum_100ml_007ce77196394a61be72d344439c24d9_1024x1024.jpg',
-            'https://product.hstatic.net/1000006063/product/vn-11134207-7qukw-ley5ppsqb3iia0_9300503da8654f0ebaddd51a311ebe45_1024x1024.jpg',
-            'https://product.hstatic.net/1000006063/product/vn-11134207-7qukw-ley5ppspltaiae_24e9445daa844ef189eb09a870b7dfa8_1024x1024.jpg'
-        ],
+        images: ['https://product.hstatic.net/1000006063/product/l_oreal_elseve_extraordinary_oil_serum_100ml_007ce77196394a61be72d344439c24d9_1024x1024.jpg'],
+        details: 'Dưỡng tóc mềm mượt tức thì với chiết xuất từ 6 loại hoa quý hiếm.',
+        specs: { 'Dung tích': '100ml', 'Thương hiệu': 'L\'Oreal (Pháp)', 'Công dụng': 'Dưỡng mượt, bóng tóc', 'Nơi sản xuất': 'Indonesia' },
         sold: 3400, stock: 180
     },
     {
-        _id: "p14", name: 'Xịt Dưỡng Tóc Ha\'sol Mọc Tóc 100ml', brand: 'Ha\'sol', category: 'cham-soc-toc', price: 455000, oldPrice: 650000, discount: '30%',
+        _id: "p14", name: 'Xịt Dưỡng Tóc Ha\'sol Anagen Active Tonic 100ml', brand: 'Ha\'sol', category: 'cham-soc-toc', price: 455000, oldPrice: 650000, discount: '30%',
         image: 'https://cdn.hstatic.net/products/1000006063/ha_sol_79609e4f4d934ea8b56988ebf2a4c7f0_1024x1024.jpg',
-        images: [
-            'https://cdn.hstatic.net/products/1000006063/ha_sol_79609e4f4d934ea8b56988ebf2a4c7f0_1024x1024.jpg',
-            'https://cdn.hstatic.net/products/1000006063/download__3__1d2237e1c60a43dfa06ca090bb412b75_1024x1024.jpeg',
-            'https://cdn.hstatic.net/products/1000006063/download__1__2e1c89d1d4b840a1a8f24778d859d511_1024x1024.jpeg'
-        ],
+        images: ['https://cdn.hstatic.net/products/1000006063/ha_sol_79609e4f4d934ea8b56988ebf2a4c7f0_1024x1024.jpg'],
+        details: 'Giải pháp chuyên sâu cho da đầu yếu và tóc dễ rụng đến từ Hàn Quốc.',
+        specs: { 'Dung tích': '100ml', 'Thương hiệu': 'Ha\'sol (Hàn Quốc)', 'Công dụng': 'Hỗ trợ mọc tóc', 'Nơi sản xuất': 'Hàn Quốc' },
         sold: 520, stock: 40
     },
     {
-        _id: "p15", name: 'Kem Ủ Tóc Dove Phục Hồi Hư Tổn 180ml', brand: 'Dove', category: 'cham-soc-toc', price: 159000, oldPrice: 215000, discount: '26%',
+        _id: "p15", name: 'Kem Ủ Tóc Dove Intensive Repair 180ml', brand: 'Dove', category: 'cham-soc-toc', price: 159000, oldPrice: 215000, discount: '26%',
         image: 'https://product.hstatic.net/1000006063/product/unilever_e_copy_9016c3502bd9443ab94af880d9e6c06f_1024x1024.jpg',
-        images: [
-            'https://product.hstatic.net/1000006063/product/unilever_e_copy_9016c3502bd9443ab94af880d9e6c06f_1024x1024.jpg',
-            'https://product.hstatic.net/1000006063/product/download_b52c2d8269744f0eaa0006c96887cb42_1024x1024.jpg',
-            'https://product.hstatic.net/1000006063/product/download__1__16fda4651a804b72b5de58809e7fcfeb_1024x1024.jpg'
-        ],
+        images: ['https://product.hstatic.net/1000006063/product/unilever_e_copy_9016c3502bd9443ab94af880d9e6c06f_1024x1024.jpg'],
+        details: 'Phục hồi hư tổn nặng, nuôi dưỡng sợi tóc từ sâu bên trong cho mái tóc chắc khỏe.',
+        specs: { 'Dung tích': '180ml', 'Thương hiệu': 'Dove', 'Loại tóc': 'Tóc khô xơ, hư tổn', 'Nơi sản xuất': 'Việt Nam' },
         sold: 1250, stock: 110
     },
     {
-        _id: "p16", name: 'Sữa Dưỡng Thể Trắng Da Olay Cellscience', brand: 'Olay', category: 'bodycare', price: 359000, oldPrice: 420000, discount: '15%',
+        _id: "p16", name: 'Sữa Dưỡng Thể Olay Cellscience B3+ Vitamin C', brand: 'Olay', category: 'bodycare', price: 359000, oldPrice: 420000, discount: '15%',
         image: 'https://cdn.hstatic.net/products/1000006063/olay_a6cd68555dec44639f4795f55046ff84_1024x1024.jpg',
-        images: [
-            'https://cdn.hstatic.net/products/1000006063/olay_a6cd68555dec44639f4795f55046ff84_1024x1024.jpg',
-            'https://cdn.hstatic.net/products/1000006063/5_ed3b9af90e734016a9a84307aaace089_1024x1024.jpg',
-            'https://cdn.hstatic.net/products/1000006063/4_ec96bff692734c3ead3aeff263c5e9b7_1024x1024.jpg'
-        ],
+        images: ['https://cdn.hstatic.net/products/1000006063/olay_a6cd68555dec44639f4795f55046ff84_1024x1024.jpg'],
+        details: 'Sữa dưỡng thể dưỡng trắng sáng da hiệu quả với hàm lượng Niacinamide tinh khiết.',
+        specs: { 'Dung tích': '210ml', 'Thương hiệu': 'Olay', 'Thành phần': 'B3, Vitamin C', 'Nơi sản xuất': 'Trung Quốc' },
         sold: 15600, stock: 80
     },
     {
-        _id: "p17", name: 'Sữa Dưỡng Thể DrCeutics Niacinamide 10%', brand: 'DrCeutics', category: 'bodycare', price: 216000, oldPrice: 280000, discount: '23%',
+        _id: "p17", name: 'Sữa Dưỡng Thể DrCeutics Niacinamide 10% + Arbutin 2%', brand: 'DrCeutics', category: 'bodycare', price: 216000, oldPrice: 280000, discount: '23%',
         image: 'https://product.hstatic.net/1000006063/product/200g_3daee16554c6439f92568530e2ff9638_1024x1024.jpg',
-        images: [
-            'https://product.hstatic.net/1000006063/product/200g_3daee16554c6439f92568530e2ff9638_1024x1024.jpg',
-            'https://product.hstatic.net/1000006063/product/5_a714da433e814e03b5abb1ec6fd55327_1024x1024.jpg',
-            'https://product.hstatic.net/1000006063/product/3_5318b018ef6a40fbb3c143722314fba0_1024x1024.jpg'
-        ],
+        images: ['https://product.hstatic.net/1000006063/product/200g_3daee16554c6439f92568530e2ff9638_1024x1024.jpg'],
+        details: 'Cải thiện sắc tố da cơ thể hiệu quả với nồng độ hoạt chất cao, phục hồi da sạm màu.',
+        specs: { 'Khối lượng': '200g', 'Thương hiệu': 'DrCeutics (Việt Nam)', 'Nơi sản xuất': 'Việt Nam', 'Công dụng': 'Dưỡng trắng, phục hồi' },
         sold: 8900, stock: 100
     },
     {
-        _id: "p18", name: 'Son Tint Merzy Water Fit Blur Tint', brand: 'Merzy', category: 'trang-diem-son-moi', price: 159000, oldPrice: 250000, discount: '36%',
+        _id: "p18", name: 'Son Tint Merzy Water Fit Blur Tint Mịn Lì', brand: 'Merzy', category: 'trang-diem-son-moi', price: 159000, oldPrice: 250000, discount: '36%',
         image: 'https://cdn.hstatic.net/products/1000006063/thum__1__b21510ab0920480da2f579a24031a569_1024x1024.jpg',
-        images: [
-            'https://cdn.hstatic.net/products/1000006063/thum__1__b21510ab0920480da2f579a24031a569_1024x1024.jpg',
-            'https://cdn.hstatic.net/products/1000006063/h1_a285e202ba1140ea829be96edd71dbc1_1024x1024.jpg',
-            'https://cdn.hstatic.net/products/1000006063/image_d6a50ee03503429f8b4b16107edd1c92_1024x1024.png'
-        ],
+        images: ['https://cdn.hstatic.net/products/1000006063/thum__1__b21510ab0920480da2f579a24031a569_1024x1024.jpg'],
+        details: 'Chất son mịn lì như nhung, che phủ vân môi hoàn hảo và bền màu suốt cả ngày.',
+        specs: { 'Trọng lượng': '4g', 'Thương hiệu': 'Merzy (Hàn Quốc)', 'Kết cấu': 'Blur Tint', 'Nơi sản xuất': 'Hàn Quốc' },
         sold: 12400, stock: 200
     },
     {
-        _id: "p19", name: 'Son Tint Fwee Rose Obsession Stay Fit', brand: 'Fwee', category: 'trang-diem-son-moi', price: 289000, oldPrice: 350000, discount: '17%',
+        _id: "p19", name: 'Son Tint Fwee Rose Obsession Stay Fit Tint', brand: 'Fwee', category: 'trang-diem-son-moi', price: 289000, oldPrice: 350000, discount: '17%',
         image: 'https://cdn.hstatic.net/products/1000006063/fwee_2819eb38e14d48f680a973f8b7e74d9e_1024x1024.jpg',
-        images: [
-            'https://cdn.hstatic.net/products/1000006063/fwee_2819eb38e14d48f680a973f8b7e74d9e_1024x1024.jpg',
-            'https://cdn.hstatic.net/products/1000006063/download_d152b537d81f40cf999ca07a7a3d8af3_1024x1024.jpg',
-            'https://cdn.hstatic.net/products/1000006063/download__1__e660cea62c1c4fe296d1b677e3d241fe_1024x1024.jpg'
-        ],
+        images: ['https://cdn.hstatic.net/products/1000006063/fwee_2819eb38e14d48f680a973f8b7e74d9e_1024x1024.jpg'],
+        details: 'Dòng son lấy cảm hứng từ hoa hồng, màu sắc lãng mạn và độ bền màu cực tốt.',
+        specs: { 'Dung tích': '4.5g', 'Thương hiệu': 'Fwee (Hàn Quốc)', 'Nơi sản xuất': 'Hàn Quốc', 'Loại': 'Son kem lì' },
         sold: 3800, stock: 100
     },
     {
-        _id: "p20", name: 'Son Tint Bóng B.O.M Lip Flash Tint', brand: 'B.O.M', category: 'trang-diem-son-moi', price: 159000, oldPrice: 220000, discount: '28%',
+        _id: "p20", name: 'Son Tint Bóng B.O.M Lip Flash Tint Căng Mọng', brand: 'B.O.M', category: 'trang-diem-son-moi', price: 159000, oldPrice: 220000, discount: '28%',
         image: 'https://cdn.hstatic.net/products/1000006063/bom_f36662e5f6da4e8d91acaed985fcd6f3_1024x1024.jpg',
-        images: [
-            'https://cdn.hstatic.net/products/1000006063/bom_f36662e5f6da4e8d91acaed985fcd6f3_1024x1024.jpg',
-            'https://cdn.hstatic.net/products/1000006063/h3_f73a87790d784b828d1d07ebcac1639c_1024x1024.jpg',
-            'https://cdn.hstatic.net/products/1000006063/h8_83b92fc3b9d54320baa5ce8711981d9e_1024x1024.jpg'
-        ],
+        images: ['https://cdn.hstatic.net/products/1000006063/bom_f36662e5f6da4e8d91acaed985fcd6f3_1024x1024.jpg'],
+        details: 'Hiệu ứng bóng gương cực đỉnh cho đôi môi căng mọng pha lê mà không bết dính.',
+        specs: { 'Trọng lượng': '3g', 'Thương hiệu': 'B.O.M (Hàn Quốc)', 'Hiệu ứng': 'Căng bóng', 'Nơi sản xuất': 'Hàn Quốc' },
         sold: 5200, stock: 150
     },
     {
-        _id: "p21", name: 'Son Kem Bùn Judydoll Matte Lip Mud', brand: 'Judydoll', category: 'trang-diem-son-moi', price: 139000, oldPrice: 195000, discount: '29%',
+        _id: "p21", name: 'Son Kem Bùn Judydoll Matte Lip Mud Siêu Lì', brand: 'Judydoll', category: 'trang-diem-son-moi', price: 139000, oldPrice: 195000, discount: '29%',
         image: 'https://cdn.hstatic.net/products/1000006063/judydoll_copy_e3bcc32282d746a48f2184206eca8d7e_1024x1024.jpg',
-        images: [
-            'https://cdn.hstatic.net/products/1000006063/judydoll_copy_e3bcc32282d746a48f2184206eca8d7e_1024x1024.jpg',
-            'https://down-vn.img.susercontent.com/file/vn-11134201-7r98o-lpvk332qybsn23',
-            'https://cdn.hstatic.net/products/1000006063/39_3bc9c6a4f12a4806b7b3603bd9b2cb02_1024x1024.png'
-        ],
+        images: ['https://cdn.hstatic.net/products/1000006063/judydoll_copy_e3bcc32282d746a48f2184206eca8d7e_1024x1024.jpg'],
+        details: 'Kết cấu dạng bùn mềm mịn, mờ lì tuyệt đối và che phủ vân môi cực tốt.',
+        specs: { 'Thương hiệu': 'Judydoll', 'Nơi sản xuất': 'Trung Quốc', 'Kết cấu': 'Dạng bùn (Lip Mud)', 'Hạn dùng': '3 năm' },
         sold: 18900, stock: 300
     },
     {
-        _id: "p22", name: 'Son Tint Gương Colorkey Airy Lip', brand: 'Colorkey', category: 'trang-diem-son-moi', price: 165000, oldPrice: 210000, discount: '21%',
+        _id: "p22", name: 'Son Tint Gương Colorkey Airy Lip Mirror Series', brand: 'Colorkey', category: 'trang-diem-son-moi', price: 165000, oldPrice: 210000, discount: '21%',
         image: 'https://cdn.hstatic.net/products/1000006063/colorkey_78ec67e8ef2d4ddebde815145977f9e3_1024x1024.jpg',
-        images: [
-            'https://cdn.hstatic.net/products/1000006063/colorkey_78ec67e8ef2d4ddebde815145977f9e3_1024x1024.jpg',
-            'https://product.hstatic.net/1000006063/product/cn-11134207-7qukw-liwzga4etilyba_80b821b5d6264f9e9eb1596557bd99bd_1024x1024.jpg',
-            'https://cdn.hstatic.net/products/1000006063/38_57a73af68eec43f3854538a85565afce_1024x1024.png'
-        ],
+        images: ['https://cdn.hstatic.net/products/1000006063/colorkey_78ec67e8ef2d4ddebde815145977f9e3_1024x1024.jpg'],
+        details: 'Dòng son bóng gương nổi tiếng với lớp màng phim giữ màu, không trôi khi ăn nhẹ.',
+        specs: { 'Dung tích': '3.5ml', 'Thương hiệu': 'Colorkey', 'Hiệu ứng': 'Phủ gương', 'Nơi sản xuất': 'Trung Quốc' },
         sold: 32400, stock: 500
     },
     {
-        _id: "p23", name: 'Mặt Nạ Giấy Klairs Freshly Vitamin Skin Prep Pads', brand: 'Klairs', category: 'skincare', price: 350000, oldPrice: 450000, discount: '22%',
+        _id: "p23", name: 'Mặt Nạ Giấy Klairs Freshly Vitamin Skin Prep Pads Sáng Da', brand: 'Klairs', category: 'skincare', price: 350000, oldPrice: 450000, discount: '22%',
         image: 'https://cdn.hstatic.net/products/1000006063/hdd_1_19407937876b40abb537d599e97ed2e5_1024x1024.jpg',
-        images: ['https://cdn.hstatic.net/products/1000006063/hdd_1_19407937876b40abb537d599e97ed2e5_1024x1024.jpg', 'https://cdn.hstatic.net/products/1000006063/565653434_1201546382071482_33934_7767e302a3414875a2d3ceb64efa4ba2_1024x1024.jpg', 'https://cdn.hstatic.net/products/1000006063/vn-11134207-820l4-mejscv7w6arr0e_copy_d84ea3ac9d984b81b9398575df276790_1024x1024.jpg'],
+        images: ['https://cdn.hstatic.net/products/1000006063/hdd_1_19407937876b40abb537d599e97ed2e5_1024x1024.jpg', 'https://cdn.hstatic.net/products/1000006063/565653434_1201546382071482_33934_7767e302a3414875a2d3ceb64efa4ba2_1024x1024.jpg'],
+        details: 'Miếng toner pad chứa Vitamin giúp làm sáng da, mờ thâm và tẩy tế bào chết nhẹ nhàng.',
+        specs: { 'Quy cách': '50 miếng', 'Thương hiệu': 'Klairs (Hàn Quốc)', 'Nơi sản xuất': 'Hàn Quốc', 'Thành phần': 'Vitamin C, E' },
         sold: 1200, stock: 150
     },
     {
-        _id: "p24", name: 'Mặt Nạ Đất Sét Aperire Spa Relief Pore Mask', brand: 'Aperire', category: 'skincare', price: 259000, oldPrice: 380000, discount: '32%',
+        _id: "p24", name: 'Mặt Nạ Đất Sét Aperire Spa Relief Pore Mask Se Khít Lỗ Chân Lông', brand: 'Aperire', category: 'skincare', price: 259000, oldPrice: 380000, discount: '32%',
         image: 'https://product.hstatic.net/1000006063/product/hdd_1f4c7fa0b34347dabc855ce0707df457_1024x1024.jpg',
-        images: ['https://product.hstatic.net/1000006063/product/hdd_1f4c7fa0b34347dabc855ce0707df457_1024x1024.jpg', 'https://product.hstatic.net/1000006063/product/download__1__474e48abd34b478f8931ed2c0ac11559_1024x1024.jpg', 'https://product.hstatic.net/1000006063/product/download__1__3a6994f183234e49a694db18e42c2c31_1024x1024.jpeg'],
+        images: ['https://product.hstatic.net/1000006063/product/hdd_1f4c7fa0b34347dabc855ce0707df457_1024x1024.jpg', 'https://product.hstatic.net/1000006063/product/download__1__474e48abd34b478f8931ed2c0ac11559_1024x1024.jpg'],
+        details: 'Hút sạch bã nhờn sâu trong lỗ chân lông, làm dịu da và se khít lỗ chân lông hiệu quả.',
+        specs: { 'Khối lượng': '120g', 'Thương hiệu': 'Aperire (Hàn Quốc)', 'Thành phần': 'Đất sét Alaska', 'Nơi sản xuất': 'Hàn Quốc' },
         sold: 850, stock: 120
     }
 ]; // Thêm nhiều sản phẩm hơn nếu cần

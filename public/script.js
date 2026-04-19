@@ -543,7 +543,7 @@ sold: 1250
 },
 {
     id: 22,
-    name: 'Son Tint Gương Bóng Colorkey Bền Màu, Căng Bóng Airy Lip Mirror Series',
+    name: 'Son Tint Gương Bóng Colorkey Airy Lip Mirror Series',
     brand: 'Colorkey',
     category: 'trang-diem-son-moi',
     price: 165000,
@@ -578,7 +578,8 @@ sold: 1250
         'https://cdn.hstatic.net/products/1000006063/565653434_1201546382071482_33934_7767e302a3414875a2d3ceb64efa4ba2_1024x1024.jpg',
         'https://cdn.hstatic.net/products/1000006063/vn-11134207-820l4-mejscv7w6arr0e_copy_d84ea3ac9d984b81b9398575df276790_1024x1024.jpg'
     ],
-    description: 'Miếng pad dưỡng da Klairs chứa Vitamin C và E giúp làm sáng da, mờ thâm và chuẩn bị bề mặt da mịn màng trước khi dưỡng các bước tiếp theo.',
+    description: 'Pad dưỡng da Klairs giúp làm sáng da, mờ thâm và chuẩn bị bề mặt da mịn màng.',
+    details: 'Miếng Pad chứa Vitamin C nguyên khiết và Vitamin E giúp chống oxy hóa, làm đều màu da và thu nhỏ lỗ chân lông nhẹ nhàng.',
     specs: {
         'Tên sản phẩm': 'Klairs Freshly Juiced Vitamin Skin Prep Pads',
         'Dung tích': '50 miếng',
@@ -586,6 +587,26 @@ sold: 1250
         'Nơi sản xuất': 'Hàn Quốc'
     },
     sold: 1200
+},
+{
+    id: 24,
+    name: 'Mặt Nạ Đất Sét Aperire Spa Relief Pore Mask Se Khít Lỗ Chân Lông',
+    brand: 'Aperire',
+    category: 'skincare',
+    price: 259000,
+    oldPrice: 380000,
+    discount: '32%',
+    image: 'https://product.hstatic.net/1000006063/product/hdd_1f4c7fa0b34347dabc855ce0707df457_1024x1024.jpg',
+    images: ['https://product.hstatic.net/1000006063/product/hdd_1f4c7fa0b34347dabc855ce0707df457_1024x1024.jpg'],
+    description: 'Làm sạch sâu bã nhờn và se khít lỗ chân lông với đất sét Alaska.',
+    details: 'Mặt nạ Aperire Spa Relief Pore Mask sử dụng 10.000ppm đất sét vùng núi Alaska cùng chiết xuất rau má giúp thanh lọc làn da sần sùi, mụn đầu đen.',
+    specs: {
+        'Khối lượng': '120g',
+        'Thương hiệu': 'Aperire (Hàn Quốc)',
+        'Nơi sản xuất': 'Hàn Quốc',
+        'Hạn dùng': '3 năm'
+    },
+    sold: 850
 }
 ];
 
