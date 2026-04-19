@@ -563,6 +563,29 @@ sold: 1250
         'Nơi sản xuất': 'Trung Quốc'
     },
     sold: 32400
+},
+{
+    id: 23,
+    name: 'Mặt Nạ Giấy Klairs Hỗ Trợ Sáng Da Mờ Thâm Freshly Vitamin Skin Prep Pads',
+    brand: 'Klairs',
+    category: 'skincare',
+    price: 350000,
+    oldPrice: 450000,
+    discount: '22%',
+    image: 'https://cdn.hstatic.net/products/1000006063/hdd_1_19407937876b40abb537d599e97ed2e5_1024x1024.jpg',
+    images: [
+        'https://cdn.hstatic.net/products/1000006063/hdd_1_19407937876b40abb537d599e97ed2e5_1024x1024.jpg',
+        'https://cdn.hstatic.net/products/1000006063/565653434_1201546382071482_33934_7767e302a3414875a2d3ceb64efa4ba2_1024x1024.jpg',
+        'https://cdn.hstatic.net/products/1000006063/vn-11134207-820l4-mejscv7w6arr0e_copy_d84ea3ac9d984b81b9398575df276790_1024x1024.jpg'
+    ],
+    description: 'Miếng pad dưỡng da Klairs chứa Vitamin C và E giúp làm sáng da, mờ thâm và chuẩn bị bề mặt da mịn màng trước khi dưỡng các bước tiếp theo.',
+    specs: {
+        'Tên sản phẩm': 'Klairs Freshly Juiced Vitamin Skin Prep Pads',
+        'Dung tích': '50 miếng',
+        'Thương hiệu': 'Klairs (Hàn Quốc)',
+        'Nơi sản xuất': 'Hàn Quốc'
+    },
+    sold: 1200
 }
 ];
 
