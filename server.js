@@ -37,15 +37,15 @@ let mockCategories = [
 ];
 
 // API Sản phẩm
-app.get('/api/products', (req, res) => res.json(mockProducts));
+app.get(['/api/products', '/products'], (req, res) => res.json(mockProducts));
 
-app.post('/api/products', (req, res) => {
+app.post(['/api/products', '/products'], (req, res) => {
     const newProd = { ...req.body, _id: "P-" + Date.now() };
     mockProducts.push(newProd);
     res.status(201).json(newProd);
 });
 
-app.put('/api/products/:id', (req, res) => {
+app.put(['/api/products/:id', '/products/:id'], (req, res) => {
     const index = mockProducts.findIndex(p => p._id === req.params.id);
     if (index !== -1) {
         mockProducts[index] = { ...mockProducts[index], ...req.body };
@@ -55,14 +55,14 @@ app.put('/api/products/:id', (req, res) => {
     }
 });
 
-app.delete('/api/products/:id', (req, res) => {
+app.delete(['/api/products/:id', '/products/:id'], (req, res) => {
     mockProducts = mockProducts.filter(p => p._id !== req.params.id);
     res.json({ message: "Đã xóa" });
 });
 
 // API Danh mục
-app.get('/api/categories', (req, res) => res.json(mockCategories));
-app.post('/api/categories', (req, res) => {
+app.get(['/api/categories', '/categories'], (req, res) => res.json(mockCategories));
+app.post(['/api/categories', '/categories'], (req, res) => {
     const newCat = { ...req.body };
     mockCategories.push(newCat);
     res.status(201).json(newCat);
@@ -111,7 +111,7 @@ app.post('/api/users', (req, res) => {
 app.get('/api/users', (req, res) => res.json(mockUsers));
 
 // Quản lý Bài viết (Magazine)
-app.get('/api/magazine', (req, res) => res.json(mockMagazine));
+app.get(['/api/magazine', '/magazine'], (req, res) => res.json(mockMagazine));
 app.post('/api/magazine', (req, res) => {
     const post = { ...req.body, _id: "MAG-" + Date.now(), createdAt: new Date() };
     mockMagazine.push(post);
@@ -143,10 +143,10 @@ app.get('/api/users/admin-check', (req, res) => {
 });
 
 // Lấy danh sách đơn hàng (Cho Admin)
-app.get('/api/orders', (req, res) => res.json(mockOrders));
+app.get(['/api/orders', '/orders'], (req, res) => res.json(mockOrders));
 
 // Route đặt hàng
-app.post('/api/orders', (req, res) => {
+app.post(['/api/orders', '/orders'], (req, res) => {
     const { customerInfo, items, paymentMethod, totalPrice: clientTotal } = req.body;
     
     const newOrder = {

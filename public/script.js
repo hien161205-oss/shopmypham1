@@ -12,8 +12,8 @@ const API_BASE_URL = (window.location.hostname === 'localhost' || window.locatio
 let isLoggedIn = !!localStorage.getItem('qh_token');
 let currentUserName = localStorage.getItem('qh_userName') || '';
 let cart = JSON.parse(localStorage.getItem('qh_cart')) || [];
-let products = []; 
-let filteredProducts = [];
+let products = []; // Sẽ được gán DEFAULT_PRODUCTS bên dưới
+let filteredProducts = []; 
 let currentSlide = 0;
 let currentCheckoutItems = []; 
 let isDirectCheckout = false;
