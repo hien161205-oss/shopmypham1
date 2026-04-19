@@ -568,13 +568,17 @@ sold: 1250
 async function loadProductsFromServer() {
     try {
         const data = await safeFetch(`${API_BASE_URL}/products`);
-        products = (data && Array.isArray(data) && data.length > 0) ? data : DEFAULT_PRODUCTS;
-        window.products = products; // Cập nhật biến toàn cục cho các trang khác
+        if (data && Array.isArray(data) && data.length > 0) {
+            products = data;
+        } else {
+            console.log('Server trả về danh sách trống, dùng dữ liệu mặc định');
+            products = DEFAULT_PRODUCTS;
+        }
     } catch (error) {
-        console.warn('Sử dụng dữ liệu mặc định do lỗi tải:', error.message);
+        console.error('Lỗi tải sản phẩm từ server:', error.message);
         products = DEFAULT_PRODUCTS;
     }
-    window.products = products;
+    window.products = products; // Luôn gán lại để các hàm khác sử dụng
     filteredProducts = [...products]; 
     renderAllSections(); // Đảm bảo render sau khi có dữ liệu
 }
@@ -1002,15 +1006,15 @@ function renderLocalBrandProducts() {
 }
 
 function renderSkinCareSectionProducts() {
-    renderProductSection('skinCareSectionGrid', p => p.category === 'skincare' || p.category === 'cham-soc-da', { linkId: 'countSkinCare' });
+    renderProductSection('skinCareSectionGrid', p => p.category.includes('skincare') || p.category.includes('cham-soc-da'), { linkId: 'countSkinCare' });
 }
 
 function renderBodyCareSectionProducts() {
-    renderProductSection('bodyCareSectionGrid', p => p.category === 'bodycare', { linkId: 'countBodyCare' });
+    renderProductSection('bodyCareSectionGrid', p => p.category.includes('bodycare') || p.category.includes('body'), { linkId: 'countBodyCare' });
 }
 
 function renderHairCareProducts() {
-    renderProductSection('hairCareGrid', p => p.category === 'haircare' || p.category === 'cham-soc-toc', { linkId: 'countHairCare' });
+    renderProductSection('hairCareGrid', p => p.category.includes('haircare') || p.category.includes('cham-soc-toc'), { linkId: 'countHairCare' });
 }
 
 function renderMakeupSectionProducts() {
