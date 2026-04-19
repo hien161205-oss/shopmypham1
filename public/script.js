@@ -12,7 +12,7 @@ const API_BASE_URL = (window.location.hostname === 'localhost' || window.locatio
 let isLoggedIn = !!localStorage.getItem('qh_token');
 let currentUserName = localStorage.getItem('qh_userName') || '';
 let cart = JSON.parse(localStorage.getItem('qh_cart')) || [];
-let products = []; // Sẽ được gán DEFAULT_PRODUCTS bên dưới
+let products = []; 
 let filteredProducts = []; 
 let currentSlide = 0;
 let currentCheckoutItems = []; 
@@ -572,9 +572,9 @@ sold: 1250
 }
 ];
 
-// Khởi tạo products bằng dữ liệu mặc định ngay lập tức
-let products = [...DEFAULT_PRODUCTS];
-let filteredProducts = [];
+// Khởi tạo dữ liệu ban đầu từ danh sách mặc định (Bỏ từ khóa 'let' ở đây)
+products = [...DEFAULT_PRODUCTS];
+filteredProducts = [...products];
 
 async function loadProductsFromServer() {
     try {
