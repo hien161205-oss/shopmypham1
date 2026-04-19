@@ -7,12 +7,50 @@
 const API_BASE_URL = (window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1')
     ? 'http://localhost:5000/api'
     : window.location.origin + '/api';
-
-/** 2. STATE & GLOBALS (Chỉ khai báo một lần duy nhất ở đây) */
 let isLoggedIn = !!localStorage.getItem('qh_token');
 let currentUserName = localStorage.getItem('qh_userName') || '';
+
 let cart = JSON.parse(localStorage.getItem('qh_cart')) || [];
 
+/**
+ * Hàm fetch API an toàn: Kiểm tra response.ok, log text() khi lỗi và chỉ parse JSON khi hợp lệ
+ */
+async function safeFetch(url, options = {}) {
+    const response = await fetch(url, options);
+    const contentType = response.headers.get("content-type") || "";
+
+    if (!response.ok) {
+        let errorMessage = `Yêu cầu thất bại: ${response.status}`;
+        if (contentType.includes("application/json")) {
+            const errorData = await response.json();
+            errorMessage = errorData.message || errorMessage;
+        } else {
+            const errorText = await response.text();
+            console.error(`API Error [${response.status}] tại ${url}:`, errorText.substring(0, 500));
+            // Nếu trả về HTML (trang lỗi mặc định của host), hiển thị thông báo thân thiện hơn
+            if (contentType.includes("text/html")) {
+                errorMessage = `Lỗi hệ thống (${response.status}). Vui lòng kiểm tra lại endpoint API.`;
+            } else {
+                errorMessage = errorText || errorMessage;
+            }
+        }
+        throw new Error(errorMessage);
+    }
+
+    if (contentType.includes("application/json")) {
+        return await response.json();
+    }
+    
+    // Chống gọi nhầm file tĩnh (HTML/JS) trả về 200 OK nhưng sai định dạng mong muốn
+    if (contentType.includes("text/html")) {
+        console.warn(`Cảnh báo: Nhận phản hồi HTML thay vì JSON tại ${url}. Kiểm tra cấu hình router.`);
+        throw new Error("Phản hồi không hợp lệ từ máy chủ (HTML thay vì JSON)");
+    }
+
+    return await response.text();
+}
+
+// Chuyển DEFAULT_PRODUCTS lên đầu file (trước khi sử dụng)
 const DEFAULT_PRODUCTS = [
 {
   id: 1,
@@ -528,41 +566,9 @@ sold: 1250
 }
 ];
 
-/** KHỞI TẠO BIẾN TRẠNG THÁI */
-let products = [...DEFAULT_PRODUCTS]; 
-let filteredProducts = [...products]; 
-let currentSlide = 0;
-let currentCheckoutItems = []; 
-let isDirectCheckout = false;
-
-/**
- * Hàm fetch API an toàn
- */
-async function safeFetch(url, options = {}) {
-    const response = await fetch(url, options);
-    const contentType = response.headers.get("content-type") || "";
-
-    if (!response.ok) {
-        let errorMessage = `Yêu cầu thất bại: ${response.status}`;
-        if (contentType.includes("application/json")) {
-            const errorData = await response.json();
-            errorMessage = errorData.message || errorMessage;
-        } else {
-            const errorText = await response.text();
-            if (contentType.includes("text/html")) {
-                errorMessage = `Lỗi hệ thống (${response.status}).`;
-            } else {
-                errorMessage = errorText || errorMessage;
-            }
-        }
-        throw new Error(errorMessage);
-    }
-
-    if (contentType.includes("application/json")) {
-        return await response.json();
-    }
-    return await response.text();
-}
+// Khởi tạo products bằng dữ liệu mặc định ngay lập tức
+let products = [...DEFAULT_PRODUCTS];
+let filteredProducts = [];
 
 async function loadProductsFromServer() {
     try {
@@ -1708,8 +1714,13 @@ function initEvents() {
         }
     }
 
-    // Luôn khởi tạo listener cho các thành phần có sẵn trong HTML
-    window.initCheckoutListeners();
+    // Call init on DOMContentLoaded to ensure elements exist
+    if (document.readyState === 'loading') {
+        document.addEventListener('DOMContentLoaded', initCheckoutListeners);
+    } else {
+        initCheckoutListeners();
+    }
+
 
     // Back to Top
     const btt = document.getElementById('backToTop');
@@ -1747,30 +1758,115 @@ function initEvents() {
             if (productId) window.buyNow(productId);
         };
     }
-
-    // Gắn sự kiện cho nút Thanh toán trong giỏ hàng
-    const checkoutBtn = document.getElementById('checkoutBtn');
-    if (checkoutBtn) {
-        checkoutBtn.addEventListener('click', () => {
-            if (cart.length === 0) {
-                showToast('Giỏ hàng của bạn đang trống!');
-                return;
-            }
-            currentCheckoutItems = [...cart];
-            isDirectCheckout = false;
-            closeCart();
-            renderCheckoutSummary();
-            const checkoutOverlay = document.getElementById('checkoutOverlay');
-            if (checkoutOverlay) {
-                checkoutOverlay.style.display = 'block';
-                checkoutOverlay.classList.add('active');
-                document.getElementById('checkoutForm').style.display = 'block';
-                document.getElementById('checkoutSuccess').style.display = 'none';
-                document.getElementById('checkoutQR').style.display = 'none';
-            }
-        });
-    }
 }
+
+// --- GLOBAL CHECKOUT LISTENERS ---
+window.initCheckoutListeners = function() {
+    const checkoutForm = document.getElementById('checkoutForm');
+    const closeCheckoutBtn = document.getElementById('closeCheckoutBtn');
+    const checkoutOverlay = document.getElementById('checkoutOverlay');
+
+    if (closeCheckoutBtn && checkoutOverlay) {
+        closeCheckoutBtn.onclick = (e) => {
+            e.preventDefault();
+            checkoutOverlay.classList.remove('active');
+            checkoutOverlay.style.display = 'none';
+        };
+    }
+
+    if (checkoutForm) {
+        // Sử dụng addEventListener và remove cũ để tránh trùng lặp hoặc mất sự kiện
+        const handleCheckoutSubmit = async (e) => {
+            e.preventDefault(); // QUAN TRỌNG: Ngăn trang web load lại
+
+            const name = document.getElementById('orderName').value;
+            const phone = document.getElementById('orderPhone').value;
+            const email = document.getElementById('orderEmail').value;
+            const address = document.getElementById('orderAddress').value;
+            const note = document.getElementById('orderNote').value;
+            const payment = document.getElementById('orderPaymentMethod').value;
+            const total = currentCheckoutItems.reduce((sum, i) => sum + (i.price * i.quantity), 0);
+            const token = localStorage.getItem('qh_token');
+
+            try {
+                const createdOrder = await safeFetch(`${API_BASE_URL}/orders`, {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                        ...(token ? { 'Authorization': `Bearer ${token}` } : {})
+                    },
+                    body: JSON.stringify({
+                        customerInfo: { name, phone, email, address, note },
+                        items: currentCheckoutItems.map(i => ({
+                            product: i._id || i.id,
+                            name: i.name,
+                            quantity: i.quantity,
+                            price: i.price
+                        })),
+                        paymentMethod: payment,
+                        totalPrice: total
+                    })
+                });
+
+                const finalizeOrderUI = (order) => {
+                    if (!isDirectCheckout) {
+                        cart = [];
+                        localStorage.setItem('qh_cart', JSON.stringify(cart));
+                        updateCartUI();
+                    }
+
+                    const successView = document.getElementById('checkoutSuccess');
+                    const qrView = document.getElementById('checkoutQR');
+                    const formView = document.getElementById('checkoutForm');
+                    
+                    if (successView) {
+                        if (formView) formView.style.display = 'none';
+                        if (qrView) qrView.style.display = 'none';
+                        successView.style.display = 'block';
+                        
+                        const successId = document.getElementById('successOrderId');
+                        const successTotal = document.getElementById('successOrderTotal');
+                        const successItems = document.getElementById('successOrderItems');
+                        
+                        if (successId) successId.textContent = '#' + order._id.substring(order._id.length - 8).toUpperCase();
+                        if (successTotal) successTotal.textContent = order.totalPrice.toLocaleString() + 'đ';
+                        if (successItems) {
+                            successItems.innerHTML = order.items.map(item => `
+                                <div style="display:flex; justify-content:space-between; margin-bottom:10px; font-size:14px;">
+                                    <span>${item.name} x${item.quantity}</span>
+                                    <span>${(item.price * item.quantity).toLocaleString()}đ</span>
+                                </div>
+                            `).join('');
+                        }
+                    } else {
+                        checkoutOverlay.classList.remove('active');
+                        showToast('Đặt hàng thành công!');
+                    }
+                };
+
+                if (payment === 'BANK') {
+                    const realOrderCode = createdOrder._id.substring(createdOrder._id.length - 6).toUpperCase();
+                    const qrView = document.getElementById('checkoutQR');
+                    const qrCodeImg = document.getElementById('qrCodeImg');
+                    const qrAmount = document.getElementById('qrAmount');
+                    const qrNote = document.getElementById('qrNote');
+                    const confirmBtn = document.getElementById('confirmQRBtn');
+
+                    if (qrView) {
+                        checkoutForm.style.display = 'none';
+                        qrView.style.display = 'block';
+                        if (qrAmount) qrAmount.textContent = createdOrder.totalPrice.toLocaleString() + 'đ';
+                        if (qrNote) qrNote.textContent = 'QH' + realOrderCode;
+                        if (qrCodeImg) {
+                            qrCodeImg.src = `https://api.vietqr.io/image/vietcombank/0011004123456/qr_only.jpg?amount=${createdOrder.totalPrice}&addInfo=QH${realOrderCode}&accountName=NGUYEN THI THANH HIEN`;
+                        }
+                        confirmBtn.onclick = () => finalizeOrderUI(createdOrder);
+                    } else { finalizeOrderUI(createdOrder); }
+                } else { finalizeOrderUI(createdOrder); }
+            } catch (err) { showToast('Lỗi: ' + err.message); }
+        };
+    }
+};
 
 /**
  * Hàm xử lý dữ liệu sau khi đăng nhập hoặc đăng ký thành công
@@ -2154,9 +2250,8 @@ function injectRequiredElements() {
             </div>
         `;
         document.body.insertAdjacentHTML('beforeend', checkoutHtml);
-        window.initCheckoutListeners(); // Gắn sự kiện sau khi tiêm HTML mới
     }
-
+    
     // Kiểm tra và thêm Toast Container nếu chưa có
     if (!document.getElementById('toastContainer')) {
         const toastHtml = `<div id="toastContainer" class="toast-container"></div>`;
