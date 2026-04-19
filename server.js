@@ -251,6 +251,48 @@ let mockProducts = [
         details: 'Merzy Noir In The Mellow Tint sở hữu chất son velvet mịn mượt như nhung, độ bám màu cực tốt.',
         specs: { 'Khối lượng': '4g', 'Thương hiệu': 'Merzy (Hàn Quốc)', 'Nơi sản xuất': 'Hàn Quốc', 'Hạn sử dụng': '3 năm' },
         sold: 950, stock: 120
+    },
+    {
+        _id: "p29",
+        name: 'Phấn Nước Che Phủ Hoàn Hảo Merzy The First Cushion Cover 13g',
+        brand: 'Merzy',
+        category: 'trang-diem-nen',
+        price: 249000,
+        oldPrice: 380000,
+        discount: '34%',
+        image: 'https://cdn.hstatic.net/products/1000006063/19_7c4142f2aca74de8b88d7f928d9a595b_1024x1024.png',
+        images: ['https://cdn.hstatic.net/products/1000006063/19_7c4142f2aca74de8b88d7f928d9a595b_1024x1024.png', 'https://product.hstatic.net/1000006063/product/merzy_the_first_cushion_cover_daeb0afec61a4b84b0a5340b336ecccd_1024x1024.jpg', 'https://product.hstatic.net/1000006063/product/mc7_b0d5edb6a9d7461c99c3e88933c7535d_1024x1024.jpg'],
+        details: 'Phấn nước Merzy The First Cushion Cover mang lại lớp nền hoàn hảo với độ che phủ cao.',
+        specs: { 'Khối lượng': '13g', 'Thương hiệu': 'Merzy (Hàn Quốc)', 'Nơi sản xuất': 'Hàn Quốc', 'Hạn sử dụng': '3 năm' },
+        sold: 450, stock: 85
+    },
+    {
+        _id: "p30",
+        name: 'Nước Tẩy Trang Mắt Môi Chiết Xuất Quả Mọng Merzy Good Berry Lip & Eye Remover 210ml',
+        brand: 'Merzy',
+        category: 'trang-diem',
+        price: 149000,
+        oldPrice: 245000,
+        discount: '39%',
+        image: 'https://cdn.hstatic.net/products/1000006063/38_05678d3f5327484da1f203dd87ac22cc_1024x1024.png',
+        images: ['https://cdn.hstatic.net/products/1000006063/38_05678d3f5327484da1f203dd87ac22cc_1024x1024.png', 'https://product.hstatic.net/1000006063/product/merzy_good_berry_lip_eye_remover_210ml_4b94c3fb62954bfb9a91c1cb959d4526_1024x1024.jpg', 'https://product.hstatic.net/1000006063/product/267_e3f6b994b4284f0e826c76abfd62d547_1024x1024.jpg'],
+        details: 'Nước tẩy trang mắt môi chuyên dụng Merzy Good Berry giúp loại bỏ sạch lớp trang điểm chống nước.',
+        specs: { 'Dung tích': '210ml', 'Thương hiệu': 'Merzy (Hàn Quốc)', 'Nơi sản xuất': 'Hàn Quốc' },
+        sold: 320, stock: 200
+    },
+    {
+        _id: "p31",
+        name: 'Dầu Tẩy Trang Sạch Sâu, Dịu Nhẹ Merzy One Shot Melting Cleansing Oil 300ml',
+        brand: 'Merzy',
+        category: 'skincare',
+        price: 239000,
+        oldPrice: 380000,
+        discount: '37%',
+        image: 'https://cdn.hstatic.net/products/1000006063/33_92355ebb29214721b9ed0993ac8c0efc_1024x1024.png',
+        images: ['https://cdn.hstatic.net/products/1000006063/33_92355ebb29214721b9ed0993ac8c0efc_1024x1024.png', 'https://product.hstatic.net/1000006063/product/dau_tay_trang_k_co_tp_1f95cca20a374e2d90710ccea85a4096_1024x1024.jpg', 'https://product.hstatic.net/1000006063/product/ba203536ac1efda35e5d00bd84ed03d6_70d581092fc54e07b6d16389bba4bff6_1024x1024.jpg'],
+        details: 'Dầu tẩy trang sạch sâu Merzy One Shot Melting Cleansing Oil giúp loại bỏ hoàn toàn bụi bẩn và lớp trang điểm.',
+        specs: { 'Dung tích': '300ml', 'Thương hiệu': 'Merzy (Hàn Quốc)', 'Nơi sản xuất': 'Hàn Quốc' },
+        sold: 560, stock: 120
     }
 ]; // Thêm nhiều sản phẩm hơn nếu cần
 
