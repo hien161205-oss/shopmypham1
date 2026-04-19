@@ -746,6 +746,64 @@ sold: 1250
     details: 'B.O.M Cloud Blur Lipstick sở hữu chất son mềm mượt, dễ tán, giúp che phủ rãnh môi hiệu quả. Sản phẩm đạt chứng nhận thuần chay (Vegan), an toàn và nhẹ tênh trên môi suốt cả ngày dài.',
     specs: { 'Khối lượng': '3.3g', 'Thương hiệu': 'B.O.M (Hàn Quốc)', 'Nơi sản xuất': 'Hàn Quốc', 'Đặc tính': 'Thuần chay (Vegan)' },
     sold: 560
+},
+{
+    id: 35,
+    name: 'Serum Chống Nắng La Roche-Posay Siêu Mỏng, Kiềm Dầu, Cấp Ẩm Innovation Anthelios UVAir Sunscreen SPF50+ 30ml',
+    brand: 'La Roche-Posay',
+    category: 'cham-soc-da',
+    price: 495000,
+    oldPrice: 640000,
+    discount: '23%',
+    image: 'https://cdn.hstatic.net/products/1000006063/1_641d8e8584f545068f540597dc13ca67_1024x1024.png',
+    images: [
+        'https://cdn.hstatic.net/products/1000006063/1_641d8e8584f545068f540597dc13ca67_1024x1024.png',
+        'https://cdn.hstatic.net/products/1000006063/la_roche-posay_e_copy_2_0e2c7816a8f547fdabc59a70e74a14f4_1024x1024.jpg',
+        'https://cdn.hstatic.net/products/1000006063/4_8b0df47446a748edb0efb3542df824bb_1024x1024.jpg'
+    ],
+    description: 'Serum chống nắng thế hệ mới Innovation Anthelios UVAir với kết cấu siêu mỏng nhẹ, giúp kiềm dầu và cấp ẩm suốt 24h, bảo vệ da tối ưu trước tia UV.',
+    details: 'Sản phẩm sở hữu công nghệ cải tiến mang đến màng lọc chống nắng phổ rộng nhưng vẫn giữ được kết cấu dạng serum nhẹ tênh, thấm nhanh không để lại vệt trắng. Phù hợp cho mọi loại da, đặc biệt là da dầu và da nhạy cảm.',
+    specs: { 'Dung tích': '30ml', 'Chỉ số': 'SPF50+ PA++++', 'Thương hiệu': 'La Roche-Posay (Pháp)', 'Kết cấu': 'Dạng serum mỏng nhẹ' },
+    sold: 120
+},
+{
+    id: 36,
+    name: 'Kem Dưỡng La Roche-Posay Kiềm Dầu, Cải Thiện Lỗ Chân Lông Effaclar Mat 40ml',
+    brand: 'La Roche-Posay',
+    category: 'cham-soc-da',
+    price: 389000,
+    oldPrice: 525000,
+    discount: '26%',
+    image: 'https://cdn.hstatic.net/products/1000006063/1_81edea4ff8e943d1a450df07e2df5ee4_1024x1024.png',
+    images: [
+        'https://cdn.hstatic.net/products/1000006063/1_81edea4ff8e943d1a450df07e2df5ee4_1024x1024.png',
+        'https://cdn.hstatic.net/products/1000006063/lr_2da5bf32d5d147c283b8c66012e47200_1024x1024.jpg',
+        'https://cdn.hstatic.net/products/1000006063/h5_875ca43596ff415999018544da41fa04_1024x1024.jpeg'
+    ],
+    description: 'Kem dưỡng La Roche-Posay Effaclar Mat giúp kiềm dầu suốt 8h, se khít lỗ chân lông và mang lại làn da mịn lì tự nhiên.',
+    details: 'Effaclar Mat sở hữu công thức không dầu (oil-free) kết hợp cùng Sebulyse giúp kiểm soát bã nhờn hiệu quả hơn cả kẽm. Sản phẩm thẩm thấu nhanh, không gây bết dính, lý tưởng để làm lớp lót trang điểm cho da dầu nhạy cảm.',
+    specs: { 'Dung tích': '40ml', 'Thương hiệu': 'La Roche-Posay (Pháp)', 'Loại da': 'Da dầu, da mụn nhạy cảm', 'Đặc tính': 'Kiềm dầu, se lỗ chân lông' },
+    sold: 840
+}
+,
+{
+    id: 37,
+    name: 'Kem Dưỡng Hỗ Trợ Làm Trắng Da, Giảm Thâm Nám La Roche-Posay Mela B3 Cream 40ml',
+    brand: 'La Roche-Posay',
+    category: 'cham-soc-da',
+    price: 825000,
+    oldPrice: 950000,
+    discount: '13%',
+    image: 'https://cdn.hstatic.net/products/1000006063/3_9cd59308f5f949a2a2879ab3968ec055_1024x1024.png',
+    images: [
+        'https://cdn.hstatic.net/products/1000006063/3_9cd59308f5f949a2a2879ab3968ec055_1024x1024.png',
+        'https://product.hstatic.net/1000006063/product/la_roche-posay_e_copy_2_eb1544f7763a4820b728b7a04b37c67d_1024x1024.jpg',
+        'https://product.hstatic.net/1000006063/product/sg-11134201-7rd5q-lvsh3ggdgm4521_b69df224824243db864da577d2852195_1024x1024.jpg'
+    ],
+    description: 'Kem dưỡng hỗ trợ làm trắng da, mờ thâm nám La Roche-Posay Mela B3 Cream giúp cải thiện sắc tố da, làm đều màu da và ngăn ngừa sự hình thành các đốm nâu mới.',
+    details: 'Mela B3 Cream chứa thành phần đột phá Melasyl™ kết hợp cùng 10% Niacinamide giúp giải quyết tận gốc nguyên nhân gây thâm nám. Sản phẩm mang lại hiệu quả rõ rệt sau 4 tuần sử dụng, giúp da sáng mịn và rạng rỡ hơn.',
+    specs: { 'Dung tích': '40ml', 'Thương hiệu': 'La Roche-Posay (Pháp)', 'Thành phần': 'Melasyl™, 10% Niacinamide', 'Loại da': 'Mọi loại da, da thâm nám' },
+    sold: 150
 }
 ];
 

@@ -363,6 +363,48 @@ let mockProducts = [
         details: 'Son thỏi lì thuần chay mang lại hiệu ứng mờ lì tự nhiên, mỏng nhẹ như mây.',
         specs: { 'Khối lượng': '3.3g', 'Thương hiệu': 'B.O.M (Hàn Quốc)', 'Đặc tính': 'Thuần chay' },
         sold: 560, stock: 120
+    },
+    {
+        _id: "p37",
+        name: 'Serum Chống Nắng La Roche-Posay Innovation Anthelios UVAir Sunscreen SPF50+ 30ml',
+        brand: 'La Roche-Posay',
+        category: 'cham-soc-da',
+        price: 495000,
+        oldPrice: 640000,
+        discount: '23%',
+        image: 'https://cdn.hstatic.net/products/1000006063/1_641d8e8584f545068f540597dc13ca67_1024x1024.png',
+        images: ['https://cdn.hstatic.net/products/1000006063/1_641d8e8584f545068f540597dc13ca67_1024x1024.png', 'https://cdn.hstatic.net/products/1000006063/la_roche-posay_e_copy_2_0e2c7816a8f547fdabc59a70e74a14f4_1024x1024.jpg', 'https://cdn.hstatic.net/products/1000006063/4_8b0df47446a748edb0efb3542df824bb_1024x1024.jpg'],
+        details: 'Serum chống nắng thế hệ mới kết cấu siêu mỏng nhẹ, bảo vệ da phổ rộng.',
+        specs: { 'Dung tích': '30ml', 'Thương hiệu': 'La Roche-Posay (Pháp)', 'Loại da': 'Mọi loại da' },
+        sold: 120, stock: 50
+    },
+    {
+        _id: "p38",
+        name: 'Kem Dưỡng La Roche-Posay Effaclar Mat 40ml',
+        brand: 'La Roche-Posay',
+        category: 'cham-soc-da',
+        price: 389000,
+        oldPrice: 525000,
+        discount: '26%',
+        image: 'https://cdn.hstatic.net/products/1000006063/1_81edea4ff8e943d1a450df07e2df5ee4_1024x1024.png',
+        images: ['https://cdn.hstatic.net/products/1000006063/1_81edea4ff8e943d1a450df07e2df5ee4_1024x1024.png', 'https://cdn.hstatic.net/products/1000006063/lr_2da5bf32d5d147c283b8c66012e47200_1024x1024.jpg', 'https://cdn.hstatic.net/products/1000006063/h5_875ca43596ff415999018544da41fa04_1024x1024.jpeg'],
+        details: 'Kem dưỡng kiềm dầu và se khít lỗ chân lông chuyên sâu cho da dầu.',
+        specs: { 'Dung tích': '40ml', 'Thương hiệu': 'La Roche-Posay (Pháp)', 'Loại da': 'Da dầu' },
+        sold: 840, stock: 65
+    },
+    {
+        _id: "p39",
+        name: 'Kem Dưỡng Hỗ Trợ Làm Trắng Da, Giảm Thâm Nám La Roche-Posay Mela B3 Cream 40ml',
+        brand: 'La Roche-Posay',
+        category: 'cham-soc-da',
+        price: 825000,
+        oldPrice: 950000,
+        discount: '13%',
+        image: 'https://cdn.hstatic.net/products/1000006063/3_9cd59308f5f949a2a2879ab3968ec055_1024x1024.png',
+        images: ['https://cdn.hstatic.net/products/1000006063/3_9cd59308f5f949a2a2879ab3968ec055_1024x1024.png', 'https://product.hstatic.net/1000006063/product/la_roche-posay_e_copy_2_eb1544f7763a4820b728b7a04b37c67d_1024x1024.jpg', 'https://product.hstatic.net/1000006063/product/sg-11134201-7rd5q-lvsh3ggdgm4521_b69df224824243db864da577d2852195_1024x1024.jpg'],
+        details: 'Kem dưỡng mờ thâm nám và làm sáng da đột phá với Melasyl™.',
+        specs: { 'Dung tích': '40ml', 'Thương hiệu': 'La Roche-Posay (Pháp)', 'Loại da': 'Da thâm nám' },
+        sold: 150, stock: 40
     }
 ]; // Thêm nhiều sản phẩm hơn nếu cần
 
