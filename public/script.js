@@ -635,8 +635,9 @@ function removeAccents(str) {
 // 3. INIT
 document.addEventListener('DOMContentLoaded', () => {
     // Kiểm tra xem có đang ở trang admin không
-    if (window.location.pathname.includes('admin.html')) {
-        return; // Admin có logic riêng
+    const path = window.location.pathname;
+    if (path.includes('admin.html')) {
+        return;
     }
     
     injectRequiredElements();
@@ -1754,7 +1755,134 @@ function initEvents() {
             if (productId) window.buyNow(productId);
         };
     }
+
+    // Gắn sự kiện cho nút Thanh toán trong giỏ hàng
+    const checkoutBtn = document.getElementById('checkoutBtn');
+    if (checkoutBtn) {
+        checkoutBtn.addEventListener('click', () => {
+            if (cart.length === 0) {
+                showToast('Giỏ hàng của bạn đang trống!');
+                return;
+            }
+            currentCheckoutItems = [...cart];
+            isDirectCheckout = false;
+            closeCart();
+            renderCheckoutSummary();
+            const checkoutOverlay = document.getElementById('checkoutOverlay');
+            if (checkoutOverlay) {
+                checkoutOverlay.style.display = 'block';
+                checkoutOverlay.classList.add('active');
+                document.getElementById('checkoutForm').style.display = 'block';
+                document.getElementById('checkoutSuccess').style.display = 'none';
+                document.getElementById('checkoutQR').style.display = 'none';
+            }
+        });
+    }
 }
+
+// --- GLOBAL CHECKOUT LISTENERS ---
+window.initCheckoutListeners = function() {
+    const checkoutForm = document.getElementById('checkoutForm');
+    const closeCheckoutBtn = document.getElementById('closeCheckoutBtn');
+    const checkoutOverlay = document.getElementById('checkoutOverlay');
+
+    if (closeCheckoutBtn && checkoutOverlay) {
+        closeCheckoutBtn.onclick = () => checkoutOverlay.classList.remove('active');
+    }
+
+    if (checkoutForm) {
+        // Loại bỏ listener cũ nếu có để tránh trùng lặp
+        checkoutForm.onsubmit = async (e) => {
+            e.preventDefault();
+
+            const name = document.getElementById('orderName').value;
+            const phone = document.getElementById('orderPhone').value;
+            const email = document.getElementById('orderEmail').value;
+            const address = document.getElementById('orderAddress').value;
+            const note = document.getElementById('orderNote').value;
+            const payment = document.getElementById('orderPaymentMethod').value;
+            const total = currentCheckoutItems.reduce((sum, i) => sum + (i.price * i.quantity), 0);
+            const token = localStorage.getItem('qh_token');
+
+            try {
+                const createdOrder = await safeFetch(`${API_BASE_URL}/orders`, {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                        ...(token ? { 'Authorization': `Bearer ${token}` } : {})
+                    },
+                    body: JSON.stringify({
+                        customerInfo: { name, phone, email, address, note },
+                        items: currentCheckoutItems.map(i => ({
+                            product: i._id || i.id,
+                            name: i.name,
+                            quantity: i.quantity,
+                            price: i.price
+                        })),
+                        paymentMethod: payment,
+                        totalPrice: total
+                    })
+                });
+
+                const finalizeOrderUI = (order) => {
+                    if (!isDirectCheckout) {
+                        cart = [];
+                        localStorage.setItem('qh_cart', JSON.stringify(cart));
+                        updateCartUI();
+                    }
+
+                    const successView = document.getElementById('checkoutSuccess');
+                    const qrView = document.getElementById('checkoutQR');
+                    const formView = document.getElementById('checkoutForm');
+                    
+                    if (successView) {
+                        if (formView) formView.style.display = 'none';
+                        if (qrView) qrView.style.display = 'none';
+                        successView.style.display = 'block';
+                        
+                        const successId = document.getElementById('successOrderId');
+                        const successTotal = document.getElementById('successOrderTotal');
+                        const successItems = document.getElementById('successOrderItems');
+                        
+                        if (successId) successId.textContent = '#' + order._id.substring(order._id.length - 8).toUpperCase();
+                        if (successTotal) successTotal.textContent = order.totalPrice.toLocaleString() + 'đ';
+                        if (successItems) {
+                            successItems.innerHTML = order.items.map(item => `
+                                <div style="display:flex; justify-content:space-between; margin-bottom:10px; font-size:14px;">
+                                    <span>${item.name} x${item.quantity}</span>
+                                    <span>${(item.price * item.quantity).toLocaleString()}đ</span>
+                                </div>
+                            `).join('');
+                        }
+                    } else {
+                        checkoutOverlay.classList.remove('active');
+                        showToast('Đặt hàng thành công!');
+                    }
+                };
+
+                if (payment === 'BANK') {
+                    const realOrderCode = createdOrder._id.substring(createdOrder._id.length - 6).toUpperCase();
+                    const qrView = document.getElementById('checkoutQR');
+                    const qrCodeImg = document.getElementById('qrCodeImg');
+                    const qrAmount = document.getElementById('qrAmount');
+                    const qrNote = document.getElementById('qrNote');
+                    const confirmBtn = document.getElementById('confirmQRBtn');
+
+                    if (qrView) {
+                        checkoutForm.style.display = 'none';
+                        qrView.style.display = 'block';
+                        if (qrAmount) qrAmount.textContent = createdOrder.totalPrice.toLocaleString() + 'đ';
+                        if (qrNote) qrNote.textContent = 'QH' + realOrderCode;
+                        if (qrCodeImg) {
+                            qrCodeImg.src = `https://api.vietqr.io/image/vietcombank/0011004123456/qr_only.jpg?amount=${createdOrder.totalPrice}&addInfo=QH${realOrderCode}&accountName=NGUYEN THI THANH HIEN`;
+                        }
+                        confirmBtn.onclick = () => finalizeOrderUI(createdOrder);
+                    } else { finalizeOrderUI(createdOrder); }
+                } else { finalizeOrderUI(createdOrder); }
+            } catch (err) { showToast('Lỗi: ' + err.message); }
+        };
+    }
+};
 
 /**
  * Hàm xử lý dữ liệu sau khi đăng nhập hoặc đăng ký thành công
@@ -2138,8 +2266,6 @@ function injectRequiredElements() {
             </div>
         `;
         document.body.insertAdjacentHTML('beforeend', checkoutHtml);
-        // Sau khi inject, cần gán lại sự kiện cho form mới sinh ra
-        initCheckoutListeners(); 
     }
     
     // Kiểm tra và thêm Toast Container nếu chưa có
