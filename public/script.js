@@ -1637,7 +1637,7 @@ function updateCartUI() {
                 <img src="${item.image}" style="width:60px; height:60px; object-fit:contain; border-radius:4px;" referrerPolicy="no-referrer">
                 <div style="flex:1;">
                     <p style="font-size:13px; font-weight:600; margin-bottom:5px;">${item.name}</p>
-                    <p style="font-size:12px; color:var(--red); font-weight:800; margin-bottom: 8px;">${item.price.toLocaleString()}đ</p>
+                    <p style="font-size:12px; color:#007bff; font-weight:800; margin-bottom: 8px;">${item.price.toLocaleString()}đ</p>
                     <div style="display:flex; align-items:center; gap:12px;">
                         <div class="qty-box" style="height:32px;">
                             <button style="width:30px; height:100%;" onclick="changeCartQty('${item._id || item.id}', -1)">-</button>
@@ -1981,7 +1981,7 @@ function initEvents() {
                             <span style="color: ${statusColor}; font-weight: 700;">${order.status}</span>
                         </div>
                         ${order.items.map(item => `<div style="font-size: 13px;">${item.name} x${item.quantity}</div>`).join('')}
-                        <div style="text-align: right; margin-top: 10px; font-weight: 800; color: var(--red);">
+                <div style="text-align: right; margin-top: 10px; font-weight: 800; color: #007bff;">
                             ${order.totalPrice.toLocaleString()}đ
                         </div>
                     </div>
@@ -2729,7 +2729,7 @@ function injectRequiredElements() {
                                     <p><strong>Chủ tài khoản:</strong> Nguyễn Thị Thanh Hiền</p>
                                     <p><strong>Số tài khoản:</strong> 1234567890</p>
                                     <p><strong>Ngân hàng:</strong> Vietcombank</p>
-                                    <p><strong>Số tiền:</strong> <span id="qrAmount" style="color: var(--red); font-weight: 800;">0đ</span></p>
+                                    <p><strong>Số tiền:</strong> <span id="qrAmount" style="color: #007bff; font-weight: 800;">0đ</span></p>
                                     <p><strong>Nội dung:</strong> <span id="qrNote" style="color: var(--primary); font-weight: 700;">QH123456</span></p>
                                 </div>
                             </div>
@@ -2748,7 +2748,7 @@ function injectRequiredElements() {
                         <h2 style="margin-bottom: 20px;">Đơn hàng của bạn</h2>
                         <div id="checkoutSummaryItems"></div>
                         <div style="border-top:1px solid #eee; padding-top:15px; margin-top:15px;">
-                            <div class="flex-between" style="font-weight:800; color:var(--red); font-size:20px;">
+                            <div class="flex-between" style="font-weight:800; color:#007bff; font-size:20px;">
                                 <span>TỔNG CỘNG:</span>
                                 <span id="checkoutTotal">0đ</span>
                             </div>
