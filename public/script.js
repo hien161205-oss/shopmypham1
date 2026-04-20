@@ -1521,7 +1521,7 @@ function createProductCard(p, isFlashSale = false) {
             <p class="product-brand">${p.brand}</p>
             <h3 class="product-name">${p.name}</h3>
             <div class="product-price-wrap">
-                <span class="price-current">${p.price.toLocaleString()}đ</span>
+                <span class="price-current" style="color: #007bff;">${p.price.toLocaleString()}đ</span>
                 ${isFlashSale ? `<span class="price-old">${p.oldPrice.toLocaleString()}đ</span>` : ''}
             </div>
             ${isFlashSale ? `
@@ -2412,7 +2412,7 @@ function renderCheckoutSummary() {
                 <div style="font-weight: 700; font-size: 14px; color: #333; margin-bottom: 4px; line-height: 1.4;">${item.name}</div>
                 <div style="font-size: 13px; color: #666;">Số lượng: ${item.quantity}</div>
             </div>
-            <div style="font-weight: 800; font-size: 15px; color: #333;">${(item.price * item.quantity).toLocaleString()}đ</div>
+            <div style="font-weight: 800; font-size: 15px; color: #007bff;">${(item.price * item.quantity).toLocaleString()}đ</div>
         </div>
     `).join('');
 
@@ -2741,6 +2741,8 @@ function injectRequiredElements() {
                         <div id="checkoutSuccess" style="display:none; text-align:center; padding:20px;">
                             <h2 style="color:var(--primary);">ĐẶT HÀNG THÀNH CÔNG!</h2>
                             <p>Mã đơn hàng: <strong id="successOrderId"></strong></p>
+                            <p>Số tiền thanh toán: <strong id="successOrderTotal" style="color: #007bff;">0đ</strong></p>
+                            <div id="successOrderItems" style="margin-top:15px; text-align:left; border-top:1px solid #eee; padding-top:10px;"></div>
                             <button onclick="location.reload()" style="margin-top:20px; padding:10px 20px; cursor:pointer;">TIẾP TỤC MUA SẮM</button>
                         </div>
                     </div>
